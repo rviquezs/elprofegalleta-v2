@@ -12,14 +12,13 @@ $url = basename($_SERVER["PHP_SELF"], ".php");
     <title>El Profe Galleta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="./css/<?php echo $url ?>.css">
+    <link rel="stylesheet" href="css/<?php echo $url ?>.css">
 </head>
-
 <!-- Encabezado  -->
 <header>
     <nav class="navbar navbar-expand-lg navbar-transparent">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/logogalleta.png" alt="Logo" width="65" height="30" class="d-inline-block align-text-top"> El Profe Galleta
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,22 +27,22 @@ $url = basename($_SERVER["PHP_SELF"], ".php");
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Página Principal</a>
+                        <a class="nav-link active" aria-current="page" href="index.php">Página Principal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="porque_elegirnos">¿Por qué elegirnos?</a>
+                        <a class="nav-link" href="porque_elegirnos.php">¿Por qué elegirnos?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="oferta_academica">Oferta Academica</a>
+                        <a class="nav-link" href="oferta_academica.php">Oferta Academica</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="services">Servicios</a>
+                        <a class="nav-link" href="services.php">Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact">Contacto</a>
+                        <a class="nav-link" href="contact.php">Contacto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="dashboard">Shortcut admin dashboard</a>
+                        <a class="nav-link" href="dashboard.php">Shortcut admin dashboard</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -75,8 +74,8 @@ $url = basename($_SERVER["PHP_SELF"], ".php");
                             <button type="submit" class="btn btn-primary">Sign in</button>
                         </form>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="signup">Registrarse</a>
-                        <a class="dropdown-item" href="recover_password">Olividó su contraseña?</a>
+                        <a class="dropdown-item" href="signup.php">Registrarse</a>
+                        <a class="dropdown-item" href="recover_password.php">Olividó su contraseña?</a>
                     </div>
 
 

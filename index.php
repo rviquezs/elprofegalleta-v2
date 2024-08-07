@@ -1,5 +1,5 @@
 <!-- Encabezado  -->
-<?php include "shared/header.php" ?>
+<?php include_once __DIR__ . "/shared/header.php" ?>
 
 <!-- Pagina principal -->
 
@@ -13,13 +13,13 @@
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active"  data-bs-interval="6000">
-                <img src="./img/banner.png" class="d-block w-100" alt="...">
+                <img src="img/banner.png" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item"  data-bs-interval="6000">
-                <img src="./img/bannerelprofegalleta.png" class="d-block w-100" alt="...">
+                <img src="img/bannerelprofegalleta.png" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item"  data-bs-interval="6000">
-                <img src="./img/bannerinscribete.png" class="d-block w-100" alt="...">
+                <img src="img/bannerinscribete.png" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
@@ -67,12 +67,10 @@
     </div>
 </div>
 
-<?php include "oferta_academica.php"?>
-
 <div class="container-fluid">
-    <h2>Eventos y Noticias?</h2>
+    <h2>Eventos y Noticias</h2>
     <div class="card" style="width: 18rem;">
-        <img src="./img/news1.jpg" class="card-img-top" alt="...">
+        <img src="../img/news1.jpg" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title placeholder-glow">
                 <span class="placeholder col-8"></span>
@@ -92,5 +90,4 @@
     </div>
 </div>
 
-<!-- Footer -->
-<?php include "shared/footer.php" ?>
+<?php include __DIR__ . "/oferta_academica.php" ?>

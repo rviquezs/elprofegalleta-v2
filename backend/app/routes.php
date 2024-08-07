@@ -9,19 +9,62 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
+include_once __DIR__ . '/../public/connection.php';
+
+
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         // CORS Pre-Flight OPTIONS Request Handler
         return $response;
     });
 
+    // $app->get('/{page}', function (Request $request, Response $response, $args) {
+    //     $page = $args['page'];
+    //     $allowedPages = [
+    //         'index',
+    //         'porque_elegirnos',
+    //         'oferta_academica',
+    //         'services',
+    //         'contact',
+    //         'login',
+    //         'signup',
+    //         'detalles_curso',
+    //         'events',
+    //         'news',
+    //         'search_results',
+    //         'recover_password',
+    //         'clases_grupales'
+    //     ];
+
+    //     // if (in_array($page, $allowedPages)) {
+    //     ob_start();
+    //     include __DIR__ . '/../../frontend/pages/' . $page . '.php';
+    //     $output = ob_get_clean();
+    //     $response->getBody()->write($output);
+    //     return $response;
+    //     // }
+
+    //     // Return a 404 response if the page is not allowed
+    //     $response->getBody()->write('404 Not Found');
+    //     return $response->withStatus(404);
+    // });
+
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
+        ob_start();
+        include __DIR__ . '/../../index.php'; // Adjust the path correctly
+        $output = ob_get_clean();
+        $response->getBody()->write($output);
         return $response;
     });
 
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
+    //endpoint obtener todas las inscripciones
+    $app->get('/inscripciones', function (Request $request, Response $response) {
+        $db = connection();
+        checkDbConnection($db);
+        $sql = 'SELECT * FROM inscripciones';
+        $result = $db->Execute($sql);
+        $inscripciones = $result->GetRows();
+        $response->getBody()->write(json_encode($inscripciones));
+        return $response->withHeader('Content-Type', 'application/json');
     });
 };

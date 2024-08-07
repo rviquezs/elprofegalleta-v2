@@ -1,4 +1,4 @@
-<?php include "shared/header.php"; ?>
+<?php include_once __DIR__ . "/shared/header.php"?>
 
 <div class="sidebar">
     <a href="#dashboard" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#dashboard">Dashboard</a>
@@ -164,4 +164,4 @@
 
 </div>
 
-<?php include "shared/footer.php"; ?>
+<?php include_once __DIR__ . "/shared/footer.php"?>

@@ -1,4 +1,4 @@
-    <?php include "shared/header.php" ?>
+<?php include_once __DIR__ . "/shared/header.php" ?>
 
     <div class="header text-center">
         <h1>¿Por qué elegirnos?</h1>
@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Profesionales altamente capacitados <i class="fas fa-graduation-cap"></i></h5>
                         <p class="card-text">Ofrecemos una educación de alta calidad, avalada por la vasta experiencia de nuestros profesores.</p>
-                        <a href="contact" class="btn btn-primary btn-block">Ver Más</a>
+                        <a href="contact.php" class="btn btn-primary btn-block">Ver Más</a>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Oferta académica <i class="fas fa-book"></i></h5>
                         <p class="card-text">El instituto ofrece una amplia gama de cursos demandados en la actualidad.</p>
-                        <a href="contact" class="btn btn-primary btn-block">Ver Más</a>
+                        <a href="contact.php" class="btn btn-primary btn-block">Ver Más</a>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Ubicación e instalaciones <i class="fas fa-map-marker-alt"></i></h5>
                         <p class="card-text">Nos comprometemos a brindar una excelente ubicación e instalaciones para mejorar la experiencia de estudio de los estudiantes.</p>
-                        <a href="contact" class="btn btn-primary btn-block">Ver Más</a>
+                        <a href="contact.php" class="btn btn-primary btn-block">Ver Más</a>
                     </div>
                 </div>
             </div>
@@ -77,4 +77,4 @@
         </div>
     </section>
 
-    <?php include "shared/footer.php" ?>
+    <?php include_once __DIR__ . "/shared/footer.php" ?>

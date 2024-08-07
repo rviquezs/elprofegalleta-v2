@@ -1,5 +1,5 @@
 <!-- Header -->
-<?php include "shared/header.php" ?>
+<?php include_once __DIR__ . "/shared/header.php" ?>
 
 <body>
     <div class="container contact-section">
@@ -58,4 +58,4 @@
         </div>
 
         <!-- Footer -->
-        <?php include "shared/footer.php" ?>
+        <?php include_once __DIR__ . "/shared/footer.php" ?>
