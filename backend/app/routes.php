@@ -18,37 +18,6 @@ return function (App $app) {
         return $response;
     });
 
-    // $app->get('/{page}', function (Request $request, Response $response, $args) {
-    //     $page = $args['page'];
-    //     $allowedPages = [
-    //         'index',
-    //         'porque_elegirnos',
-    //         'oferta_academica',
-    //         'services',
-    //         'contact',
-    //         'login',
-    //         'signup',
-    //         'detalles_curso',
-    //         'events',
-    //         'news',
-    //         'search_results',
-    //         'recover_password',
-    //         'clases_grupales'
-    //     ];
-
-    //     // if (in_array($page, $allowedPages)) {
-    //     ob_start();
-    //     include __DIR__ . '/../../frontend/pages/' . $page . '.php';
-    //     $output = ob_get_clean();
-    //     $response->getBody()->write($output);
-    //     return $response;
-    //     // }
-
-    //     // Return a 404 response if the page is not allowed
-    //     $response->getBody()->write('404 Not Found');
-    //     return $response->withStatus(404);
-    // });
-
     $app->get('/', function (Request $request, Response $response) {
         ob_start();
         include __DIR__ . '/../../index.php'; // Adjust the path correctly
