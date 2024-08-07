@@ -1,0 +1,129 @@
+
+@import url(general.css);
+
+/* Estilos Generales para la Página de Contacto */
+.contact-section {
+    padding: 3rem;
+    background-color: var(--colorNeutro);
+    color: var(--colorTexto);
+}
+
+.contact-info {
+    padding: 1.5rem;
+}
+
+.contact-item {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    background-color: var(--colorContraste);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon {
+    font-size: 2rem;
+    color: var(--colorSecundario);
+    margin-right: 1rem;
+}
+
+.contact-details h4 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.contact-details p {
+    margin: 0;
+}
+
+.contact-details a {
+    color: var(--colorTexto);
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+.social-icons {
+    margin-top: 1.5rem;
+}
+
+.social-icons a {
+    font-size: 2rem;
+    margin-right: 0.75rem;
+    color: var(--colorSecundario);
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--colorPrincipal);
+}
+
+.map-container iframe {
+    border-radius: 0.5rem;
+    border: 2px solid var(--colorContraste);
+}
+
+.contact-form {
+    background-color: var(--colorContraste);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: var(--colorTexto);
+}
+
+.contact-form h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    color: var(--colorSecundario);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    border-radius: 0.25rem;
+    border: 1px solid var(--colorSecundario);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 0.75rem;
+}
+
+.form-control::placeholder {
+    color: var(--colorTexto);
+}
+
+.btnContact {
+    background-color: var(--colorSecundario);
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btnContact:hover {
+    background-color: var(--colorContraste);
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+}
+.popup-content {
+    width: 200px;
+}
+.popup-content img {
+    width: 100%;
+    height: auto;
+}
+.popup-content h4 {
+    margin: 5px 0;
+}
+.popup-content p {
+    margin: 0;
+}

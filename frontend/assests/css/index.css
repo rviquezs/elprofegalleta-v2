@@ -1,0 +1,55 @@
+@import url(general.css);
+
+h2{
+    text-align: center;
+    padding: 2rem;
+}
+
+p{
+    text-align: justify;
+}
+
+/* About Section 
+
+TODO: Alinear al centro el texto de Nuestra Historia / Nuestra Mision.. 
+
+*/
+
+/* Programas Academicos */
+
+.program-card {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--colorContraste);
+    box-shadow: 0px 1px 10px var(--colorSecundario);
+    cursor: default;
+    transition: all 600ms ease;
+}
+
+.program-card:hover{
+    box-shadow: var(--colorSecundario);
+    transform: translateY(-8%);
+}
+
+.program-card .content p {
+    line-height: 1.5;
+    color: #6a6a6a;
+}
+
+
+
+/* News Section 
+
+TODO: Centrar el card de noticias al centro
+
+*/
+
+.card{
+    align-self: center;
+}

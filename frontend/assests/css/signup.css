@@ -1,0 +1,45 @@
+@import url(general.css);
+
+main{
+    display: flexbox;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    background: linear-gradient(130deg, #9fd8e1, #1c837f);
+
+}
+
+.container{
+    max-width: 900px;
+    width: 100%;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow:  0 0 128px 0 rgba(0, 0, 0, 0.1),
+                0 32px 64px -48px rgba(0, 0, 0, 0.5);
+}
+
+.container .title{
+    font-size: 30px;
+    font-weight: 500;
+
+}
+
+.container form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+form .user-details .mb-3{
+    width: calc(100% / 2 - 20px);
+    margin: 10px 0 5px 0;
+
+
+}
+

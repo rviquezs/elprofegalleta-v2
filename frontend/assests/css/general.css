@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+:root {
+    --colorPrincipal: #61baca;
+    --colorSecundario: #1c837f;
+    --colorContraste: #9fd8e1;
+    --colorNeutro: #DEEFE7;
+    --colorTexto: #333;
+    --fuente: 'Roboto', sans-serif;
+    --fontSizeBase: 16px;
+    --fontSizeH1: 2.5em;
+    --fontSizeH2: 2em;
+    --fontSizeH3: 1.75em;
+    --fontSizeP: 1.125em;
+}
+
+/* General */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--fuente);
+    font-size: var(--fontSizeBase);
+    line-height: 1.6em;
+    color: var(--colorTexto);
+}
+
+/* Fonts */
+
+h1 {
+    font-size: var(--fontSizeH1);
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: var(--fontSizeH2);
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: var(--fontSizeH3);
+    margin-bottom: 0.5em;
+}
+
+p {
+    font-size: var(--fontSizeP);
+    margin-bottom: 1em;
+}
+
+/* Navbar */
+
+.navbar-transparent {
+    background-color: transparent !important;
+    backdrop-filter: blur(10px);
+}
+
+.navbar-transparent .nav-link,
+.navbar-brand {
+    color: black !important;
+    transition: border-bottom 0.5s ease-in-out;
+}
+
+.nav-link:hover {
+    font-weight: bolder;
+    border-bottom: black;
+}
+
+.btn_search {
+    margin-right: 5px;
+}
+
+.login-menu {
+    padding: 10px;
+    padding-right: 20px;
+    width: 800px !important;
+}
+
+/* Cards */
+
+.card {
+    width: 100%;
+    margin: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--colorContraste);
+    box-shadow: 0px 1px 10px var(--coloSecundario);
+    cursor: default;
+    transition: all 600ms ease;
+}
+
+.card:hover {
+    box-shadow: var(#61baca);
+    transform: translateY(-4%);
+}
+
+.card .content p {
+    line-height: 1.5;
+    color: #6a6a6a;
+}
+
+.card-body .btn {
+    background-color: var(--colorPrincipal);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.card-body .btn:hover {
+    background-color: var(--colorSecundario);
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.card p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+    background-color: var(--colorSecundario);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    text-decoration: none !important;
+}
+
+.btn:hover {
+    background-color: var(--colorPrincipal);
+}
+
+.btn-primary {
+    background-color: var(--colorPrincipal);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--colorSecundario);
+    text-decoration: none;
+}
+
+/* Footer */
+
+footer {
+    background-color: var(--colorPrincipal);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}

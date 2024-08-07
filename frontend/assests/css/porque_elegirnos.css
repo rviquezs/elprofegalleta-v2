@@ -1,0 +1,74 @@
+@import url(general.css);
+
+.header{
+    padding-top: 10px;
+}
+/* .card{
+    width: 100%;
+    margin: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--colorContraste);
+    box-shadow: 0px 1px 10px var(--coloSecundario);
+    cursor: default;
+    transition: all 400ms ease;
+}
+
+.card:hover{
+    box-shadow: var(#61baca);
+    transform: translateY(-8%);
+}
+
+.card .content p {
+    line-height: 1.5;
+    color: #6a6a6a;
+}
+
+.card-body .btn {
+    background-color: var(--colorPrincipal);
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.card-body .btn:hover {
+    background-color: var(--colorSecundario);
+} */
+
+
+/* Estilos personalizados */
+.testimonials {
+    background-color: #f8f9fa;
+    padding: 60px 15px;
+    border-radius: 10px;
+}
+.testimonial-card {
+    background-color: white;
+    border: none;
+    box-shadow: 0 4px 8px var(--colorContraste);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+.testimonial-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+.testimonial-card p {
+    font-style: italic;
+    color: var(--colorSecundario);
+}
+.testimonial-card h5 {
+    color: var(--colorContraste) ;
+    font-weight: bold;
+}

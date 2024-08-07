@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+}
+.header {
+    background-color: #343a40;
+    color: white;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Ensure header is above sidebar */
+}
+.sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 60px; /* Adjust if header height changes */
+    left: 0;
+    background-color: #343a40;
+    padding-top: 20px;
+    z-index: 999; /* Sidebar below header */
+}
+.sidebar a {
+    color: white;
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+}
+.sidebar a:hover {
+    background-color: #495057;
+}
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    margin-top: 60px; /* Same as header height to avoid overlap */
+    flex: 1;
+}
+.course-card {
+    margin-bottom: 20px;
+}
+.card-actions {
+    margin-top: 10px;
+}
