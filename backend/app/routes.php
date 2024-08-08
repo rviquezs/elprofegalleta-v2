@@ -26,14 +26,20 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener todas las inscripciones
-    $app->get('/inscripciones', function (Request $request, Response $response) {
+    //endpoint guardar inscripciones
+    $app->post('/guardarInscripciones', function (Request $request, Response $response) {
+        //abrir la conexion
         $db = connection();
-        checkDbConnection($db);
-        $sql = 'SELECT * FROM inscripciones';
-        $result = $db->Execute($sql);
-        $inscripciones = $result->GetRows();
-        $response->getBody()->write(json_encode($inscripciones));
-        return $response->withHeader('Content-Type', 'application/json');
+
+        //determinar el registro a guardar
+        $rec = $request->getQueryParams();
+        var_dump($rec);
+
+        //insertar en la bd
+        $res = $db->AutoExecute("inscripciones", $rec, "INSERT");
+        $db->Close();
+
+        $response->getBody()->write(strval($res));
+        return $response;
     });
 };

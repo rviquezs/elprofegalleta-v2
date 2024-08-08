@@ -1,27 +1,19 @@
 <?php
+    include "../vendor/adodb/adodb-php/adodb.inc.php";
 
-declare(strict_types=1);
+    function connection(){
+        $conector=NewADOConnection('mysql');
 
-include "../vendor/adodb/adodb-php/adodb.inc.php";
+        //credenciales
+        $host="localhost";
+        $user="root";
+        $pass="";
+        $bd="elprofegalleta";
 
-function connection() {
-    $conector = NewADOConnection('mysql');
-    $host = "localhost";
-    $user = "root";
-    $pass = "";
-    $bd = "elprofegalleta";
-    $conector->debug = true;
-    if (!$conector->Connect($host, $user, $pass, $bd)) {
-        throw new Exception("Error en la conexión a la base de datos");
+        $conector->debug=true;
+
+        $conector->Connect($host,$user,$pass,$bd);
+        return $conector;
     }
-    return $conector;
-}
-
-function checkDbConnection($db)
-{
-    if (!$db) {
-        throw new Exception('La conexión a la base de datos falló.');
-    }
-}
 
 ?>
