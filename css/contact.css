@@ -1,11 +1,11 @@
 
 @import url(general.css);
 
-/* Estilos Generales para la Página de Contacto */
+
+/* Contact Page Specific Styles */
 .contact-section {
     padding: 3rem;
     background-color: var(--colorNeutro);
-    color: var(--colorTexto);
 }
 
 .contact-info {
@@ -61,7 +61,13 @@
     color: var(--colorPrincipal);
 }
 
-.map-container iframe {
+.map-container {
+    margin-top: 1.5rem;
+}
+
+.map-container #map {
+    height: 8rem;
+    width: 100%;
     border-radius: 0.5rem;
     border: 2px solid var(--colorContraste);
 }
@@ -76,7 +82,7 @@
 
 .contact-form h3 {
     margin-bottom: 1.5rem;
-    font-size: 1.75rem;
+    font-size: var(--fontSizeH3);
     color: var(--colorSecundario);
 }
 
@@ -107,23 +113,5 @@
 }
 
 .btnContact:hover {
-    background-color: var(--colorContraste);
-}
-
-#map {
-    height: 500px;
-    width: 100%;
-}
-.popup-content {
-    width: 200px;
-}
-.popup-content img {
-    width: 100%;
-    height: auto;
-}
-.popup-content h4 {
-    margin: 5px 0;
-}
-.popup-content p {
-    margin: 0;
+    background-color: var(--colorPrincipal);
 }

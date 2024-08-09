@@ -53,3 +53,30 @@ var markers = [
 // Add markers to the map
 addMarkers(markers);
 
+$(document).ready(function () {
+    $('#contactForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        $.ajax({
+            url: 'http://localhost:8080/send-email', // Endpoint for sending email
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: response.message
+                });
+                $('#contactForm')[0].reset(); // Reset the form fields
+            },
+            error: function (xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: xhr.responseJSON.message
+                });
+            }
+        });
+    });
+});
+

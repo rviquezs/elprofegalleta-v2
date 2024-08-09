@@ -8,9 +8,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 include_once __DIR__ . '/../public/connection.php';
-
+require '../vendor/phpmailer/phpmailer/src/Exception.php';
+require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../vendor/phpmailer/phpmailer/src/SMTP.php';
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -417,4 +421,54 @@ $app->get('/obtenerAdmin/{id_admin}', function (
     $response->getBody()->write(json_encode($res));
     return $response;
 });
-};
+};    $app->post('/send-email', function (Request $request, Response $response, array $args) {
+        $data = $request->getParsedBody();
+
+        // Sanitize and validate input
+        $name = filter_var($data['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+        $phone = filter_var($data['phone'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $message = filter_var($data['message'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        // Validate email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $response->getBody()->write(json_encode(['status' => 'error', 'message' => 'Invalid email format']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+        }
+
+        // Create a new PHPMailer instance
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->isSMTP();  // Set mailer to use SMTP
+            $mail->Host = 'smtp.gmail.com';  // Specify main SMTP server
+            $mail->SMTPAuth = true;  // Enable SMTP authentication
+            $mail->Username = 'profegalleta8@gmail.com';  // SMTP username (Gmail address)
+            $mail->Password = 'mjgo mfpo bxvu xmss ';  // SMTP password (App password)
+            $mail->SMTPSecure = 'tls';  // Enable TLS encryption; `PHPMailer::ENCRYPTION_STARTTLS` also accepted
+            $mail->Port = 587;  // TCP port to connect to              
+
+            // Recipients
+            $mail->setFrom('profegalleta8@gmail.com', 'noreply');
+            $mail->addAddress('profegalleta8@gmail.com', 'noreply');
+
+            // Content
+            $mail->isHTML(true);                                    // Set email format to HTML
+            $mail->Subject = 'Contact Form Submission';
+            $mail->Body    = "Name: $name<br>Email: $email<br>Phone: $phone<br>Message:<br>$message";
+            $mail->AltBody = "Name: $name\nEmail: $email\nPhone: $phone\nMessage:\n$message";
+
+            // Send the email
+            if ($mail->send()) {
+                $response->getBody()->write(json_encode(['status' => 'success', 'message' => 'Email sent successfully']));
+                return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+            } else {
+                $response->getBody()->write(json_encode(['status' => 'error', 'message' => 'Failed to send email']));
+                return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+            }
+        } catch (Exception $e) {
+            $response->getBody()->write(json_encode(['status' => 'error', 'message' => "Mailer Error: {$mail->ErrorInfo}"]));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+        }
+    });
