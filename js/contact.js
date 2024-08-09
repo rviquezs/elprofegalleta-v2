@@ -67,7 +67,7 @@ $(document).ready(function () {
                     title: 'Success',
                     text: response.message
                 });
-                $('#contactForm')[0].reset(); // Reset the form fields
+                $('#contactForm').find('input[type=text], input[type=email], textarea').val('');
             },
             error: function (xhr) {
                 Swal.fire({

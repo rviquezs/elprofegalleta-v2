@@ -1,19 +1,17 @@
-
-@import url(general.css);
-
+@import url('general.css');
 
 /* Contact Page Specific Styles */
-.contact-section {
+/* .contact-section {
     padding: 3rem;
     background-color: var(--colorNeutro);
 }
 
 .contact-info {
     padding: 1.5rem;
-}
+} */
 
 .contact-item {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     background-color: var(--colorContraste);
@@ -66,10 +64,17 @@
 }
 
 .map-container #map {
-    height: 8rem;
+    height: 60vh; /* Increased height for better visibility */
     width: 100%;
     border-radius: 0.5rem;
     border: 2px solid var(--colorContraste);
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 767.98px) {
+    .map-container #map {
+        height: 40vh; /* Adjust height for smaller screens */
+    }
 }
 
 .contact-form {
@@ -114,4 +119,22 @@
 
 .btnContact:hover {
     background-color: var(--colorPrincipal);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .contact-icon {
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .contact-form {
+        padding: 1.5rem;
+    }
 }
