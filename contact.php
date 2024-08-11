@@ -20,6 +20,14 @@
                         <p class="mb-0"><a href="tel:+50645678901">+506 4567 8901</a></p>
                     </div>
                 </div>
+                <div class="map-container mb-4">
+                    <h4>Localizanos</h4>
+                    <div id="map" class="border rounded"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <!-- Social Icons -->
                 <div class="social-icons mb-4">
                     <h4>Síguenos en</h4>
                     <a href="https://facebook.com/empresa" target="_blank" aria-label="Facebook" class="me-3"><i class="fab fa-facebook"></i></a>
@@ -27,30 +35,24 @@
                     <a href="https://linkedin.com/company/empresa" target="_blank" aria-label="LinkedIn" class="me-3"><i class="fab fa-linkedin"></i></a>
                     <a href="https://instagram.com/empresa" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
-                <div class="map-container mb-4">
-                    <div id="map" class="border rounded"></div>
-                </div>
-            </div>
-
-            <!-- Formulario de Contacto -->
-            <div class="col-lg-6">
+                <!-- Contact Form -->
                 <div class="contact-form bg-light p-4 rounded shadow-sm">
                     <h3 class="mb-4">Envíanos un Mensaje</h3>
                     <form id="contactForm">
-                        <div class="form-group">
+                        <div class="mb-3">
                             <input type="text" name="name" class="form-control" placeholder="Nombre *" required />
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <input type="email" name="email" class="form-control" placeholder="Correo Electrónico *" required />
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <input type="text" name="phone" class="form-control" placeholder="Teléfono *" required />
                         </div>
-                        <div class="form-group">
-                            <textarea name="message" class="form-control" placeholder="Mensaje *" required></textarea>
+                        <div class="mb-3">
+                            <textarea name="message" class="form-control" placeholder="Mensaje *" rows="4" required></textarea>
                         </div>
-                        <div class="form-group">
-                            <input type="submit" class="btnContact" value="Enviar" />
+                        <div class="mb-3">
+                            <input type="submit" class="btnContact w-100" value="Enviar" />
                         </div>
                     </form>
                     <div id="responseMessage"></div>
@@ -58,8 +60,7 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <?php include_once __DIR__ . "/shared/footer.php" ?>
 </body>
-
-
-<!-- Footer -->
-<?php include_once __DIR__ . "/shared/footer.php" ?>

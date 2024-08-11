@@ -110,17 +110,46 @@ return function (App $app) {
     //ENDPOINTS TABLA CURSOS
 
     //endpoint guardar cursos
-    $app->post('/guardarCurso', function (Request $request, Response $response) {
+    $app->post('/addCourse', function (Request $request, Response $response) {
         $db = connection();
-
-        $rec = $request->getQueryParams();
-
-        $res = $db->AutoExecute("cursos", $rec, "INSERT");
-        $db->Close();
-
-        $response->getBody()->write(strval($res));
+        $data = $request->getParsedBody();
+        $uploadedFiles = $request->getUploadedFiles();
+    
+        // Extract course data
+        $courseName = $data['courseName'];
+        $duration = $data['duration'];
+        $mode = $data['mode'];
+        $description = $data['description'];
+        $category = $data['category'];
+        $price = $data['price'];
+        $promoterName = $data['promoterName'];
+    
+        // Decode images
+        $images = json_decode($data['images'], true);
+        $images = array_map(function ($img) {
+            return str_replace('data:image/png;base64,', '', $img);
+        }, $images);
+    
+        // Save course data to database
+        $sql = "INSERT INTO cursos (name, duration, modalidad, description, category, price, promoter_name)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([$courseName, $duration, $mode, $description, $category, $price, $promoterName]);
+    
+        // Get the last inserted course ID
+        $courseId = $db->lastInsertId();
+    
+        // Save images to database
+        foreach ($images as $image) {
+            $sql = "INSERT INTO course_images (course_id, image_data) VALUES (?, ?)";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([$courseId, $image]);
+        }
+    
+        $response->getBody()->write(json_encode(['status' => 'success']));
         return $response;
     });
+    
 
     //endpoint actualizar cursos
     $app->put('/actualizarCurso', function (Request $request, Response $response) {
@@ -157,25 +186,45 @@ return function (App $app) {
 
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
 
-        $sql = "SELECT * FROM cursos";
+        // SQL query with JOIN
+        $sql = "SELECT c.name, c.duration, c.modalidad, c.category, c.price, 
+                   c.promoter, p.name AS promoter_name, c.inscriptions, c.last_updated
+            FROM cursos c
+            JOIN promotores p ON c.promoter = p.id";
         $res = $db->GetAll($sql);
         $response->getBody()->write(json_encode($res));
         return $response;
     });
 
-    //endpoint cursos por id_curso
-    $app->get('/obtenerCurso/{id_curso}', function (Request $request, Response $response, array $args) {
-        $id_curso = $args["id_curso"];
+    // Endpoint to filter courses based on given parameters
+    $app->get('/filtrarCursos', function (Request $request, Response $response) {
         $db = connection();
 
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
 
-        $sql = "SELECT * FROM cursos WHERE  id_curso='$id_curso'";
+        // Retrieve filter parameters
+        $name = $request->getQueryParams()['name'] ?? '';
+        $category = $request->getQueryParams()['category'] ?? '';
+        $priceMin = $request->getQueryParams()['priceMin'] ?? 0;
+        $priceMax = $request->getQueryParams()['priceMax'] ?? 100000;
 
-        $res = $db->GetAll($sql);
+        // Build SQL query with filters
+        $sql = "SELECT c.name, c.duration, c.modalidad, c.category, c.price, 
+               c.promoter, p.name AS promoter_name, c.inscriptions, c.last_updated
+        FROM cursos c
+        JOIN promotores p ON c.promoter = p.id
+        WHERE c.name LIKE ? 
+          AND c.category LIKE ? 
+          AND c.price BETWEEN ? AND ?";
+
+        $params = ["%$name%", "%$category%", $priceMin, $priceMax];
+        $res = $db->GetAll($sql, $params);
         $response->getBody()->write(json_encode($res));
         return $response;
     });
+
+
+
 
     //ENDPOINTS TABLA PROMOTORES
 

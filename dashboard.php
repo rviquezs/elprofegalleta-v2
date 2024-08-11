@@ -1,4 +1,4 @@
-<?php include_once __DIR__ . "/shared/header.php"?>
+<?php include_once __DIR__ . "/shared/header.php" ?>
 
 <div class="sidebar">
     <a href="#dashboard" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#dashboard">Dashboard</a>
@@ -9,25 +9,21 @@
 <div class="content">
     <div id="dashboard" class="collapse show">
         <h2>Dashboard</h2>
-        <table class="table">
+        <table class="table table-striped table-bordered" id="coursesTable">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Course Name</th>
-                    <th>Total Inscriptions</th>
+                    <th>Curso</th>
+                    <th>Duracion</th>
+                    <th>Modalidad</th>
+                    <th>Categoria</th>
+                    <th>Precio</th>
+                    <th>Promotor</th>
+                    <th>Inscripciones</th>
+                    <th>Ultima Actualizacion</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Course 1</td>
-                    <td>50</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Course 2</td>
-                    <td>30</td>
-                </tr>
+                <!-- Los datos se insertarán aquí mediante jQuery/AJAX -->
             </tbody>
         </table>
     </div>
@@ -36,74 +32,60 @@
         <h2>Courses</h2>
         <button class="btn btn-primary mb-3" id="newCourseBtn">New Course</button>
         <div id="coursesList" class="row">
-            <!-- Example course card -->
-            <div class="col-md-4">
-                <div class="card course-card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Course Image">
-                    <div class="card-body">
-                        <h5 class="card-title">Course 1</h5>
-                        <p class="card-text">Description of Course 1.</p>
-                        <div class="card-actions">
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </div>
+            <!-- AJAX -->
+        </div>
+        <!-- New Course Modal -->
+        <div class="modal fade" id="newCourseModal" tabindex="-1" aria-labelledby="newCourseModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newCourseModalLabel">Add New Course</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="newCourseForm">
+                            <div class="mb-3">
+                                <label for="gallery" class="form-label">Gallery</label>
+                                <input type="file" class="form-control" id="gallery" multiple>
+                            </div>
+                            <div class="mb-3">
+                                <label for="courseName" class="form-label">Course Name</label>
+                                <input type="text" class="form-control" id="courseName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="duration" class="form-label">Duration</label>
+                                <input type="text" class="form-control" id="duration" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mode" class="form-label">Mode</label>
+                                <input type="text" class="form-control" id="mode" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Category</label>
+                                <input type="text" class="form-control" id="category" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="number" class="form-control" id="price" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="promoterName" class="form-label">Promoter Name</label>
+                                <input type="text" class="form-control" id="promoterName" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Course</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            <!-- Add more course cards here -->
         </div>
-        <div id="newCourseForm" class="d-none">
-            <h3>Add New Course</h3>
-            <form>
-                <div class="mb-3">
-                    <label for="gallery" class="form-label">Gallery</label>
-                    <input type="file" class="form-control" id="gallery" multiple>
-                </div>
-                <div class="mb-3">
-                    <label for="courseName" class="form-label">Course Name</label>
-                    <input type="text" class="form-control" id="courseName" required>
-                </div>
-                <div class="mb-3">
-                    <label for="duration" class="form-label">Duration</label>
-                    <input type="text" class="form-control" id="duration" required>
-                </div>
-                <div class="mb-3">
-                    <label for="mode" class="form-label">Mode</label>
-                    <input type="text" class="form-control" id="mode" required>
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="3" required></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="category" class="form-label">Category</label>
-                    <input type="text" class="form-control" id="category" required>
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input type="number" class="form-control" id="price" required>
-                </div>
-                <div class="mb-3">
-                    <label for="promoterName" class="form-label">Promoter Name</label>
-                    <input type="text" class="form-control" id="promoterName" required>
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Phone</label>
-                    <input type="tel" class="form-control" id="phone" required>
-                </div>
-                <div class="mb-3">
-                    <label for="whatsapp" class="form-label">WhatsApp</label>
-                    <input type="tel" class="form-control" id="whatsapp">
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Save Course</button>
-                <button type="button" class="btn btn-secondary" id="cancelNewCourse">Cancel</button>
-            </form>
-        </div>
+
     </div>
+
 
     <div id="reports" class="collapse">
         <h2>Reports</h2>
@@ -137,31 +119,26 @@
             <button type="button" class="btn btn-primary" id="applyFilters">Apply Filters</button>
             <button type="button" class="btn btn-success" id="exportPdf">Export to PDF</button>
         </form>
-        <table class="table" id="reportTable">
+        <table class="table table-striped table-bordered" id="reportsTable">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Course Name</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Promoter</th>
+                    <th>Nombre</th>
+                    <th>Duracion</th>
+                    <th>Modalidad</th>
+                    <th>Categoria</th>
+                    <th>Precio</th>
+                    <th>Promotor</th>
+                    <th>Inscripciones</th>
+                    <th>Ultima Actualizacion</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Course 1</td>
-                    <td>Description of Course 1</td>
-                    <td>Category 1</td>
-                    <td>$200</td>
-                    <td>John Doe</td>
-                </tr>
-                <!-- Add more rows here -->
+                <!-- Los datos se insertarán aquí mediante jQuery/AJAX -->
             </tbody>
         </table>
     </div>
 
+
 </div>
 
-<?php include_once __DIR__ . "/shared/footer.php"?>
+<?php include_once __DIR__ . "/shared/footer.php" ?>
