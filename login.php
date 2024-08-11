@@ -20,10 +20,10 @@
                     </div>
                 </form>
                 <div class="text-center mt-3">
-                    <a href="recover_password">¿Olvidaste tu contraseña?</a>
+                    <a href="recover_password.php">¿Olvidaste tu contraseña?</a>
                 </div>
                 <div class="text-center mt-3">
-                    <p>¿No tienes una cuenta? <a href="signup" class="btn btn-outline-primary">Registrarse</a></p>
+                    <p>¿No tienes una cuenta? <a href="signup.php" class="btn btn-outline-primary">Registrarse</a></p>
                 </div>
             </div>
         </div>
