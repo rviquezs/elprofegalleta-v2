@@ -187,10 +187,9 @@ return function (App $app) {
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
 
         // SQL query with JOIN
-        $sql = "SELECT c.name, c.duration, c.modalidad, c.category, c.price, 
-                   c.promoter, p.name AS promoter_name, c.inscriptions, c.last_updated
-            FROM cursos c
-            JOIN promotores p ON c.promoter = p.id";
+        $sql = "SELECT cursos.name, cursos.duration, cursos.modalidad, cursos.category, 
+                cursos.price, promotores.name AS promoter_name, cursos.inscriptions 
+                FROM cursos JOIN promotores ON cursos.promoter = promotores.id";
         $res = $db->GetAll($sql);
         $response->getBody()->write(json_encode($res));
         return $response;
