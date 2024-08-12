@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2024 at 07:24 AM
+-- Generation Time: Aug 12, 2024 at 05:17 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -112,6 +112,8 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `cedula` varchar(9) NOT NULL,
   `password` varchar(100) NOT NULL,
+  `reset_token_hash` varchar(100) NOT NULL,
+  `reset_token_expires_at` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `last_name1` varchar(100) NOT NULL,
   `last_name2` varchar(100) NOT NULL,
@@ -127,11 +129,11 @@ CREATE TABLE `usuarios` (
 -- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `cedula`, `password`, `name`, `last_name1`, `last_name2`, `email`, `whatsapp`, `phone_number`, `picture`, `role`, `date_created`) VALUES
-(1, '123456789', 'hashedpassword1', 'Carlos', 'Gómez', 'Morales', 'carlos.gomez@example.com', 12345678, 87654321, NULL, 'user', '2024-08-08 23:23:05'),
-(2, '987654321', 'hashedpassword2', 'Ana', 'Pérez', 'Rojas', 'ana.perez@example.com', 23456789, NULL, NULL, 'user', '2024-08-08 23:23:05'),
-(3, '456789123', 'hashedpassword3', 'Luis', 'Hernández', 'Jiménez', 'luis.hernandez@example.com', 34567890, 98765432, NULL, 'user', '2024-08-08 23:23:05'),
-(4, '789123456', 'hashedpassword4', 'María', 'López', 'Martínez', 'maria.lopez@example.com', 45678901, 12345678, NULL, 'user', '2024-08-08 23:23:05');
+INSERT INTO `usuarios` (`id`, `cedula`, `password`, `reset_token_hash`, `reset_token_expires_at`, `name`, `last_name1`, `last_name2`, `email`, `whatsapp`, `phone_number`, `picture`, `role`, `date_created`) VALUES
+(1, '123456789', 'hashedpassword1', '', 0, 'Carlos', 'Gómez', 'Morales', 'carlos.gomez@example.com', 12345678, 87654321, NULL, 'user', '2024-08-08 23:23:05'),
+(2, '987654321', 'hashedpassword2', '', 0, 'Ana', 'Pérez', 'Rojas', 'ana.perez@example.com', 23456789, NULL, NULL, 'user', '2024-08-08 23:23:05'),
+(3, '456789123', 'hashedpassword3', '', 0, 'Luis', 'Hernández', 'Jiménez', 'luis.hernandez@example.com', 34567890, 98765432, NULL, 'user', '2024-08-08 23:23:05'),
+(4, '789123456', 'hashedpassword4', '', 0, 'María', 'López', 'Martínez', 'maria.lopez@example.com', 45678901, 12345678, NULL, 'user', '2024-08-08 23:23:05');
 
 --
 -- Indexes for dumped tables
