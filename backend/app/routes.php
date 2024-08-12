@@ -192,28 +192,23 @@ return function (App $app) {
         return $response;
     });
 
-    // Endpoint to filter courses based on given parameters
-    $app->get('/filtrarCursos', function (Request $request, Response $response) {
+
+    // Filtrar cursos por categoria
+    $app->get('/filtrarCursos[/{category}]', function (Request $request, Response $response, $args) {
+        $category = $args['category'] ?? '';
         $db = connection();
-
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
-
-        // Retrieve filter parameters
-        $name = $request->getQueryParams()['name'] ?? '';
-        $category = $request->getQueryParams()['category'] ?? '';
-        $priceMin = $request->getQueryParams()['priceMin'] ?? 0;
-        $priceMax = $request->getQueryParams()['priceMax'] ?? 100000;
-
+    
         // Build SQL query with filters
-        $sql = "SELECT c.name, c.duration, c.modalidad, c.category, c.price, 
-               c.promoter, p.name AS promoter_name, c.inscriptions, c.last_updated
-        FROM cursos c
-        JOIN promotores p ON c.promoter = p.id
-        WHERE c.name LIKE ? 
-          AND c.category LIKE ? 
-          AND c.price BETWEEN ? AND ?";
-
-        $params = ["%$name%", "%$category%", $priceMin, $priceMax];
+        $sql = "SELECT cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
+                promotores.name AS promotor, COUNT(inscripciones.user_id) AS inscription_count 
+                FROM cursos 
+                JOIN promotores ON cursos.promoter = promotores.id 
+                LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
+                WHERE (cursos.category LIKE ? OR ? = '') 
+                GROUP BY cursos.id, promotores.name;";
+    
+        $params = ["%$category%", $category];
         $res = $db->GetAll($sql, $params);
         $response->getBody()->write(json_encode($res));
         return $response;
