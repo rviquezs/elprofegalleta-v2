@@ -41,6 +41,30 @@ function loadCourses() {
     });
 }
 
+function deleteCourse(courseId) {
+    $.ajax({
+        type: "DELETE",
+        url: `http://localhost:8080/eliminarCurso/${courseId}`, // Correct URL syntax
+        dataType: "json",
+        success: function (response) {
+            if (response === 1) {
+                // Successfully deleted
+                alert("Course deleted successfully.");
+                // Optionally, refresh the list or remove the deleted item from the UI
+                loadCourses(); // Example function to reload the courses
+            } else {
+                // Failed to delete
+                alert("Failed to delete the course. Please try again.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error deleting course:", error);
+            alert("An error occurred while deleting the course. Please try again.");
+        }
+    });
+}
+
+
 function loadDashboardData() {
     $.ajax({
         url: 'http://localhost:8080/obtenerTodosCursos', // Replace with your endpoint URL
