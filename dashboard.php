@@ -82,7 +82,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 
@@ -92,13 +91,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="mb-3">
-                        <label for="filterName" class="form-label">Course Name</label>
-                        <input type="text" class="form-control" id="filterName">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="filterCategory" class="form-label">Category</label>
+                        <label for="filterCategory" class="form-label">Categoria</label>
                         <input type="text" class="form-control" id="filterCategory">
                     </div>
                 </div>
