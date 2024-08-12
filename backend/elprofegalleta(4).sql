@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2024 at 05:25 AM
+-- Generation Time: Aug 12, 2024 at 06:56 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -35,7 +35,6 @@ CREATE TABLE `cursos` (
   `category` varchar(100) NOT NULL,
   `price` decimal(10,0) NOT NULL,
   `promoter` int(11) NOT NULL,
-  `inscriptions` int(11) NOT NULL DEFAULT 0,
   `qr_code` text NOT NULL,
   `img1` text NOT NULL,
   `img2` text NOT NULL,
@@ -46,11 +45,23 @@ CREATE TABLE `cursos` (
 -- Dumping data for table `cursos`
 --
 
-INSERT INTO `cursos` (`id`, `name`, `duration`, `modalidad`, `category`, `price`, `promoter`, `inscriptions`, `qr_code`, `img1`, `img2`, `img3`) VALUES
-(3, 'Curso de Inglés Básico', 30, 'Presencial', 'Idiomas', '150', 3, 0, 'qr_code1', 'img1.jpg', 'img2.jpg', 'img3.jpg'),
-(4, 'Curso de Inglés Avanzado', 60, 'Online', 'Idiomas', '300', 4, 0, 'qr_code2', 'img1.jpg', 'img2.jpg', 'img3.jpg'),
-(5, 'Curso de Francés Inicial', 40, 'Presencial', 'Idiomas', '200', 5, 0, 'qr_code3', 'img1.jpg', 'img2.jpg', 'img3.jpg'),
-(6, 'Curso de Alemán Intermedio', 50, 'Online', 'Idiomas', '250', 6, 0, 'qr_code4', 'img1.jpg', 'img2.jpg', 'img3.jpg');
+INSERT INTO `cursos` (`id`, `name`, `duration`, `modalidad`, `category`, `price`, `promoter`, `qr_code`, `img1`, `img2`, `img3`) VALUES
+(3, 'Curso de Inglés Básico', 30, 'Presencial', 'Idiomas', '150', 3, 'qr_code1', 'img1.jpg', 'img2.jpg', 'img3.jpg'),
+(4, 'Curso de Inglés Avanzado', 60, 'Online', 'Idiomas', '300', 4, 'qr_code2', 'img1.jpg', 'img2.jpg', 'img3.jpg'),
+(5, 'Curso de Francés Inicial', 40, 'Presencial', 'Idiomas', '200', 5, 'qr_code3', 'img1.jpg', 'img2.jpg', 'img3.jpg'),
+(6, 'Curso de Alemán Intermedio', 50, 'Online', 'Idiomas', '250', 6, 'qr_code4', 'img1.jpg', 'img2.jpg', 'img3.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inscripciones`
+--
+
+CREATE TABLE `inscripciones` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -131,6 +142,17 @@ INSERT INTO `usuarios` (`id`, `cedula`, `password`, `reset_token_hash`, `reset_t
 (3, '456789123', 'hashedpassword3', '', 0, 'Luis', 'Hernández', 'Jiménez', 'luis.hernandez@example.com', 34567890, 98765432, NULL, 'user'),
 (4, '789123456', 'hashedpassword4', '', 0, 'María', 'López', 'Martínez', 'maria.lopez@example.com', 45678901, 12345678, NULL, 'user');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usuarios_cursos`
+--
+
+CREATE TABLE `usuarios_cursos` (
+  `user_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -141,6 +163,14 @@ INSERT INTO `usuarios` (`id`, `cedula`, `password`, `reset_token_hash`, `reset_t
 ALTER TABLE `cursos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `promoter` (`promoter`);
+
+--
+-- Indexes for table `inscripciones`
+--
+ALTER TABLE `inscripciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `course_id` (`course_id`);
 
 --
 -- Indexes for table `promotores`
@@ -164,6 +194,13 @@ ALTER TABLE `usuarios`
   ADD UNIQUE KEY `cedula` (`cedula`);
 
 --
+-- Indexes for table `usuarios_cursos`
+--
+ALTER TABLE `usuarios_cursos`
+  ADD PRIMARY KEY (`user_id`,`course_id`),
+  ADD KEY `course_id` (`course_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -172,6 +209,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `cursos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `inscripciones`
+--
+ALTER TABLE `inscripciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `promotores`
@@ -202,11 +245,25 @@ ALTER TABLE `cursos`
   ADD CONSTRAINT `cursos_ibfk_1` FOREIGN KEY (`promoter`) REFERENCES `promotores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `inscripciones`
+--
+ALTER TABLE `inscripciones`
+  ADD CONSTRAINT `inscripciones_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `inscripciones_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `cursos` (`id`);
+
+--
 -- Constraints for table `testimonios`
 --
 ALTER TABLE `testimonios`
   ADD CONSTRAINT `testimonios_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `testimonios_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `cursos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `usuarios_cursos`
+--
+ALTER TABLE `usuarios_cursos`
+  ADD CONSTRAINT `usuarios_cursos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `usuarios_cursos_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `cursos` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
