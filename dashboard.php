@@ -84,7 +84,6 @@
         </div>
     </div>
 
-
     <div id="reports" class="collapse">
         <h2>Reports</h2>
         <form id="filterForm" class="mb-3">
@@ -117,8 +116,6 @@
             </tbody>
         </table>
     </div>
-
-
 </div>
 
 <?php include_once __DIR__ . "/shared/footer.php" ?>
