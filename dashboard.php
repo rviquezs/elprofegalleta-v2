@@ -33,7 +33,7 @@
         <div id="coursesList" class="row">
             <!-- AJAX -->
         </div>
-        <!-- New Course Modal -->
+        <!-- New Course -->
         <div class="modal fade" id="newCourseModal" tabindex="-1" aria-labelledby="newCourseModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -131,7 +131,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Los datos se insertarán aquí mediante jQuery/AJAX -->
+                <!-- Los datos se insertarán aquí mediante jQuery -->
             </tbody>
         </table>
     </div>
