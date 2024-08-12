@@ -30,7 +30,7 @@ return function (App $app) {
         return $response;
     });
 
-    // Endpoints Inscripciones
+// ENDPOINTS INSCRIPCIONES
 
     // Guardar Inscripcion
     $app->post('/guardarInscripcion', function (Request $request, Response $response) {
@@ -106,9 +106,9 @@ return function (App $app) {
         return $response;
     });
 
-    //ENDPOINTS TABLA CURSOS
+// ENDPOINTS CURSOS
 
-    // guardar curso
+    // Guardar curso
     $app->post('/guardarCurso', function (Request $request, Response $response) {
         $db = connection();
         $data = $request->getParsedBody();
@@ -149,8 +149,7 @@ return function (App $app) {
         return $response;
     });
 
-
-    // actualizar cursos
+    // Actualizar cursos
     $app->put('/actualizarCurso', function (Request $request, Response $response) {
         $db = connection();
 
@@ -162,7 +161,7 @@ return function (App $app) {
         return $response;
     });
 
-    // eliminar cursos
+    // Eliminar curso
     $app->delete('/eliminarCurso/{id_curso}', function (Request $request, Response $response, array $args) {
         $id_curso = $args["id_curso"];
         $db = connection();
@@ -218,7 +217,7 @@ return function (App $app) {
     });
     
 
-    //ENDPOINTS TABLA PROMOTORES
+// ENDPOINTS PROMOTORES
 
     // guardar promotores
     $app->post('/guardarPromotor', function (Request $request, Response $response) {
@@ -292,7 +291,7 @@ return function (App $app) {
         return $response;
     });
 
-    //ENDPOINTS TABLA USUARIOS
+// ENDPOINTS USUARIOS
 
     // guardar usuarios
     $app->post('/guardarUsuario', function (Request $request, Response $response) {
@@ -365,7 +364,7 @@ return function (App $app) {
         return $response;
     });
 
-    //ENDPOINTS TABLA ADMINISTRADORES
+// ENDPOINTS ADMINISTRADORES
 
     // guardar administradores
     $app->post('/guardarAdministrador', function (Request $request, Response $response) {
