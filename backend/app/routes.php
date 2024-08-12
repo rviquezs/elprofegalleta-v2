@@ -30,7 +30,10 @@ return function (App $app) {
         return $response;
     });
 
-    $app->post('/guardarInscripciones', function (Request $request, Response $response) {
+    // Endpoints Inscripciones
+
+    // Guardar Inscripcion
+    $app->post('/guardarInscripcion', function (Request $request, Response $response) {
         //abrir la conexion
         $db = connection();
 
@@ -46,8 +49,8 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint actualizar inscripciones
-    $app->put('/actualizarInscripciones', function (Request $request, Response $response) {
+    // actualizar inscripciones
+    $app->put('/actualizarInscripcion', function (Request $request, Response $response) {
         //abrir la conexion
         $db = connection();
 
@@ -59,8 +62,8 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint eliminar inscripciones
-    $app->delete('/eliminarInscripciones/{usuario}', function (Request $request, Response $response, array $args) {
+    // eliminar inscripciones
+    $app->delete('/eliminarInscripcion/{usuario}', function (Request $request, Response $response, array $args) {
         $usuario = $args["usuario"];
         $db = connection();
 
@@ -76,8 +79,8 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener todas las inscripciones
-    $app->get('/obtenerTodasInscripciones', function (Request $request, Response $response) {
+    // obtener todas las inscripciones
+    $app->get('/obtenerInscripciones', function (Request $request, Response $response) {
         $db = connection();
 
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
@@ -89,7 +92,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener inscripciones por nombre de usuario
+    // obtener inscripciones por nombre de usuario
     $app->get('/obtenerInscripciones/{usuario}', function (Request $request, Response $response, array $args) {
         $usuario = $args["usuario"];
         $db = connection();
