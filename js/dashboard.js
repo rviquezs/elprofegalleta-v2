@@ -195,38 +195,4 @@ $('#exportPdf').click(function () {
     // Implement export to PDF functionality here
 });
 
-// Handle form submission
-$('#newCourseForm').on('submit', function (event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
-
-    // Gather form data
-    const formData = new FormData(this);
-
-    // Convert images to Base64
-    const files = $('#gallery')[0].files;
-    const imagePromises = [];
-    for (const file of files) {
-        imagePromises.push(convertToBase64(file));
-    }
-
-    Promise.all(imagePromises).then(images => {
-        formData.append('images', JSON.stringify(images));
-
-        // Send data to server
-        $.ajax({
-            url: 'http://localhost:8080/addCourse', // Replace with your endpoint URL
-            method: 'POST',
-            data: formData,
-            contentType: false, // Set contentType to false to use FormData
-            processData: false, // Prevent jQuery from processing data
-            success: function (response) {
-                console.log('Course saved successfully:', response);
-                $('#newCourseModal').modal('hide'); // Hide modal
-                // Optionally, reload course list or update UI
-            },
-            error: function (xhr, status, error) {
-                console.error('Error saving course:', error);
-            }
-        });
-    });
-});
+// Delete Course button
