@@ -11,7 +11,7 @@ $token_hash = hash("sha256", $token);
 //tiempo de validez para el reset token
 $expiry = date ("Y-m-d H:i:s", time() + 60 * 30);
 
-$mysqli = require __DIR__ . "../public/conexion.php";
+$mysqli = require __DIR__ . "./backend/public/connection.php";
 
 $sql = "UPDATE user
         SET reset_token_hash = ?,
