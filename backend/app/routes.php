@@ -105,8 +105,8 @@ return function (App $app) {
 
     //ENDPOINTS TABLA CURSOS
 
-    $app->post('/addCourse', function (Request $request, Response $response) {
     // guardar curso
+    $app->post('/guardarCurso', function (Request $request, Response $response) {
         $db = connection();
         $data = $request->getParsedBody();
         $uploadedFiles = $request->getUploadedFiles();
@@ -145,7 +145,6 @@ return function (App $app) {
         $response->getBody()->write(json_encode(['status' => 'success']));
         return $response;
     });
-    
 
 
     // actualizar cursos
