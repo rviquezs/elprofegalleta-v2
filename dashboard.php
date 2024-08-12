@@ -97,6 +97,7 @@
                 </div>
             </div>
             <button type="button" class="btn btn-primary" id="applyFilters">Apply Filters</button>
+            <button id="clearFilters" class="btn btn-secondary">Clear Filters</button>
             <button type="button" class="btn btn-success" id="exportPdf">Export to PDF</button>
         </form>
         <table class="table table-striped table-bordered" id="reportsTable">
