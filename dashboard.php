@@ -30,7 +30,7 @@
     <div id="courses" class="collapse">
         <h2>Courses</h2>
         <button class="btn btn-primary mb-3" id="newCourseBtn">New Course</button>
-        <div id="coursesList" class="row">
+        <div id="coursesCards" class="row">
             <!-- AJAX -->
         </div>
         <!-- New Course -->
