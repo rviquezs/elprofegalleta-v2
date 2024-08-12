@@ -129,13 +129,15 @@ $('#courses').on('shown.bs.collapse', function () {
     $('#reports').collapse('hide');
 });
 
-// Open the new course form
-$('#newCourseBtn').on('click', function () {
+// BUTTONS
+
+// New Course button
+$('#newCourseBtn').click(function () {
     $('#newCourseModal').modal('show');
 });
 
-// Cancel new course
-$('#cancelNewCourse').on('click', function () {
+// Cancel new course button
+$('#cancelNewCourse').click(function () {
     $('#newCourseForm').addClass('d-none');
 });
 
@@ -145,7 +147,7 @@ $('#reports').on('shown.bs.collapse', function () {
 });
 
 // "Apply Filters" button
-$('#applyFilters').on('click', function () {
+$('#applyFilters').click(function () {
     const filters = {
         name: $('#filterName').val(),
         category: $('#filterCategory').val(),
@@ -154,7 +156,7 @@ $('#applyFilters').on('click', function () {
 });
 
 // "Clear Filters" button
-$('#clearFilters').on('click', function () {
+$('#clearFilters').click(function () {
     $('#filterCategory').val('');
 
     // Reload the data without filters
@@ -164,8 +166,8 @@ $('#clearFilters').on('click', function () {
     $('#courses').collapse('hide');
 });
 
-// Export to PDF
-$('#exportPdf').on('click', function () {
+// Export to PDF button
+$('#exportPdf').click(function () {
     // Implement export to PDF functionality here
 });
 
