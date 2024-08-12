@@ -19,7 +19,6 @@
                     <th>Precio</th>
                     <th>Promotor</th>
                     <th>Inscripciones</th>
-                    <th>Ultima Actualizacion</th>
                 </tr>
             </thead>
             <tbody>
@@ -129,7 +128,6 @@
                     <th>Precio</th>
                     <th>Promotor</th>
                     <th>Inscripciones</th>
-                    <th>Ultima Actualizacion</th>
                 </tr>
             </thead>
             <tbody>
