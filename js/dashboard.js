@@ -41,6 +41,28 @@ function loadCourses() {
     });
 }
 
+function saveCourse() {
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/guardarCurso",
+        data: data,
+        dataType: "json",
+        success: function (response) {
+            if (response.status === 'success') {
+                alert("Course saved successfully.");
+                // Optionally, reload courses or reset form
+                $("#newCourseForm")[0].reset();
+            } else {
+                alert("Failed to save the course. Please try again.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error saving course:", error);
+            alert("An error occurred while saving the course. Please try again.");
+        }
+    });
+}
+
 function deleteCourse(courseId) {
     $.ajax({
         type: "DELETE",
@@ -63,7 +85,6 @@ function deleteCourse(courseId) {
         }
     });
 }
-
 
 function loadDashboardData() {
     $.ajax({
@@ -156,43 +177,77 @@ $('#courses').on('shown.bs.collapse', function () {
 // BUTTONS
 
 // New Course button
+
 $('#newCourseBtn').click(function () {
     $('#newCourseModal').modal('show');
 });
 
-// Cancel new course button
-$('#cancelNewCourse').click(function () {
-    $('#newCourseForm').addClass('d-none');
-});
+$("#newCourseForm").submit(function (e) {
+    e.preventDefault();
 
-$('#reports').on('shown.bs.collapse', function () {
-    $('#dashboard').collapse('hide');
-    $('#courses').collapse('hide');
-});
+    // Collect form data
+    var formData = new FormData(this);
 
-// "Apply Filters" button
-$('#applyFilters').click(function () {
-    const filters = {
-        name: $('#filterName').val(),
-        category: $('#filterCategory').val(),
-    };
-    loadReportsData(filters);
-});
+    // Process gallery images to base64
+    var images = [];
+    var files = $("#gallery")[0].files;
+    for (var i = 0; i < files.length; i++) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            images.push(e.target.result);
+        };
+        reader.readAsDataURL(files[i]);
+    }
 
-// "Clear Filters" button
-$('#clearFilters').click(function () {
-    $('#filterCategory').val('');
+    // Ensure all images are processed before sending the request
+    reader.onloadend = function () {
+        // Create a plain object with form data
+        var data = {
+            courseName: formData.get("courseName"),
+            duration: formData.get("duration"),
+            mode: formData.get("mode"),
+            description: formData.get("description"),
+            category: formData.get("category"),
+            price: formData.get("price"),
+            promoterName: formData.get("promoterName"),
+            images: JSON.stringify(images) // Convert images array to JSON string
+        };
 
-    // Reload the data without filters
-    loadReportsData({});
-    $('#reports').collapse('show');
-    $('#dashboard').collapse('hide');
-    $('#courses').collapse('hide');
-});
+        
 
-// Export to PDF button
-$('#exportPdf').click(function () {
-    // Implement export to PDF functionality here
-});
+        // Cancel new course button
+        $('#cancelNewCourse').click(function () {
+            $('#newCourseForm').addClass('d-none');
+        });
+
+        $('#reports').on('shown.bs.collapse', function () {
+            $('#dashboard').collapse('hide');
+            $('#courses').collapse('hide');
+        });
+
+        // "Apply Filters" button
+        $('#applyFilters').click(function () {
+            const filters = {
+                name: $('#filterName').val(),
+                category: $('#filterCategory').val(),
+            };
+            loadReportsData(filters);
+        });
+
+        // "Clear Filters" button
+        $('#clearFilters').click(function () {
+            $('#filterCategory').val('');
+
+            // Reload the data without filters
+            loadReportsData({});
+            $('#reports').collapse('show');
+            $('#dashboard').collapse('hide');
+            $('#courses').collapse('hide');
+        });
+
+        // Export to PDF button
+        $('#exportPdf').click(function () {
+            // Implement export to PDF functionality here
+        });
 
 // Delete Course button

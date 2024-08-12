@@ -75,7 +75,7 @@
                                 <label for="promoterName" class="form-label">Promoter Name</label>
                                 <input type="text" class="form-control" id="promoterName" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Save Course</button>
+                            <button id="btnSaveCourse" type="submit" class="btn btn-primary">Save Course</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </form>
                     </div>
