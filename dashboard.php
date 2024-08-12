@@ -95,18 +95,6 @@
                         <input type="text" class="form-control" id="filterCategory">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="filterPriceMin" class="form-label">Price Min</label>
-                        <input type="number" class="form-control" id="filterPriceMin">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="mb-3">
-                        <label for="filterPriceMax" class="form-label">Price Max</label>
-                        <input type="number" class="form-control" id="filterPriceMax">
-                    </div>
-                </div>
             </div>
             <button type="button" class="btn btn-primary" id="applyFilters">Apply Filters</button>
             <button type="button" class="btn btn-success" id="exportPdf">Export to PDF</button>
