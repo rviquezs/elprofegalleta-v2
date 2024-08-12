@@ -30,10 +30,6 @@ return function (App $app) {
         return $response;
     });
 
-
-    //ENDPOINTS TABLA INSCRIPCIONES
-
-    //endpoint guardar inscripciones
     $app->post('/guardarInscripciones', function (Request $request, Response $response) {
         //abrir la conexion
         $db = connection();
@@ -109,12 +105,12 @@ return function (App $app) {
 
     //ENDPOINTS TABLA CURSOS
 
-    //endpoint guardar cursos
     $app->post('/addCourse', function (Request $request, Response $response) {
+    // guardar curso
         $db = connection();
         $data = $request->getParsedBody();
         $uploadedFiles = $request->getUploadedFiles();
-    
+
         // Extract course data
         $courseName = $data['courseName'];
         $duration = $data['duration'];
@@ -123,35 +119,36 @@ return function (App $app) {
         $category = $data['category'];
         $price = $data['price'];
         $promoterName = $data['promoterName'];
-    
+
         // Decode images
         $images = json_decode($data['images'], true);
         $images = array_map(function ($img) {
             return str_replace('data:image/png;base64,', '', $img);
         }, $images);
-    
+
         // Save course data to database
         $sql = "INSERT INTO cursos (name, duration, modalidad, description, category, price, promoter_name)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $db->prepare($sql);
         $stmt->execute([$courseName, $duration, $mode, $description, $category, $price, $promoterName]);
-    
+
         // Get the last inserted course ID
         $courseId = $db->lastInsertId();
-    
+
         // Save images to database
         foreach ($images as $image) {
             $sql = "INSERT INTO course_images (course_id, image_data) VALUES (?, ?)";
             $stmt = $db->prepare($sql);
             $stmt->execute([$courseId, $image]);
         }
-    
+
         $response->getBody()->write(json_encode(['status' => 'success']));
         return $response;
     });
     
 
-    //endpoint actualizar cursos
+
+    // actualizar cursos
     $app->put('/actualizarCurso', function (Request $request, Response $response) {
         $db = connection();
 
@@ -163,7 +160,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint eliminar cursos
+    // eliminar cursos
     $app->delete('/eliminarCurso/{id_curso}', function (Request $request, Response $response, array $args) {
         $id_curso = $args["id_curso"];
         $db = connection();
@@ -180,7 +177,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener todos los cursos
+    // Obtener todos los cursos S
     $app->get('/obtenerTodosCursos', function (Request $request, Response $response) {
         $db = connection();
 
@@ -221,13 +218,11 @@ return function (App $app) {
         $response->getBody()->write(json_encode($res));
         return $response;
     });
-
-
-
+    
 
     //ENDPOINTS TABLA PROMOTORES
 
-    //endpoint guardar promotores
+    // guardar promotores
     $app->post('/guardarPromotor', function (Request $request, Response $response) {
         $db = connection();
 
@@ -240,7 +235,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint actualizar promotores
+    // actualizar promotores
     $app->put('/actualizarPromotor', function (Request $request, Response $response) {
         $db = connection();
 
@@ -253,7 +248,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint eliminar promotores
+    // eliminar promotores
     $app->delete('/eliminarPromotor/{id_promotor}', function (Request $request, Response $response, array $args) {
         $id_promotor = $args["id_promotor"];
         $db = connection();
@@ -270,7 +265,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener todos los promotores
+    // obtener todos los promotores
     $app->get('/obtenerTodosPromotores', function (Request $request, Response $response) {
         $db = connection();
 
@@ -283,7 +278,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener todos por id_promotor
+    // obtener todos por id_promotor
     $app->get('/obtenerPromotor/{id_promotor}', function (Request $request, Response $response, array $args) {
         $id_promotor = $args["id_promotor"];
         $db = connection();
@@ -301,7 +296,7 @@ return function (App $app) {
 
     //ENDPOINTS TABLA USUARIOS
 
-    //endpoint guardar usuarios
+    // guardar usuarios
     $app->post('/guardarUsuario', function (Request $request, Response $response) {
         $db = connection();
 
@@ -314,7 +309,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint actualizar usuarios
+    // actualizar usuarios
     $app->put('/actualizarUsuario', function (Request $request, Response $response) {
         $db = connection();
 
@@ -326,7 +321,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint actualizar usuarios
+    // actualizar usuarios
     $app->delete('/eliminarUsuario/{cedula}', function (Request $request, Response $response, array $args) {
         $cedula = $args["cedula"];
         $db = connection();
@@ -343,7 +338,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener todos los usuarios
+    // obtener todos los usuarios
     $app->get('/obtenerTodosUsuarios', function (Request $request, Response $response) {
         $db = connection();
 
@@ -356,7 +351,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener por id_promotor
+    // obtener por id_promotor
     $app->get('/obtenerUsuario/{cedula}', function (Request $request, Response $response, array $args) {
         $cedula = $args["cedula"];
         $db = connection();
@@ -374,7 +369,7 @@ return function (App $app) {
 
     //ENDPOINTS TABLA ADMINISTRADORES
 
-    //endpoint guardar administradores
+    // guardar administradores
     $app->post('/guardarAdministrador', function (Request $request, Response $response) {
         $db = connection();
 
@@ -387,7 +382,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint actualizar administradores
+    // actualizar administradores
     $app->put('/actualizarAdministrador', function (Request $request, Response $response) {
         $db = connection();
 
@@ -399,7 +394,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint eliminar administradores
+    // eliminar administradores
     $app->delete('/eliminarAdministrador/{id_admin}', function (Request $request, Response $response, array $args) {
         $id_admin = $args["id_admin"];
         //abrir la conexion
@@ -419,7 +414,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener todos los administradores
+    // obtener todos los administradores
     $app->get('/obtenerTodosAdmin', function (Request $request, Response $response) {
         $db = connection();
 
@@ -433,7 +428,7 @@ return function (App $app) {
         return $response;
     });
 
-    //endpoint obtener por id_admin
+    // obtener por id_admin
     $app->get('/obtenerAdmin/{id_admin}', function (Request $request, Response $response, array $args) {
         $id_admin = $args["id_admin"];
         $db = connection();
@@ -449,6 +444,7 @@ return function (App $app) {
         return $response;
     });
 
+    // Enviar correo desde el formulario de contacto
     $app->post('/send-email', function (Request $request, Response $response, array $args) {
         $data = $request->getParsedBody();
 
