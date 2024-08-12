@@ -42,6 +42,9 @@ switch ($url) {
     case 'contact':
         echo "<script src=js/contact.js></script>";
         break;
+    case 'oferta_academica':
+        echo "<script src=js/oferta_academica.js></script>";
+        break;
 }
 ?>
 
