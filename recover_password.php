@@ -1,7 +1,6 @@
 <!-- pagina para introducir email para reset -->
 <?php include "shared/header.php" ?>
 
-
 <main>
 
     <body>
@@ -19,7 +18,5 @@
         </div>
     </body>
 </main>
-
-
 
 <?php include "shared/footer.php" ?>
