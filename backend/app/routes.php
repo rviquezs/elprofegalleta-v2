@@ -218,6 +218,21 @@ return function (App $app) {
     
 
 // ENDPOINTS PROMOTORES
+        $app->get('/obtenerUltimosCursos', function (Request $request, Response $response) {
+            $db = connection();
+            $db->SetFetchMode("ADODB_FETCH_ASSOC");
+
+            $sql = "SELECT cursos.id, cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
+                    promotores.name AS promotor, cursos.img1, COUNT(inscripciones.user_id) AS inscription_count FROM cursos 
+                    JOIN promotores ON cursos.promoter = promotores.id 
+                    LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
+                    GROUP BY cursos.id, promotores.name
+                    LIMIT 10;";
+
+            $res = $db->GetAll($sql);
+            $response->getBody()->write(json_encode($res));
+            return $response;
+        });
 
     // guardar promotores
     $app->post('/guardarPromotor', function (Request $request, Response $response) {
