@@ -28,7 +28,7 @@
 
 * **Crear la base de datos:**
   
-  * [ ] Definir y crear las tablas necesarias (usuarios, cursos, inscripciones, etc.) en la base de datos. (SQL)
+  * [x] Definir y crear las tablas necesarias (usuarios, cursos, inscripciones, etc.) en la base de datos. (SQL)
 
 * **Templates/Index:**
   
