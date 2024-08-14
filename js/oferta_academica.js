@@ -1,6 +1,11 @@
+// Call the function on page load
+$(document).ready(function() {
+    loadPrograms();
+});
+
 function loadPrograms() {
     $.ajax({
-        url: 'http://localhost:8080/obtenerTodosCursos',
+        url: 'http://localhost:8080/obtenerUltimosCursos',
         method: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -9,7 +14,7 @@ function loadPrograms() {
                 data.forEach(program => {
                     cards += `
                         <div class="program-card">
-                            ${program.img1}
+                            <img width="96" height="96" src="${program.img1}" alt="${program.name}"/>
                             <h3>${program.name}</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <a href="detalles_curso.php?${program.id}">
@@ -32,7 +37,3 @@ function loadPrograms() {
     });
 }
 
-// Call the function on page load
-$(document).ready(function() {
-    loadPrograms();
-});
