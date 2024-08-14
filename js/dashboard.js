@@ -72,8 +72,7 @@ function deleteCourse(id) {
             console.log("Server response:", response);
             if (response === 1) {
                 // Successfully deleted
-                // Optionally, refresh the list or remove the deleted item from the UI
-                loadCourses(); // Example function to reload the courses
+                loadCourses();
             } else {
                 // Failed to delete
                 alert("Failed to delete the course. Please try again.");
@@ -86,29 +85,25 @@ function loadDashboardData() {
     $.ajax({
         url: 'http://localhost:8080/obtenerTodosCursos', // Replace with your endpoint URL
         method: 'GET',
-        dataType: 'json', // Ensure jQuery parses the response as JSON
+        dataType: 'json',
         success: function (data) {
             console.log("Dashboard data received:", data); // Debugging line to check the data
             // Assuming 'data' is an array of course objects
             let rows = '';
             data.forEach(course => {
                 rows += `
-                        <tr>
-                            <td>${course.name}</td>
-                            <td>${course.duration}</td>
-                            <td>${course.modalidad}</td>
-                            <td>${course.category}</td>
-                            <td>${course.price}</td>
-                            <td>${course.promotor}</td>
-                            <td>${course.inscription_count}</td>
-                        </tr>
-                    `;
+                            <tr>
+                                <td>${course.name}</td>
+                                <td>${course.duration}</td>
+                                <td>${course.modalidad}</td>
+                                <td>${course.category}</td>
+                                <td>${course.price}</td>
+                                <td>${course.promotor}</td>
+                                <td>${course.inscription_count}</td>
+                            </tr>
+                        `;
             });
             $('#coursesTable tbody').html(rows);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error loading dashboard data:", textStatus, errorThrown);
-            $('#coursesTable tbody').html('<tr><td colspan="8">Error loading data.</td></tr>');
         }
     });
 }
@@ -128,18 +123,22 @@ function loadReportsData(filters) {
             let rows = '';
             data.forEach(course => {
                 rows += `
-                    <tr>
-                        <td>${course.name}</td>
-                        <td>${course.duration}</td>
-                        <td>${course.modalidad}</td>
-                        <td>${course.category}</td>
-                        <td>${course.price}</td>
-                        <td>${course.promotor}</td>
-                        <td>${course.inscription_count}</td>
-                    </tr>
-                `;
+                        <tr>
+                            <td>${course.name}</td>
+                            <td>${course.duration}</td>
+                            <td>${course.modalidad}</td>
+                            <td>${course.category}</td>
+                            <td>${course.price}</td>
+                            <td>${course.promotor}</td>
+                            <td>${course.inscription_count}</td>
+                        </tr>
+                    `;
             });
             $('#reportsTable tbody').html(rows);
+        }
+    });
+}
+
 function populatePromoters() {
     $.ajax({
         url: 'http://localhost:8080/obtenerTodosPromotores',
@@ -157,53 +156,184 @@ function populatePromoters() {
         }
     });
 }
+
+function convertImageToBase64(file, callback) {
+    const reader = new FileReader();
+    reader.onloadend = function () {
+        callback(reader.result);
+    };
+    reader.readAsDataURL(file);
+}
+
+function submitFormData(formData) {
+    $.ajax({
+        url: 'http://localhost:8080/guardarCurso', // Replace with your server endpoint URL
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            // Handle success
+            console.log('Form submitted successfully:', response);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error loading reports data:", textStatus, errorThrown);
-            $('#reportsTable tbody').html('<tr><td colspan="7">Error loading data.</td></tr>');
+            // Handle error
+            console.error('Form submission failed:', textStatus, errorThrown);
+        }
+
+
+    });
+}
+
+function refreshCourses() {
+    $('#newCourseForm')[0].reset();
+    $('#newCourseModal').modal('hide'); // Replace #myModal with your modal ID
+
+    // Optionally, you can also clear file inputs
+    $('#additionalImage1').val('');
+    $('#additionalImage2').val('');
+    loadCourses();
+    // Change URL without reloading the page
+    window.history.pushState({}, document.title, 'http://localhost/elprofegalleta-v2/dashboard.php');
+
+}
+
+function CustomMsgBox(icon, title, text, footer) {
+    let timerInterval;
+    Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        timer: 1500,
+        timerProgressBar: false,
+        didOpen: () => {
+            Swal.showLoading();
+            const timer = Swal.getPopup().querySelector("b");
+            timerInterval = setInterval(() => {
+                timer.textContent = `${Swal.getTimerLeft()}`;
+            }, 100);
+        },
+        willClose: () => {
+            clearInterval(timerInterval);
+        }
+    }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+            console.log("I was closed by the timer");
         }
     });
 }
 
-function convertToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
+function exportTableToPDF() {
+
+    const { jsPDF } = window.jspdf;
+    html2canvas(document.querySelector("#reportsTable")).then(canvas => {
+        // Create a new jsPDF instance
+        const pdf = new jsPDF('l', 'pt', 'a4');
+
+        // Get the canvas image
+        const imgData = canvas.toDataURL('image/png');
+
+        // Add the image to the PDF
+        pdf.addImage(imgData, 'PNG', 10, 10);
+
+        // Save the PDF
+        pdf.save('Reporte_de_inscripciones.pdf');
     });
 }
 
-// PAGE ACTIONS
+// Behavior
 
-// Collapse behavior
 $('#dashboard').on('shown.bs.collapse', function () {
     $('#courses').collapse('hide');
     $('#reports').collapse('hide');
+    loadDashboardData();
 });
 
 $('#courses').on('shown.bs.collapse', function () {
     $('#dashboard').collapse('hide');
     $('#reports').collapse('hide');
+    loadCourses();
 });
 
-// BUTTONS
+$('#reports').on('shown.bs.collapse', function () {
+    $('#dashboard').collapse('hide');
+    $('#courses').collapse('hide');
+    loadReportsData();
+});
 
-// New Course button
 
+// "New Course" button
 $('#newCourseBtn').click(function () {
     $('#newCourseModal').modal('show');
 });
 
-$("#newCourseForm").submit(function (e) {
+// "Cancel" new course button
+
+$('#cancelNewCourse').click(function () {
+    $('#newCourseForm').addClass('d-none');
+});
+
+// "Apply Filters" button
+$('#applyFilters').click(function () {
+    const filters = {
+        name: $('#filterName').val(),
+        category: $('#filterCategory').val(),
+    };
+    loadReportsData(filters);
+});
+
+// "Clear Filters" button
+$('#clearFilters').click(function () {
+    $('#filterCategory').val('');
+
+    // Reload the data without filters
+    loadReportsData({});
+    $('#reports').collapse('show');
+    $('#dashboard').collapse('hide');
+    $('#courses').collapse('hide');
+});
+
+// "Export to PDF" button
+$('#exportPdf').click(function () {
+    // Implement export to PDF functionality here
+});
+
 // "Delete" Course button
 $(document).on('click', '#btnDeleteCourse', function (e) {
     e.preventDefault();
 
-    // Collect form data
+    // Retrieve the courseId from the data-id attribute
+    var id = $(this).data('id');
+
+    // Pass the courseId to the deleteCourse function
+    Swal.fire({
+        title: "Seguro>",
+        text: "Esta acción no se puede revertir",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirmar"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Borrado!",
+                text: "El curso ha sido borrado",
+                icon: "success"
+            });
+            deleteCourse(id);
+        }
+    });
+});
+
+//Save new Course button
+$('#newCourseForm').on('submit', function (event) {
+    event.preventDefault();
+
+    // Create a FormData object
     var formData = new FormData(this);
 
-    // Process gallery images to base64
     var images = [];
     var files = $("#gallery")[0].files;
     for (var i = 0; i < files.length; i++) {
@@ -214,54 +344,36 @@ $(document).on('click', '#btnDeleteCourse', function (e) {
         reader.readAsDataURL(files[i]);
     }
 
-    // Ensure all images are processed before sending the request
-    reader.onloadend = function () {
-        // Create a plain object with form data
-        var data = {
-            courseName: formData.get("courseName"),
-            duration: formData.get("duration"),
-            mode: formData.get("mode"),
-            description: formData.get("description"),
-            category: formData.get("category"),
-            price: formData.get("price"),
-            promoterName: formData.get("promoterName"),
-            images: JSON.stringify(images) // Convert images array to JSON string
-        };
+    // Convert images to Base64 and append to FormData
+    if (additionalImage1) {
+        convertImageToBase64(additionalImage1, function (base64Image1) {
+            formData.append('additionalImage1', base64Image1);
 
-        
+            // Convert the second image
+            if (additionalImage2) {
+                convertImageToBase64(additionalImage2, function (base64Image2) {
+                    formData.append('additionalImage2', base64Image2);
 
-        // Cancel new course button
-        $('#cancelNewCourse').click(function () {
-            $('#newCourseForm').addClass('d-none');
+                    // Submit the form data via AJAX
+                    submitFormData(formData);
+                });
+            } else {
+                // If there's no second image, submit the form data
+                submitFormData(formData);
+            }
         });
+    } else {
+        // If there's no first image, just submit the form data
+        submitFormData(formData);
+    }
+    CustomMsgBox('success', 'Curso Guardado', '', '')
+    refreshCourses();
+});
 
-        $('#reports').on('shown.bs.collapse', function () {
-            $('#dashboard').collapse('hide');
-            $('#courses').collapse('hide');
-        });
+$("#exportPdf").click(function (e) { 
+    e.preventDefault();
+    exportTableToPDF();
+});
 
-        // "Apply Filters" button
-        $('#applyFilters').click(function () {
-            const filters = {
-                name: $('#filterName').val(),
-                category: $('#filterCategory').val(),
-            };
-            loadReportsData(filters);
-        });
 
-        // "Clear Filters" button
-        $('#clearFilters').click(function () {
-            $('#filterCategory').val('');
-
-            // Reload the data without filters
-            loadReportsData({});
-            $('#reports').collapse('show');
-            $('#dashboard').collapse('hide');
-            $('#courses').collapse('hide');
-        });
-
-        // Export to PDF button
-        $('#exportPdf').click(function () {
-            // Implement export to PDF functionality here
-        });
 
