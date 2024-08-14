@@ -74,8 +74,8 @@
 
 - [x] (13.1) Añadir una sección para la gestión de cursos (guardar, actualizar y eliminar desde la base de datos). (PHP, Slim)
 
-- [ ] (13.2) Crear un reporte de todos los cursos en la base de datos. (PHP, Slim)
+- [x] (13.2) Crear un reporte de todos los cursos en la base de datos. (PHP, Slim)
 
-- [ ] (13.3) Permitir filtrar por categoría en el dashboard de administración. (PHP, Slim, JS)
+- [x] (13.3) Permitir filtrar por categoría en el dashboard de administración. (PHP, Slim, JS)
 
-- [ ] (13.4) Exportar informes a PDF (encontrar una biblioteca PHP/JS para esto, revisar API de ILovePDF?). (PHP, Slim)
+- [x] (13.4) Exportar informes a PDF (encontrar una biblioteca PHP/JS para esto, revisar API de ILovePDF?). (PHP, Slim)
