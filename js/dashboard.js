@@ -32,8 +32,7 @@ function loadCourses() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
+                        `;
             });
             $('#coursesCards').html(rows);
 
