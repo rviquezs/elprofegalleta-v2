@@ -262,6 +262,7 @@ $('#reports').on('shown.bs.collapse', function () {
     loadReportsData();
 });
 
+// BUTTONS
 
 // "New Course" button
 $('#newCourseBtn').click(function () {
@@ -334,15 +335,9 @@ $('#newCourseForm').on('submit', function (event) {
     // Create a FormData object
     var formData = new FormData(this);
 
-    var images = [];
-    var files = $("#gallery")[0].files;
-    for (var i = 0; i < files.length; i++) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            images.push(e.target.result);
-        };
-        reader.readAsDataURL(files[i]);
-    }
+    // Get the file inputs
+    var additionalImage1 = $('#additionalImage1')[0].files[0];
+    var additionalImage2 = $('#additionalImage2')[0].files[0];
 
     // Convert images to Base64 and append to FormData
     if (additionalImage1) {

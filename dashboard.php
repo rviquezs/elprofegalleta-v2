@@ -42,39 +42,43 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="newCourseForm">
+                        <form id="newCourseForm" enctype="form-data">
                             <div class="mb-3">
-                                <label for="gallery" class="form-label">Gallery</label>
-                                <input type="file" class="form-control" id="gallery" multiple>
+                                <label for="mainImageUrl" class="form-label">Imagen Principal (96x96) <a href="https://icons8.com/icon/set/flags/color">(URL)</a></label>
+                                <input type="text" class="form-control" id="mainImageUrl" name="mainImageUrl" placeholder="Enter main image URL" required>
                             </div>
                             <div class="mb-3">
-                                <label for="courseName" class="form-label">Course Name</label>
-                                <input type="text" class="form-control" id="courseName" required>
+                                <label for="additionalImage1" class="form-label">Imagen Adicional 1</label>
+                                <input type="file" class="form-control" id="additionalImage1" name="additionalImage1" accept="image/*">
                             </div>
                             <div class="mb-3">
-                                <label for="duration" class="form-label">Duration</label>
-                                <input type="text" class="form-control" id="duration" required>
+                                <label for="additionalImage2" class="form-label">Imagen Adicional 2</label>
+                                <input type="file" class="form-control" id="additionalImage2" name="additionalImage2" accept="image/*">
                             </div>
                             <div class="mb-3">
-                                <label for="mode" class="form-label">Mode</label>
-                                <input type="text" class="form-control" id="mode" required>
+                                <label for="courseName" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="courseName" name="courseName" required>
                             </div>
                             <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" rows="3" required></textarea>
+                                <label for="duration" class="form-label">Duración</label>
+                                <input type="text" class="form-control" id="duration" name="duration" required>
                             </div>
                             <div class="mb-3">
-                                <label for="category" class="form-label">Category</label>
-                                <input type="text" class="form-control" id="category" required>
+                                <label for="mode" class="form-label">Modalidad</label>
+                                <input type="text" class="form-control" id="mode" name="mode" required>
                             </div>
                             <div class="mb-3">
-                                <label for="price" class="form-label">Price</label>
-                                <input type="number" class="form-control" id="price" required>
+                                <label for="description" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                             </div>
                             <div class="mb-3">
+                                <label for="category" class="form-label">Categoria</label>
+                                <input type="text" class="form-control" id="category" name="category" required>
                             </div>
-                            <button id="btnSaveCourse" type="submit" class="btn btn-primary">Save Course</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Precio</label>
+                                <input type="number" class="form-control" id="price" name="price" required>
+                            </div>
                             <div class="mb-3">
                                 <label for="promoterName" class="form-label">Promotor</label>
                                 <select id="promoterName" class="form-select" name="promoterName" required>
@@ -82,6 +86,8 @@
                                     <!-- Options will be populated here -->
                                 </select>
                             </div>
+                            <button id="btnSaveCourse" type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </form>
                     </div>
                 </div>

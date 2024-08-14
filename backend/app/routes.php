@@ -30,7 +30,7 @@ return function (App $app) {
         return $response;
     });
 
-// ENDPOINTS INSCRIPCIONES
+    // ENDPOINTS INSCRIPCIONES
 
     // Guardar Inscripcion
     $app->post('/guardarInscripcion', function (Request $request, Response $response) {
@@ -106,60 +106,32 @@ return function (App $app) {
         return $response;
     });
 
-// ENDPOINTS CURSOS
+    // ENDPOINTS CURSOS
 
-    // Guardar curso
-    $app->post('/guardarCurso', function (Request $request, Response $response) {
-        $db = connection();
-        $data = $request->getParsedBody();
-        $uploadedFiles = $request->getUploadedFiles();
+        // Guardar Curso
+        $app->post('/guardarCurso', function (Request $request, Response $response) {
+            // Get form data
+            $data = $request->getParsedBody();
+            $uploadedFiles = $request->getUploadedFiles();
 
-        // Extract course data
-        $courseName = $data['courseName'];
-        $duration = $data['duration'];
-        $mode = $data['mode'];
-        $description = $data['description'];
-        $category = $data['category'];
-        $price = $data['price'];
-        $promoterName = $data['promoterName'];
+            // Extract file data
+            $img2 = $uploadedFiles['additionalImage1'] ?? null; // Ensure the key matches with the AJAX request
+            $img3 = $uploadedFiles['additionalImage2'] ?? null; // Ensure the key matches with the AJAX request
 
-        // Decode images
-        $images = json_decode($data['images'], true);
-        $images = array_map(function ($img) {
-            return str_replace('data:image/png;base64,', '', $img);
-        }, $images);
+            // Initialize Base64 strings
+            $img2Base64 = '';
+            $img3Base64 = '';
 
-        // Save course data to database
-        $sql = "INSERT INTO cursos (name, duration, modalidad, description, category, price, promoter_name)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $db->prepare($sql);
-        $stmt->execute([$courseName, $duration, $mode, $description, $category, $price, $promoterName]);
+            // Handle image files and convert to Base64
+            if ($img2 && $img2->getError() === UPLOAD_ERR_OK) {
+                $img2Content = file_get_contents($img2->getStream()->getMetadata('uri'));
+                $img2Base64 = base64_encode($img2Content);
+            }
 
-        // Get the last inserted course ID
-        $courseId = $db->lastInsertId();
-
-        // Save images to database
-        foreach ($images as $image) {
-            $sql = "INSERT INTO course_images (course_id, image_data) VALUES (?, ?)";
-            $stmt = $db->prepare($sql);
-            $stmt->execute([$courseId, $image]);
-        }
-
-        $response->getBody()->write(json_encode(['status' => 'success']));
-        return $response;
-    });
-
-    // Actualizar cursos
-    $app->put('/actualizarCurso', function (Request $request, Response $response) {
-        $db = connection();
-
-        $rec = $request->getQueryParams();
-        $res = $db->AutoExecute("cursos", $rec, "UPDATE", "id_curso='$rec[id_curso]'");
-        $db->Close();
-
-        $response->getBody()->write(strval($res));
-        return $response;
-    });
+            if ($img3 && $img3->getError() === UPLOAD_ERR_OK) {
+                $img3Content = file_get_contents($img3->getStream()->getMetadata('uri'));
+                $img3Base64 = base64_encode($img3Content);
+            }
 
             // Process other form data
             $mainImageUrl = $data['mainImageUrl'];
@@ -194,49 +166,60 @@ return function (App $app) {
         });
 
 
+        function moveUploadedFile($uploadedFile)
+        {
+            $directory = __DIR__ . '/uploads'; // Ensure this directory exists and is writable
+            $filename = sprintf('%s-%s', uniqid(), $uploadedFile->getClientFilename());
+            $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+            return $filename;
         }
 
+        // Actualizar cursos
+        $app->put('/actualizarCurso/{id}', function (Request $request, Response $response) {
+            $db = connection();
 
-    // Obtener todos los cursos S
-    $app->get('/obtenerTodosCursos', function (Request $request, Response $response) {
-        $db = connection();
-        $db->SetFetchMode("ADODB_FETCH_ASSOC");
+            $rec = $request->getQueryParams();
+            $res = $db->AutoExecute("cursos", $rec, "UPDATE", "id_curso='$rec[id_curso]'");
+            $db->Close();
 
-        $sql = "SELECT cursos.id, cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
-                promotores.name AS promotor, cursos.img1, COUNT(inscripciones.user_id) AS inscription_count FROM cursos 
-                JOIN promotores ON cursos.promoter = promotores.id 
-                LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
-                GROUP BY cursos.id, promotores.name;";
-        
-        $res = $db->GetAll($sql);
-        $response->getBody()->write(json_encode($res));
-        return $response;
-    });
+            $response->getBody()->write(strval($res));
+            return $response;
+        });
 
+        // Eliminar curso
+        $app->delete('/eliminarCurso/{id}', function (Request $request, Response $response, array $args) {
+            $id = $args["id"];
+            $db = connection();
 
-    // Filtrar cursos por categoria
-    $app->get('/filtrarCursos[/{category}]', function (Request $request, Response $response, $args) {
-        $category = $args['category'] ?? '';
-        $db = connection();
-        $db->SetFetchMode("ADODB_FETCH_ASSOC");
-    
-        // Build SQL query with filters
-        $sql = "SELECT cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
-                promotores.name AS promotor, COUNT(inscripciones.user_id) AS inscription_count 
-                FROM cursos 
-                JOIN promotores ON cursos.promoter = promotores.id 
-                LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
-                WHERE (cursos.category LIKE ? OR ? = '') 
-                GROUP BY cursos.id, promotores.name;";
-    
-        $params = ["%$category%", $category];
-        $res = $db->GetAll($sql, $params);
-        $response->getBody()->write(json_encode($res));
-        return $response;
-    });
-    
+            $sql = "DELETE FROM cursos WHERE id=$id";
 
-// ENDPOINTS PROMOTORES
+            if ($db->Execute($sql)) {
+                $res = 1;
+            } else {
+                $res = 0;
+            }
+
+            $response->getBody()->write(strval($res));
+            return $response;
+        });
+
+        // Obtener todos los cursos 
+        $app->get('/obtenerTodosCursos', function (Request $request, Response $response) {
+            $db = connection();
+            $db->SetFetchMode("ADODB_FETCH_ASSOC");
+
+            $sql = "SELECT cursos.id, cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
+                    promotores.name AS promotor, cursos.img1, COUNT(inscripciones.user_id) AS inscription_count FROM cursos 
+                    JOIN promotores ON cursos.promoter = promotores.id 
+                    LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
+                    GROUP BY cursos.id, promotores.name;";
+
+            $res = $db->GetAll($sql);
+            $response->getBody()->write(json_encode($res));
+            return $response;
+        });
+
+        // Obtener ultimos 10 cursos
         $app->get('/obtenerUltimosCursos', function (Request $request, Response $response) {
             $db = connection();
             $db->SetFetchMode("ADODB_FETCH_ASSOC");
@@ -252,6 +235,31 @@ return function (App $app) {
             $response->getBody()->write(json_encode($res));
             return $response;
         });
+
+
+        // Filtrar cursos por categoria
+        $app->get('/filtrarCursos[/{category}]', function (Request $request, Response $response, $args) {
+            $category = $args['category'] ?? '';
+            $db = connection();
+            $db->SetFetchMode("ADODB_FETCH_ASSOC");
+
+            // Build SQL query with filters
+            $sql = "SELECT cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
+                    promotores.name AS promotor, COUNT(inscripciones.user_id) AS inscription_count 
+                    FROM cursos 
+                    JOIN promotores ON cursos.promoter = promotores.id 
+                    LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
+                    WHERE (cursos.category LIKE ? OR ? = '') 
+                    GROUP BY cursos.id, promotores.name;";
+
+            $params = ["%$category%", $category];
+            $res = $db->GetAll($sql, $params);
+            $response->getBody()->write(json_encode($res));
+            return $response;
+        });
+
+
+    // ENDPOINTS PROMOTORES
 
     // guardar promotores
     $app->post('/guardarPromotor', function (Request $request, Response $response) {
@@ -325,7 +333,7 @@ return function (App $app) {
         return $response;
     });
 
-// ENDPOINTS USUARIOS
+    // ENDPOINTS USUARIOS
 
     // guardar usuarios
     $app->post('/guardarUsuario', function (Request $request, Response $response) {
@@ -398,7 +406,7 @@ return function (App $app) {
         return $response;
     });
 
-// ENDPOINTS ADMINISTRADORES
+    // ENDPOINTS ADMINISTRADORES
 
     // guardar administradores
     $app->post('/guardarAdministrador', function (Request $request, Response $response) {
