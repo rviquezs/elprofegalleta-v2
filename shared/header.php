@@ -78,8 +78,6 @@ $url = basename($_SERVER["PHP_SELF"], ".php");
                         <a class="dropdown-item" href="signup.php">Registrarse</a>
                         <a class="dropdown-item" href="recover_password.php">Olividó su contraseña?</a>
                     </div>
-
-
                 </div>
             </div>
         </div>
