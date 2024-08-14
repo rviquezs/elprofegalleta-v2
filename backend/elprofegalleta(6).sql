@@ -26,7 +26,9 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `cursos`
 --
-USE elprofegalleta
+CREATE DATABASE IF NOT EXISTS elprofegalleta;
+
+USE elprofegalleta;
 
 CREATE TABLE `cursos` (
   `id` int(11) NOT NULL,
