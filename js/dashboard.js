@@ -21,14 +21,14 @@ function loadCourses() {
             let rows = '';
             data.forEach(course => {
                 rows += `
-                        <div class="col-md-4 mb-4">
-                            <div class="card course-card">
-                                ${course.img1}
-                                <div class="card-body">
-                                    <h5 class="card-title">${course.name}</h5>
-                                    <div class="d-flex justify-content-between">
-                                        <button class="btn btn-warning btn-sm">Edit</button>
-                                        <button class="btn btn-danger btn-sm">Delete</button>
+                            <div class="col-md-4 mb-4">
+                                <div class="card course-card">
+                                    <img width="96" height="96" src="${course.img1}" alt="${course.name}"/>
+                                    <div class="card-body">
+                                        <h5 class="card-title">${course.name}</h5>
+                                        <div class="d-flex justify-content-between">
+                                        <button id="btnCourseInfo" class="btn btn-info btn-sm">Info</button>
+                                        <button id="btnDeleteCourse" class="btn btn-danger btn-sm" data-id="${course.id}">Delete</button>
                                     </div>
                                 </div>
                             </div>
