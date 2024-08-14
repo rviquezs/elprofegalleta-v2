@@ -6,7 +6,11 @@ $(document).ready(function () {
 
     loadCourses();
 
+    populatePromoters();
+
 });
+
+// Functions
 
 function loadCourses() {
     $.ajax({
@@ -144,6 +148,23 @@ function loadReportsData(filters) {
                 `;
             });
             $('#reportsTable tbody').html(rows);
+function populatePromoters() {
+    $.ajax({
+        url: 'http://localhost:8080/obtenerTodosPromotores',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            // Clear existing options
+            $('#promoterName').empty();
+            $('#promoterName').append('<option value="" disabled selected>Select a promoter</option>');
+
+            // Populate the dropdown with options
+            $.each(data, function (index, promoter) {
+                $('#promoterName').append('<option value="' + promoter.id + '">' + promoter.name + '</option>');
+            });
+        }
+    });
+}
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error("Error loading reports data:", textStatus, errorThrown);

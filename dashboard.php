@@ -72,11 +72,16 @@
                                 <input type="number" class="form-control" id="price" required>
                             </div>
                             <div class="mb-3">
-                                <label for="promoterName" class="form-label">Promoter Name</label>
-                                <input type="text" class="form-control" id="promoterName" required>
                             </div>
                             <button id="btnSaveCourse" type="submit" class="btn btn-primary">Save Course</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <div class="mb-3">
+                                <label for="promoterName" class="form-label">Promotor</label>
+                                <select id="promoterName" class="form-select" name="promoterName" required>
+                                    <option value="" disabled selected>Select a promoter</option>
+                                    <!-- Options will be populated here -->
+                                </select>
+                            </div>
                         </form>
                     </div>
                 </div>
