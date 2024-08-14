@@ -50,12 +50,12 @@
 
 * **Templates/Servicios:**
   
-  * [ ] (10.1) Añadir imágenes de los servicios a las tarjetas. (Bootstrap)
+  * [x] (10.1) Añadir imágenes de los servicios a las tarjetas. (Bootstrap)
 
 * **Templates/Servicios/Detalles:**
   
-  * [ ] (11.1) Añadir imágenes al detalle de cada servicio. (Bootstrap)
-  * [ ] (11.2) Arreglar CSS.
+  * [x] (11.1) Añadir imágenes al detalle de cada servicio. (Bootstrap)
+  * [x] (11.2) Arreglar CSS.
 
 # Robert: Formularios y Envío de Datos / Gestión y Administración
 
