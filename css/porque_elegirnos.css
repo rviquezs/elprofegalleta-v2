@@ -1,42 +1,60 @@
-@import url(general.css);
+@import url('general.css');
 
-.header{
-    padding-top: 10px;
+.header {
+    padding: 20px;
+    background-color: var(--colorContraste); /* O puedes usar un color específico, por ejemplo, #1c837f */
+    color: #fff; /* Color de texto blanco para contraste */
+    text-align: center;
+    border-radius: 8px; /* Opcional: para bordes redondeados */
 }
-/* .card{
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.header p.lead {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+/* Estilo de los elementos ya existentes */
+.card {
     width: 100%;
     margin: 20px;
-    border-radius: 6px;
+    border-radius: 12px; 
     overflow: hidden;
     background: var(--colorContraste);
-    box-shadow: 0px 1px 10px var(--coloSecundario);
-    cursor: default;
-    transition: all 400ms ease;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15); 
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover{
-    box-shadow: var(#61baca);
-    transform: translateY(-8%);
+.card:hover {
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3); 
+    transform: translateY(-10%);
 }
 
 .card .content p {
-    line-height: 1.5;
-    color: #6a6a6a;
+    line-height: 1.6; 
+    color: #333; 
+    padding: 15px; 
 }
 
 .card-body .btn {
     background-color: var(--colorPrincipal);
     color: #fff;
     border: none;
-    border-radius: 0.25rem;
-    padding: 0.75rem;
+    border-radius: 6px; 
+    padding: 0.75rem 1.25rem; 
     font-size: 1rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .card-body .btn:hover {
     background-color: var(--colorSecundario);
-} */
+    transform: scale(1.05); 
+}
 
 
 /* Estilos personalizados */
@@ -45,6 +63,7 @@
     padding: 60px 15px;
     border-radius: 10px;
 }
+
 .testimonial-card {
     background-color: white;
     border: none;
@@ -57,6 +76,7 @@
     text-align: center;
     padding: 20px;
 }
+
 .testimonial-img {
     width: 60px;
     height: 60px;
@@ -64,11 +84,13 @@
     object-fit: cover;
     margin-bottom: 15px;
 }
+
 .testimonial-card p {
     font-style: italic;
     color: var(--colorSecundario);
 }
+
 .testimonial-card h5 {
-    color: var(--colorContraste) ;
+    color: var(--colorContraste);
     font-weight: bold;
 }
