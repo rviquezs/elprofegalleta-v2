@@ -1,1 +1,125 @@
-@import url(general.css);
+@import url('general.css');
+
+.services-container::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 200px;
+    height: 200px; 
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 30%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Estilo para los títulos */
+.services-container h1 {
+    font-size: var(--fontSizeH1);
+    text-align: center;
+    color: var(--colorSecundario);
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+}
+
+/* Estilo para la descripción debajo del título */
+.services-container .description {
+    font-size: 1.2em;
+    color: var(--colorTexto);
+    margin-bottom: 40px;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+}
+
+/* Estilo para las tarjetas */
+.services-container .card {
+    border: none;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    margin-bottom: 30px;
+    background: var(--colorNeutro);
+    position: relative;
+    overflow: hidden;
+}
+
+.services-container .card:hover {
+    background-color: var(--colorContraste);
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.services-container .card img {
+    transition: transform 0.3s ease;
+    border-radius: 8px 8px 0 0;
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.services-container .card:hover img {
+    transform: scale(1.1);
+}
+
+/* Estilo para los títulos de las tarjetas */
+.services-container .card-title {
+    font-size: var(--fontSizeH2);
+    color: var(--colorTexto);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.services-container .card-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.services-container .card-title a:hover {
+    color: var(--colorPrincipal);
+}
+
+/* Estilo para los párrafos dentro de las tarjetas */
+.services-container .card-text {
+    color: #555;
+    font-size: var(--fontSizeP);
+    margin-bottom: 20px;
+}
+
+/* Estilo para los botones dentro de las tarjetas */
+.services-container .card-body .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.services-container .card-body .btn:hover {
+    background-color: var(--colorPrincipal);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilo para los testimonios */
+.testimonials {
+    margin-top: 40px;
+}
+
+.testimonials h3 {
+    font-size: 1.5em;
+    color: var(--colorSecundario);
+    margin-bottom: 20px;
+}
+
+.testimonials blockquote {
+    font-size: 1.2em;
+    color: var(--colorTexto);
+    border-left: 4px solid var(--colorPrincipal);
+    padding-left: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+}
