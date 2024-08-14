@@ -38,6 +38,9 @@ switch ($url) {
     case 'login':
         echo "<script src=js/login.js></script>";
         break;
+    case 'signup':
+        echo "<script src=js/signup.js></script>";
+        break;
     case 'dashboard':
         echo "<script src=js/dashboard.js></script>";
         break;

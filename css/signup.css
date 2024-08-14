@@ -1,45 +1,76 @@
 @import url(general.css);
 
-main{
-    display: flexbox;
-    height: 90vh;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    background: linear-gradient(130deg, #9fd8e1, #1c837f);
-
+/* Signup Form Container */
+.signup-container {
+    background-color: var(--colorNeutro);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
 }
 
-.container{
-    max-width: 900px;
-    width: 100%;
-    background: #fff;
-    padding: 10px 20px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    box-shadow:  0 0 128px 0 rgba(0, 0, 0, 0.1),
-                0 32px 64px -48px rgba(0, 0, 0, 0.5);
+/* Form Title */
+.signup-container h1 {
+    color: var(--colorSecundario);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.container .title{
-    font-size: 30px;
+/* Form Labels */
+.signup-container .form-label {
     font-weight: 500;
-
+    color: var(--colorTexto);
 }
 
-.container form .user-details{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+/* Form Controls */
+.signup-container .form-control {
+    background-color: var(--colorContraste);
+    border: 1px solid var(--colorSecundario);
+    color: var(--colorTexto);
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
 }
 
-form .user-details .mb-3{
-    width: calc(100% / 2 - 20px);
-    margin: 10px 0 5px 0;
+.signup-container .form-control:focus {
+    border-color: var(--colorPrincipal);
+    box-shadow: 0 0 5px rgba(97, 186, 202, 0.3);
+}
 
+/* Submit Button */
+.signup-container .btn-primary {
+    background-color: var(--colorSecundario);
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 10px 20px;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out;
+}
 
+.signup-container .btn-primary:hover {
+    background-color: var(--colorPrincipal);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* File Input */
+.signup-container .form-control[type="file"] {
+    padding: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .signup-container {
+        padding: 20px;
+    }
+
+    .signup-container h1 {
+        font-size: 1.75em;
+    }
+
+    .signup-container .btn-primary {
+        padding: 8px 16px;
+    }
 }
 
