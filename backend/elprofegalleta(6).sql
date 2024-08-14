@@ -35,11 +35,11 @@ CREATE TABLE `cursos` (
   `modalidad` varchar(100) NOT NULL,
   `category` varchar(100) NOT NULL,
   `price` decimal(10,0) NOT NULL,
-  `promoter` int(11) NOT NULL,
-  `qr_code` text NOT NULL,
-  `img1` text NOT NULL,
-  `img2` text NOT NULL,
-  `img3` text NOT NULL
+  `promoter` int(11),
+  `qr_code` text,
+  `img1` text,
+  `img2` text,
+  `img3` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -88,8 +88,8 @@ INSERT INTO `inscripciones` (`id`, `user_id`, `course_id`) VALUES
 CREATE TABLE `promotores` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `phone_number` int(11) NOT NULL,
-  `whatsapp` int(11) NOT NULL,
+  `phone_number` int(11),
+  `whatsapp` int(11),
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -139,7 +139,7 @@ CREATE TABLE `usuarios` (
   `last_name1` varchar(100) NOT NULL,
   `last_name2` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `whatsapp` int(8) NOT NULL,
+  `whatsapp` int(8),
   `phone_number` int(8) DEFAULT NULL,
   `picture` text DEFAULT NULL,
   `role` varchar(50) NOT NULL DEFAULT 'user'
