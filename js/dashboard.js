@@ -35,11 +35,6 @@ function loadCourses() {
                         `;
             });
             $('#coursesCards').html(rows);
-
-        },
-        error: function (xhr, status, error) {
-            console.error('Error loading courses data:', error);
-            $('#coursesCards').html('<div class="alert alert-danger">Error loading courses data. Please try again later.</div>');
         }
     });
 }
