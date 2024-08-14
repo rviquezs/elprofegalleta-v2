@@ -61,25 +61,23 @@ function saveCourse() {
     });
 }
 
-function deleteCourse(courseId) {
+function deleteCourse(id) {
+    console.log("Attempting to delete course with ID:", id);
+
     $.ajax({
         type: "DELETE",
-        url: `http://localhost:8080/eliminarCurso/${courseId}`, // Correct URL syntax
-        dataType: "json",
+        url: `http://localhost:8080/eliminarCurso/${id}`,
+        dataType: "JSON",
         success: function (response) {
+            console.log("Server response:", response);
             if (response === 1) {
                 // Successfully deleted
-                alert("Course deleted successfully.");
                 // Optionally, refresh the list or remove the deleted item from the UI
                 loadCourses(); // Example function to reload the courses
             } else {
                 // Failed to delete
                 alert("Failed to delete the course. Please try again.");
             }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error deleting course:", error);
-            alert("An error occurred while deleting the course. Please try again.");
         }
     });
 }
@@ -198,6 +196,8 @@ $('#newCourseBtn').click(function () {
 });
 
 $("#newCourseForm").submit(function (e) {
+// "Delete" Course button
+$(document).on('click', '#btnDeleteCourse', function (e) {
     e.preventDefault();
 
     // Collect form data
@@ -265,4 +265,3 @@ $("#newCourseForm").submit(function (e) {
             // Implement export to PDF functionality here
         });
 
-// Delete Course button

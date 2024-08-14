@@ -161,22 +161,41 @@ return function (App $app) {
         return $response;
     });
 
-    // Eliminar curso
-    $app->delete('/eliminarCurso/{id_curso}', function (Request $request, Response $response, array $args) {
-        $id_curso = $args["id_curso"];
-        $db = connection();
+            // Process other form data
+            $mainImageUrl = $data['mainImageUrl'];
+            $courseName = $data['courseName'];
+            $duration = $data['duration'];
+            $mode = $data['mode'];
+            $description = $data['description'];
+            $category = $data['category'];
+            $price = $data['price'];
+            $promoterId = $data['promoterName']; // Make sure this matches the form field name
 
-        $sql = "DELETE FROM cursos WHERE id_curso='$id_curso'";
+            // Save to the database
+            $db = connection(); // Make sure connection() is defined and returns a PDO instance
+            $sql = "INSERT INTO cursos (name, duration, modalidad, category, price, promoter, img1, img2, img3) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $params = [
+                $courseName,
+                $duration,
+                $mode,
+                $category,
+                $price,
+                $promoterId,
+                $mainImageUrl,
+                $img2Base64,
+                $img3Base64
+            ];
+            $db->Execute($sql, $params);
 
-        if ($db->Execute($sql)) {
-            $res = 1;
-        } else {
-            $res = 0;
+            // Return a success response
+            $response->getBody()->write(json_encode(['status' => 'success']));
+            return $response->withHeader('Content-Type', 'application/json');
+        });
+
+
         }
 
-        $response->getBody()->write(strval($res));
-        return $response;
-    });
 
     // Obtener todos los cursos S
     $app->get('/obtenerTodosCursos', function (Request $request, Response $response) {
