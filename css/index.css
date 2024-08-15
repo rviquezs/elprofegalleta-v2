@@ -42,20 +42,50 @@ TODO: Alinear al centro el texto de Nuestra Historia / Nuestra Mision..
     color: #6a6a6a;
 }
 
-
-
-/* News Section 
-
-TODO: Centrar el card de noticias al centro
-
-*/
-
-.card{
-    align-self: center;
-}
-
+/* Contenedor de noticias */
 #noticias-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 1rem;
+}
+
+.card {
+    margin: 15px;
+    width: 18rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+.card-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    text-decoration: underline;
 }
