@@ -15,6 +15,7 @@ include_once __DIR__ . '/../public/connection.php';
 require '../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../vendor/phpmailer/phpmailer/src/SMTP.php';
+require '../vendor/autoload.php';
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -360,7 +361,7 @@ return function (App $app) {
         return $response;
     });
 
-    // actualizar usuarios
+    // eliminar usuarios
     $app->delete('/eliminarUsuario/{cedula}', function (Request $request, Response $response, array $args) {
         $cedula = $args["cedula"];
         $db = connection();
@@ -664,4 +665,65 @@ return function (App $app) {
         echo "Contraseña actualizada. Puedes volver a entrar con la nueva contraseña";
         
     });
+    //ENDPOINTS NOTICIAS
+
+    // guardar noticias
+    $app->post('/guardarNoticia', function (Request $request, Response $response) {
+        $db = connection();
+
+        $rec = $request->getQueryParams();
+
+        $res = $db->AutoExecute("noticias", $rec, "INSERT");
+        $db->Close();
+
+        $response->getBody()->write(strval($res));
+        return $response;
+    });
+
+    // actualizar noticias
+    $app->put('/actualizarNoticia', function (Request $request, Response $response) {
+        $db = connection();
+
+        $rec = $request->getQueryParams();
+        $res = $db->AutoExecute("noticias", $rec, "UPDATE", "id='$rec[id]'");
+        $db->Close();
+
+        $response->getBody()->write(strval($res));
+        return $response;
+    });
+
+    // eliminar noticias
+    $app->delete('/eliminarNoticia/{id}', function (Request $request, Response $response, array $args) {
+        $id = $args["id"];
+        $db = connection();
+
+        $sql = "DELETE FROM noticias WHERE cedula='$id'";
+
+        if ($db->Execute($sql)) {
+            $res = 1;
+        } else {
+            $res = 0;
+        }
+
+        $response->getBody()->write(strval($res));
+        return $response;
+    });
+
+    //obtener noticias
+    $app->get('/obtenerNoticias', function (Request $request, Response $response) {
+        $db = connection();
+        $db->SetFetchMode("ADODB_FETCH_ASSOC");
+    
+        $sql = "SELECT * FROM noticias";
+    
+        try {
+            $res = $db->GetAll($sql);
+            $response->getBody()->write(json_encode($res));
+        } catch (Exception $e) {
+            $response->getBody()->write(json_encode(['error' => $e->getMessage()]));
+        }
+    
+        return $response;
+    });
+    
 };

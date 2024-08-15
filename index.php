@@ -1,4 +1,4 @@
-<!-- Encabezado  -->
+<!-- Encabezado -->
 <?php include_once __DIR__ . "/shared/header.php" ?>
 
 <!-- Pagina principal -->
@@ -69,25 +69,11 @@
 
 <div class="container-fluid">
     <h2>Eventos y Noticias</h2>
-    <div class="card" style="width: 18rem;">
-        <img src="../img/news1.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-                <span class="placeholder col-8"></span>
-            </h5>
-
-            <p class="card-text placeholder-glow">
-                <span class="placeholder col-4"></span>
-                <span class="placeholder col-8"></span>
-                <span class="placeholder col-8"></span>
-                <span class="placeholder col-8"></span>
-            </p>
-
-        </div>
-        <div class="card-body">
-            <a href="#" class="card-link">Ver más</a>
-        </div>
+    <div id="noticias-container">
     </div>
 </div>
 
 <?php include __DIR__ . "/oferta_academica.php" ?>
+<?php include __DIR__ . "/noticias.php" ?>
+
+<script src="index.js"></script>

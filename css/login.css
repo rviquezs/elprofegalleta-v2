@@ -1,31 +1,73 @@
 @import url(general.css);
 
-main{
-    display: flexbox;
-    height: 90vh;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    background: linear-gradient(130deg, #9fd8e1, #1c837f);
-
+/* Login Form Container */
+.login-form {
+    background-color: var(--colorNeutro);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.container{
-    max-width: 900px;
-    width: 100%;
-    background: #fff;
+/* Form Heading */
+.login-form h2 {
+    font-size: var(--fontSizeH2);
+    color: var(--colorSecundario);
+    margin-bottom: 20px;
+}
+
+/* Form Fields */
+.login-form .form-label {
+    font-weight: bold;
+    color: var(--colorTexto);
+}
+
+.login-form .form-control {
+    border-radius: 4px;
+    border: 1px solid var(--colorContraste);
+    box-shadow: none;
+}
+
+/* Submit Button */
+#btn_login {
+    background-color: var(--colorSecundario);
+    border: none;
+    border-radius: 4px;
     padding: 10px 20px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    box-shadow:  0 0 128px 0 rgba(0, 0, 0, 0.1),
-                0 32px 64px -48px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease-in-out;
+    width: 100%;
 }
 
-.container .title{
-    font-size: 30px;
-    font-weight: 500;
-
+#btn_login:hover {
+    background-color: var(--colorPrincipal);
 }
+
+/* Password Visibility Button */
+#showPassword {
+    margin-top: 10px;
+    background-color: var(--colorPrincipal);
+    border: none;
+    padding: 6px 12px;
+    color: white;
+    border-radius: 4px;
+}
+
+#showPassword:hover {
+    background-color: var(--colorSecundario);
+}
+
+/* Links */
+.login-form a {
+    color: var(--colorSecundario);
+    text-decoration: none;
+}
+
+.login-form a:hover {
+    color: var(--colorPrincipal);
+    text-decoration: underline;
+}
+
+/* Additional Spacing */
+.text-center.mt-3 p {
+    margin-bottom: 0;
+}
+
