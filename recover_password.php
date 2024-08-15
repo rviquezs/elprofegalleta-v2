@@ -7,7 +7,7 @@
         <div class="container">
             <h1 class="title"> Recuperar contraseña</h1>
 
-            <form method="POST" action="cambiarpassword.php">
+            <form method="POST">
                 <label for="email">email</label>
                 <input type="email" name="email" id="email">
 
@@ -19,4 +19,4 @@
     </body>
 </main>
 
-<?php include "shared/footer.php" ?>
+<?php include "shared/footer.php" ?> 

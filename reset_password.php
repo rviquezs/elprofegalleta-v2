@@ -44,7 +44,7 @@ if(strtotime($user["reset_token_expires_at"]) <= time() ){
         <div class="container">
             <h1 class="title"> Reiniciar contraseña</h1>
 
-            <form method="POST" action="process_reset_password.php">
+            <form method="POST">
 
                 <input type="hidden" name="token" value="<?= htmlspecialchars($token)?>">
 
@@ -62,4 +62,4 @@ if(strtotime($user["reset_token_expires_at"]) <= time() ){
     </body>
 </main>
 
-<?php include "shared/footer.php" ?>
+<?php include "shared/footer.php" ?> 

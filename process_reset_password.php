@@ -49,4 +49,4 @@ $stmt->bind_param("ss", $password_hash, $user["cedula"]);
 
 $stmt->execture();
 
-echo "Contraseña actualizada. Puedes volver a entrar con la nueva contraseña";
+echo "Contraseña actualizada. Puedes volver a entrar con la nueva contraseña"; 

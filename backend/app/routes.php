@@ -108,143 +108,143 @@ return function (App $app) {
 
     // ENDPOINTS CURSOS
 
-        // Guardar Curso
-        $app->post('/guardarCurso', function (Request $request, Response $response) {
-            // Get form data
-            $data = $request->getParsedBody();
-            $uploadedFiles = $request->getUploadedFiles();
+    // Guardar Curso
+    $app->post('/guardarCurso', function (Request $request, Response $response) {
+        // Get form data
+        $data = $request->getParsedBody();
+        $uploadedFiles = $request->getUploadedFiles();
 
-            // Extract file data
-            $img2 = $uploadedFiles['additionalImage1'] ?? null; // Ensure the key matches with the AJAX request
-            $img3 = $uploadedFiles['additionalImage2'] ?? null; // Ensure the key matches with the AJAX request
+        // Extract file data
+        $img2 = $uploadedFiles['additionalImage1'] ?? null; // Ensure the key matches with the AJAX request
+        $img3 = $uploadedFiles['additionalImage2'] ?? null; // Ensure the key matches with the AJAX request
 
-            // Initialize Base64 strings
-            $img2Base64 = '';
-            $img3Base64 = '';
+        // Initialize Base64 strings
+        $img2Base64 = '';
+        $img3Base64 = '';
 
-            // Handle image files and convert to Base64
-            if ($img2 && $img2->getError() === UPLOAD_ERR_OK) {
-                $img2Content = file_get_contents($img2->getStream()->getMetadata('uri'));
-                $img2Base64 = base64_encode($img2Content);
-            }
-
-            if ($img3 && $img3->getError() === UPLOAD_ERR_OK) {
-                $img3Content = file_get_contents($img3->getStream()->getMetadata('uri'));
-                $img3Base64 = base64_encode($img3Content);
-            }
-
-            // Process other form data
-            $mainImageUrl = $data['mainImageUrl'];
-            $courseName = $data['courseName'];
-            $duration = $data['duration'];
-            $mode = $data['mode'];
-            $description = $data['description'];
-            $category = $data['category'];
-            $price = $data['price'];
-            $promoterId = $data['promoterName']; // Make sure this matches the form field name
-
-            // Save to the database
-            $db = connection(); // Make sure connection() is defined and returns a PDO instance
-            $sql = "INSERT INTO cursos (name, duration, modalidad, category, price, promoter, img1, img2, img3) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            $params = [
-                $courseName,
-                $duration,
-                $mode,
-                $category,
-                $price,
-                $promoterId,
-                $mainImageUrl,
-                $img2Base64,
-                $img3Base64
-            ];
-            $db->Execute($sql, $params);
-
-            // Return a success response
-            $response->getBody()->write(json_encode(['status' => 'success']));
-            return $response->withHeader('Content-Type', 'application/json');
-        });
-
-
-        function moveUploadedFile($uploadedFile)
-        {
-            $directory = __DIR__ . '/uploads'; // Ensure this directory exists and is writable
-            $filename = sprintf('%s-%s', uniqid(), $uploadedFile->getClientFilename());
-            $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
-            return $filename;
+        // Handle image files and convert to Base64
+        if ($img2 && $img2->getError() === UPLOAD_ERR_OK) {
+            $img2Content = file_get_contents($img2->getStream()->getMetadata('uri'));
+            $img2Base64 = base64_encode($img2Content);
         }
 
-        // Actualizar cursos
-        $app->put('/actualizarCurso/{id}', function (Request $request, Response $response) {
-            $db = connection();
+        if ($img3 && $img3->getError() === UPLOAD_ERR_OK) {
+            $img3Content = file_get_contents($img3->getStream()->getMetadata('uri'));
+            $img3Base64 = base64_encode($img3Content);
+        }
 
-            $rec = $request->getQueryParams();
-            $res = $db->AutoExecute("cursos", $rec, "UPDATE", "id_curso='$rec[id_curso]'");
-            $db->Close();
+        // Process other form data
+        $mainImageUrl = $data['mainImageUrl'];
+        $courseName = $data['courseName'];
+        $duration = $data['duration'];
+        $mode = $data['mode'];
+        $description = $data['description'];
+        $category = $data['category'];
+        $price = $data['price'];
+        $promoterId = $data['promoterName']; // Make sure this matches the form field name
 
-            $response->getBody()->write(strval($res));
-            return $response;
-        });
+        // Save to the database
+        $db = connection(); // Make sure connection() is defined and returns a PDO instance
+        $sql = "INSERT INTO cursos (name, duration, modalidad, category, price, promoter, img1, img2, img3) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $params = [
+            $courseName,
+            $duration,
+            $mode,
+            $category,
+            $price,
+            $promoterId,
+            $mainImageUrl,
+            $img2Base64,
+            $img3Base64
+        ];
+        $db->Execute($sql, $params);
 
-        // Eliminar curso
-        $app->delete('/eliminarCurso/{id}', function (Request $request, Response $response, array $args) {
-            $id = $args["id"];
-            $db = connection();
+        // Return a success response
+        $response->getBody()->write(json_encode(['status' => 'success']));
+        return $response->withHeader('Content-Type', 'application/json');
+    });
 
-            $sql = "DELETE FROM cursos WHERE id=$id";
 
-            if ($db->Execute($sql)) {
-                $res = 1;
-            } else {
-                $res = 0;
-            }
+    function moveUploadedFile($uploadedFile)
+    {
+        $directory = __DIR__ . '/uploads'; // Ensure this directory exists and is writable
+        $filename = sprintf('%s-%s', uniqid(), $uploadedFile->getClientFilename());
+        $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+        return $filename;
+    }
 
-            $response->getBody()->write(strval($res));
-            return $response;
-        });
+    // Actualizar cursos
+    $app->put('/actualizarCurso/{id}', function (Request $request, Response $response) {
+        $db = connection();
 
-        // Obtener todos los cursos 
-        $app->get('/obtenerTodosCursos', function (Request $request, Response $response) {
-            $db = connection();
-            $db->SetFetchMode("ADODB_FETCH_ASSOC");
+        $rec = $request->getQueryParams();
+        $res = $db->AutoExecute("cursos", $rec, "UPDATE", "id_curso='$rec[id_curso]'");
+        $db->Close();
 
-            $sql = "SELECT cursos.id, cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
+        $response->getBody()->write(strval($res));
+        return $response;
+    });
+
+    // Eliminar curso
+    $app->delete('/eliminarCurso/{id}', function (Request $request, Response $response, array $args) {
+        $id = $args["id"];
+        $db = connection();
+
+        $sql = "DELETE FROM cursos WHERE id=$id";
+
+        if ($db->Execute($sql)) {
+            $res = 1;
+        } else {
+            $res = 0;
+        }
+
+        $response->getBody()->write(strval($res));
+        return $response;
+    });
+
+    // Obtener todos los cursos 
+    $app->get('/obtenerTodosCursos', function (Request $request, Response $response) {
+        $db = connection();
+        $db->SetFetchMode("ADODB_FETCH_ASSOC");
+
+        $sql = "SELECT cursos.id, cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
                     promotores.name AS promotor, cursos.img1, COUNT(inscripciones.user_id) AS inscription_count FROM cursos 
                     JOIN promotores ON cursos.promoter = promotores.id 
                     LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
                     GROUP BY cursos.id, promotores.name;";
 
-            $res = $db->GetAll($sql);
-            $response->getBody()->write(json_encode($res));
-            return $response;
-        });
+        $res = $db->GetAll($sql);
+        $response->getBody()->write(json_encode($res));
+        return $response;
+    });
 
-        // Obtener ultimos 10 cursos
-        $app->get('/obtenerUltimosCursos', function (Request $request, Response $response) {
-            $db = connection();
-            $db->SetFetchMode("ADODB_FETCH_ASSOC");
+    // Obtener ultimos 10 cursos
+    $app->get('/obtenerUltimosCursos', function (Request $request, Response $response) {
+        $db = connection();
+        $db->SetFetchMode("ADODB_FETCH_ASSOC");
 
-            $sql = "SELECT cursos.id, cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
+        $sql = "SELECT cursos.id, cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
                     promotores.name AS promotor, cursos.img1, COUNT(inscripciones.user_id) AS inscription_count FROM cursos 
                     JOIN promotores ON cursos.promoter = promotores.id 
                     LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
                     GROUP BY cursos.id, promotores.name
                     LIMIT 10;";
 
-            $res = $db->GetAll($sql);
-            $response->getBody()->write(json_encode($res));
-            return $response;
-        });
+        $res = $db->GetAll($sql);
+        $response->getBody()->write(json_encode($res));
+        return $response;
+    });
 
 
-        // Filtrar cursos por categoria
-        $app->get('/filtrarCursos[/{category}]', function (Request $request, Response $response, $args) {
-            $category = $args['category'] ?? '';
-            $db = connection();
-            $db->SetFetchMode("ADODB_FETCH_ASSOC");
+    // Filtrar cursos por categoria
+    $app->get('/filtrarCursos[/{category}]', function (Request $request, Response $response, $args) {
+        $category = $args['category'] ?? '';
+        $db = connection();
+        $db->SetFetchMode("ADODB_FETCH_ASSOC");
 
-            // Build SQL query with filters
-            $sql = "SELECT cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
+        // Build SQL query with filters
+        $sql = "SELECT cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
                     promotores.name AS promotor, COUNT(inscripciones.user_id) AS inscription_count 
                     FROM cursos 
                     JOIN promotores ON cursos.promoter = promotores.id 
@@ -252,11 +252,11 @@ return function (App $app) {
                     WHERE (cursos.category LIKE ? OR ? = '') 
                     GROUP BY cursos.id, promotores.name;";
 
-            $params = ["%$category%", $category];
-            $res = $db->GetAll($sql, $params);
-            $response->getBody()->write(json_encode($res));
-            return $response;
-        });
+        $params = ["%$category%", $category];
+        $res = $db->GetAll($sql, $params);
+        $response->getBody()->write(json_encode($res));
+        return $response;
+    });
 
 
     // ENDPOINTS PROMOTORES
@@ -534,5 +534,134 @@ return function (App $app) {
             $response->getBody()->write(json_encode(['status' => 'error', 'message' => "Mailer Error: {$mail->ErrorInfo}"]));
             return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
+    });
+
+
+    //enviar correo para reset password.
+    $app->post('/reset-password-email-send', function (Request $request, Response $response, array $args) {
+        $data = $request->getParsedBody();
+
+        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $response->getBody()->write(json_encode(['status' => 'error', 'message' => 'Invalid email format']));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+        }
+
+        //obtener valor del email en el form
+        $email = $_POST["email"];
+
+        //crear random token value.
+        $token = bin2hex(random_bytes(16));
+
+        $token_hash = hash("sha256", $token);
+
+        //tiempo de validez para el reset token
+        $expiry = date("Y-m-d H:i:s", time() + 60 * 30);
+
+        $mysqli = require __DIR__ . "./backend/public/connection.php";
+
+        $sql = "UPDATE user
+        SET reset_token_hash = ?,
+            reset_token_expires_at = ?
+        WHERE email = ?";
+
+        $stmt = $mysqli->prepare($sql);
+
+        $stmt->bind_param("sss", $token_hash, $expiry, $email);
+
+        $stmt->execute();
+
+        require __DIR__ . "../vendor/autoload.php";
+
+        $mail = new PHPMailer(true);
+
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->Username = 'profegalleta8@gmail.com';
+        $mail->Password = 'mjgo mfpo bxvu xmss ';
+
+        $mail->isHTML(true);
+
+        return $mail;
+
+        if ($mysqli->affected_rows) {
+            $mail = require __DIR__ . "/mailer.php";
+
+            $mail->setFrom("profegalleta8@gmail.com");
+            $mail->addAddress($email);
+            $mail->Subject = "password reset";
+            $mail->Body = <<<END
+        
+            Click <a href="http://example.com/reset_password.php?$token">here</a>
+            to reset your password.
+        
+            END;
+
+            try {
+                $email->send();
+            } catch (Exception $e) {
+                echo "message could not be sent. Mailer error: {$mail->ErrorInfo}";
+            }
+        }
+
+        echo "message sent, check your inbox";
+    });
+
+    //endpoint procesar reset password y el form
+    $app->post('/reset-password-email-process', function (Request $request, Response $response, array $args) {
+        $data = $request->getParsedBody();
+        //script para procesar el reset de la contrasena
+        $token = $_GET["token"];
+
+        //obtener el has del password que se guardo
+        $token_hash = hash("sha256", $token);
+
+        //conexion a la base de datos
+        $mysqli = require __DIR__ . "./backend/public/connection.php";
+
+        //seleccionar el valor especifico en la database que tenga el token hash
+        $sql = "SELECT * FROM user
+        WHERE reset_token_hash = ?";
+
+
+        $stmt = $mysqli->prepare($sql);
+
+        $stmt->bind_param("s", $token_hash);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        $user = $result->fetch_assoc();
+
+        if ($user === null) {
+            die("token no encontrado");
+        }
+
+        //ver si el token todavia no ha vencido por el tiempo
+        if (strtotime($user["reset_token_expires_at"]) <= time()) {
+        }
+
+        $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+
+        $sql = "UPDATE user
+        SET password_hash = ?,
+            reset_token_hash = NULL,
+            reset_token_expires_at = NULL
+        WHERE cedula = ?";
+
+        $stmt = $mysqli->prepare($sql);
+
+        $stmt->bind_param("ss", $password_hash, $user["cedula"]);
+
+        $stmt->execture();
+
+        echo "Contraseña actualizada. Puedes volver a entrar con la nueva contraseña";
+        
     });
 };
