@@ -1,19 +1,193 @@
 @import url(general.css);
 
-.card{
-    width: 100%;
-    margin: 20px;
-    border-radius: 6px;
+.intro {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.intro h2 {
+    font-size: 2.4rem;
+    color: var(--colorPrincipal);
+}
+
+.intro p {
+    font-size: 1.2rem;
+    color: var(--colorTexto);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.cta .btn {
+    margin: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cta .btn-primary {
+    background-color: var(--colorPrincipal);
+    color: #fff;
+}
+
+.cta .btn-primary:hover {
+    background-color: darken(var(--colorPrincipal), 10%);
+}
+
+.cta .btn-secondary {
+    background-color: var(--colorSecundario);
+    color: #fff;
+}
+
+.cta .btn-secondary:hover {
+    background-color: darken(var(--colorSecundario), 10%);
+}
+
+/* Preguntas Frecuentes (FAQ) */
+.faq {
+    margin: 2rem 0;
+    text-align: center; /* Centrar todo el contenido de la sección */
+}
+
+.faq h2 {
+    font-size: 2rem;
+    color: var(--colorPrincipal);
+    margin-bottom: 1rem;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--colorNeutro);
+    border-radius: 8px;
+    background: var(--colorNeutro);
+    text-align: center; /* Centrar el contenido dentro de cada ítem */
+}
+
+.faq-item h4 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--colorPrincipal);
+}
+
+.faq-item p {
+    margin: 0.5rem 0 0 0;
+    font-size: 1.1rem;
+    color: var(--colorTexto);
+}
+
+/* Información de Contacto */
+.contacto {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.contacto h2 {
+    font-size: 2rem;
+    color: var(--colorPrincipal);
+    margin-bottom: 1rem;
+}
+
+.contacto p {
+    font-size: 1.2rem;
+    color: var(--colorTexto);
+}
+
+.contacto .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.contacto .btn-primary {
+    background-color: var(--colorPrincipal);
+    color: #fff;
+}
+
+.contacto .btn-primary:hover {
+    background-color: darken(var(--colorPrincipal), 10%);
+}
+
+/* Recursos Adicionales */
+.recursos {
+    margin: 2rem 0;
+    text-align: center; /* Centrar todo el contenido de la sección */
+}
+
+.recursos h2 {
+    font-size: 2rem;
+    color: var(--colorPrincipal);
+    margin-bottom: 1rem;
+}
+
+.recursos ul {
+    list-style: none;
+    padding: 0;
+    text-align: center; /* Centrar el contenido de la lista */
+}
+
+.recursos li {
+    margin-bottom: 0.5rem;
+}
+
+.recursos a {
+    color: var(--colorPrincipal);
+    text-decoration: underline;
+    font-size: 1.1rem;
+}
+
+.recursos a:hover {
+    color: darken(var(--colorPrincipal), 10%);
+}
+
+/* Tarjetas */
+.card {
+    width: calc(100% - 40px);
+    margin: 20px auto;
+    border-radius: 16px;
     overflow: hidden;
-    background: #9fd8e1;
-    box-shadow: 0px 1px 10px var(--coloSecundario);
-    cursor: default;
-    transition: all 400ms ease;
+    background: var(--colorContraste);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 300ms ease;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 500px; /* Ajusta la altura de las tarjetas */
 }
 
-.card:hover{
-    box-shadow: var(#61baca);
-    transform: translateY(-8%);
+.card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px);
+    background: var(--colorPrincipal);
+    color: var(--colorSecundario);
 }
 
+.card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.8rem;
+    color: var(--colorSecundario);
+    text-align: center;
+}
 
+.card p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--colorSecundario);
+    text-align: center;
+    flex: 1; /* Permite que el texto se ajuste y ocupe el espacio disponible */
+}
+
+.card:focus {
+    outline: 3px solid var(--colorPrincipal);
+    outline-offset: 4px;
+}
