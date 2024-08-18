@@ -25,7 +25,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-img-top">
-                    <img src="img/online.jpg" alt="Imagen 2" class="img-fluid">
+                    <img src="img/certificacion2.jpeg" alt="Imagen 2" class="img-fluid">
                 </div>
                 <div class="card-body">
                     <h3 class="card-title">Certificación C1</h3>
@@ -36,7 +36,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-img-top">
-                    <img src="img/asincronica.jpg" alt="Imagen 3" class="img-fluid">
+                    <img src="img/words.png" alt="Imagen 3" class="img-fluid">
                 </div>
                 <div class="card-body">
                     <h3 class="card-title">Vocabulario Actualizado</h3>
