@@ -665,6 +665,7 @@ return function (App $app) {
         echo "Contraseña actualizada. Puedes volver a entrar con la nueva contraseña";
         
     });
+    
     //ENDPOINTS NOTICIAS
 
     // guardar noticias
@@ -709,20 +710,18 @@ return function (App $app) {
         return $response;
     });
 
-    //obtener noticias
-    $app->get('/obtenerNoticias', function (Request $request, Response $response) {
+    //obtener ultimas noticias
+    $app->get('/obtenerUltimasNoticias', function (Request $request, Response $response) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
     
-        $sql = "SELECT * FROM noticias";
+        $sql = "SELECT id, titulo, descripcion, img, fecha 
+                FROM noticias
+                ORDER BY fecha DESC
+                LIMIT 10;";
     
-        try {
-            $res = $db->GetAll($sql);
-            $response->getBody()->write(json_encode($res));
-        } catch (Exception $e) {
-            $response->getBody()->write(json_encode(['error' => $e->getMessage()]));
-        }
-    
+        $res = $db->GetAll($sql);
+        $response->getBody()->write(json_encode($res));
         return $response;
     });
     
