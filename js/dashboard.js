@@ -21,18 +21,19 @@ function loadCourses() {
             let rows = '';
             data.forEach(course => {
                 rows += `
-                            <div class="col-md-4 mb-4">
-                                <div class="card course-card">
-                                    <img width="96" height="96" src="${course.img1}" alt="${course.name}"/>
-                                    <div class="card-body">
-                                        <h5 class="card-title">${course.name}</h5>
-                                        <div class="d-flex justify-content-between">
-                                        <button id="btnCourseInfo" class="btn btn-info btn-sm">Info</button>
-                                        <button id="btnDeleteCourse" class="btn btn-danger btn-sm" data-id="${course.id}">Delete</button>
-                                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                        <div class="card course-card h-100">
+                            <img class="card-img-top rounded-circle mx-auto d-block mt-3" src="${course.img1}" alt="${course.name}" style="width: 96px; height: 96px; object-fit: cover;" />
+                            <div class="card-body d-flex flex-column text-center">
+                                <h5 class="card-title">${course.name}</h5>
+                                <div class="mt-auto d-flex justify-content-between">
+                                    <button class="btn btn-info btn-sm">Info</button>
+                                    <button class="btn btn-danger btn-sm" data-id="${course.id}">Delete</button>
                                 </div>
                             </div>
-                        `;
+                        </div>
+                    </div>
+                `;
             });
             $('#coursesCards').html(rows);
         }
@@ -365,7 +366,7 @@ $('#newCourseForm').on('submit', function (event) {
     refreshCourses();
 });
 
-$("#exportPdf").click(function (e) { 
+$("#exportPdf").click(function (e) {
     e.preventDefault();
     exportTableToPDF();
 });
