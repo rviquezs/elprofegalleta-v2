@@ -74,6 +74,6 @@
 </div>
 
 <?php include __DIR__ . "/oferta_academica.php" ?>
-<?php include __DIR__ . "/noticias.php" ?>
+
 
 <script src="index.js"></script>
