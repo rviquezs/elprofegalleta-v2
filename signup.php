@@ -26,9 +26,10 @@
                             <div class="mb-3">
                                 <label for="password" class="form-label">Contraseña:</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
-                                <button id="togglePasswordSignup" type="button" class="btn btn-outline-secondary btn-sm position-absolute top-50 end-0 translate-middle-y me-2">
+                                <!-- Añadir boton de toggle password visibility -->
+                                <!-- <button id="togglePasswordSignup" type="button" class="btn btn-outline-secondary btn-sm position-absolute top-50 end-0 translate-middle-y me-2">
                                     <i class="bi bi-eye"></i>
-                                </button>
+                                </button> -->
                                 <div class="mb-3">
                                     <label for="telefono" class="form-label">Teléfono:</label>
                                     <input type="tel" class="form-control" id="telefono" name="telefono">
