@@ -19,4 +19,4 @@ $mail->Password = "SuperSecurePassword";
 
 $mail->isHTML(true);
 
-return $mail;
+return $mail; 

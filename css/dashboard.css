@@ -1,74 +1,141 @@
-/* @import url(general.css); */
+@import url(general.css);
 
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    margin: 0;
-}
-.header {
-    background-color: #343a40;
-    color: white;
-    padding: 15px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000; /* Ensure header is above sidebar */
-}
+/* Sidebar */
+
 .sidebar {
-    height: 100vh;
     width: 250px;
     position: fixed;
-    top: 60px; /* Adjust if header height changes */
+    top: 60px; /* Adjust according to your header height */
     left: 0;
-    background-color: #343a40;
-    padding-top: 20px;
-    z-index: 999; /* Sidebar below header */
-}
-.sidebar a {
-    color: white;
-    display: block;
+    background-color: var(--colorSecundario);
     padding: 15px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.sidebar-link {
+    display: block;
+    color: white;
+    padding: 10px 15px;
+    margin-bottom: 10px;
     text-decoration: none;
+    transition: background-color 0.3s ease;
 }
-.sidebar a:hover {
-    background-color: #495057;
+
+.sidebar-link:hover {
+    background-color: var(--colorPrincipal);
+    font-weight: bold;
 }
+
+/* Content */
 .content {
-    margin-left: 250px;
+    margin-left: 270px; /* Adjust according to sidebar width */
     padding: 20px;
-    margin-top: 60px; /* Same as header height to avoid overlap */
-    flex: 1;
 }
-.course-card {
+
+/* Tables */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: var(--colorNeutro);
+}
+
+.table-striped tbody tr:hover {
+    background-color: var(--colorContraste);
+}
+
+/* Modals */
+.modal-content {
+    background-color: var(--colorNeutro);
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: var(--colorSecundario);
+    color: white;
+    border-bottom: none;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal-footer {
+    border-top: none;
+    padding-top: 20px;
+}
+
+.modal-footer .btn-secondary {
+    background-color: var(--colorSecundario);
+}
+
+/* Collapse Sections */
+.collapse.show {
     margin-bottom: 20px;
 }
-.card-actions {
-    margin-top: 10px;
+
+.collapse h2 {
+    margin-bottom: 20px;
 }
 
-    #coursesList {
-        max-width: 800px; /* Adjust the maximum width as needed */
-        margin: 0 auto;   /* Center the container */
-        padding: 20px;    /* Add padding if needed */
-    }
+/* Buttons */
+#newCourseBtn {
+    margin-bottom: 20px;
+}
 
-    .course-card {
-        margin-bottom: 20px; /* Add space between cards */
-        border: 1px solid #ddd; /* Add border to card */
-        border-radius: 8px; /* Add rounded corners */
-        overflow: hidden; /* Ensure content doesn't overflow */
-    }
+/* Form Elements */
+.form-label {
+    font-weight: bold;
+    color: var(--colorTexto);
+}
 
-    .course-card img {
-        max-width: 100%; /* Ensure image fits within card */
-        height: auto;    /* Maintain aspect ratio */
-    }
+.form-control {
+    border: 1px solid var(--colorPrincipal);
+    border-radius: 4px;
+    padding: 10px;
+}
 
-    .card-body {
-        padding: 15px; /* Adjust padding inside card */
-    }
+.form-control:focus {
+    border-color: var(--colorSecundario);
+    box-shadow: 0 0 5px rgba(28, 131, 127, 0.5);
+}
 
-    .card-actions {
-        margin-top: 10px; /* Add space above action buttons */
-    }
+.form-select {
+    border: 1px solid var(--colorPrincipal);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.form-select:focus {
+    border-color: var(--colorSecundario);
+    box-shadow: 0 0 5px rgba(28, 131, 127, 0.5);
+}
+
+/* Table Styling */
+.table {
+    border: 1px solid var(--colorContraste);
+    background-color: var(--colorNeutro);
+    border-radius: 8px;
+}
+
+.table thead th {
+    background-color: var(--colorSecundario);
+    color: white;
+    text-align: left;
+    padding: 10px;
+}
+
+.table tbody td {
+    padding: 10px;
+}
+
+#filterForm .form-label {
+    font-weight: bold;
+    color: var(--colorTexto);
+}
+
+/* Courses Cards */

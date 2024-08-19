@@ -1,4 +1,4 @@
-// Call the function on page load
+
 $(document).ready(function() {
     loadPrograms();
 });
@@ -17,7 +17,7 @@ function loadPrograms() {
                             <img width="96" height="96" src="${program.img1}" alt="${program.name}"/>
                             <h3>${program.name}</h3>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="detalles_curso.php?${program.id}">
+                                <a href="detalles_curso.php?id=${program.id}">
                                     <button class="btn btn-primary me-md-2" type="button">Ver más</button>
                                 </a>
                             </div>

@@ -1,5 +1,4 @@
 <?php
-//script para enviar el email que contiene el token y el reset link
 
 $email = $_POST["email"];
 
@@ -32,7 +31,7 @@ if($mysqli->affected_rows){
     $mail->Subject = "password reset";
     $mail->Body = <<<END
 
-    Click <a href="http://example.com/reset_password.php?$token">here</a>
+    Click <a href="http://example.com/reset-password.php?$token">here</a>
     to reset your password.
 
     END;

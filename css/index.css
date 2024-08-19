@@ -1,22 +1,55 @@
-@import url(general.css);
+@import url('general.css');
 
-h2{
+/* Estilo para los encabezados */
+h2 {
     text-align: center;
     padding: 2rem;
+    font-size: 2rem;
+    color: var(--colorSecundario);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
 }
 
-p{
+h2::after {
+    content: '';
+    width: 80px;
+    height: 4px;
+    background-color: var(--colorContraste);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+p {
     text-align: justify;
+    line-height: 1.7;
+    margin: 1rem 0;
+    color: #555;
 }
 
-/* About Section 
+/* Sección About */
+.about-section {
+    padding: 4rem 2rem;
+    background-color: var(--colorNeutro);
+    color: var(--colorTexto);
+    text-align: center;
+}
 
-TODO: Alinear al centro el texto de Nuestra Historia / Nuestra Mision.. 
+.about-section h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--colorSecundario);
+}
 
-*/
+.about-section p {
+    max-width: 800px;
+    margin: 0 auto;
+}
 
-/* Programas Academicos */
-
+/* Programas Académicos */
 .program-card {
     padding: 1.5rem;
     display: flex;
@@ -24,38 +57,79 @@ TODO: Alinear al centro el texto de Nuestra Historia / Nuestra Mision..
     justify-content: space-between;
     width: 100%;
     margin: 20px;
-    border-radius: 6px;
+    border-radius: 12px;
     overflow: hidden;
     background: var(--colorContraste);
-    box-shadow: 0px 1px 10px var(--colorSecundario);
-    cursor: default;
-    transition: all 600ms ease;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
 }
 
-.program-card:hover{
-    box-shadow: var(--colorSecundario);
-    transform: translateY(-8%);
+.program-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .program-card .content p {
-    line-height: 1.5;
-    color: #6a6a6a;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 0;
 }
 
-
-
-/* News Section 
-
-TODO: Centrar el card de noticias al centro
-
-*/
-
-.card{
-    align-self: center;
-}
-
+/* Contenedor de noticias */
 #noticias-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 2rem;
+    background-color: var(--colorNeutro);
+}
+
+.card {
+    margin: 15px;
+    width: 20rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 1.5rem;
+    background-color: #fff;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    color: var(--colorSecundario);
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.25rem;
+}
+
+.card-link {
+    color: var(--colorSecundario);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.card-link:hover {
+    border-color: var(--colorSecundario);
 }

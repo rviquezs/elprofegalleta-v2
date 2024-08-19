@@ -20,7 +20,7 @@
 
         <div class="col-md-6 mb-4">
             <div class="card">
-                <img src="img/individual.jpg" class="card-img-top" alt="Clases Individuales">
+                <img src="img/lenguajes.webp" class="card-img-top" alt="Clases Individuales">
                 <div class="card-body">
                     <h2 class="card-title"><a href="#">Clases Individuales</a></h2>
                     <p class="card-text">Personaliza tu aprendizaje con clases individuales adaptadas a tus necesidades específicas y objetivos personales.</p>
@@ -31,7 +31,7 @@
 
         <div class="col-md-6 mb-4">
             <div class="card">
-                <img src="img/examen.png" class="card-img-top" alt="Preparación para Exámenes">
+                <img src="img/examen.avif" class="card-img-top" alt="Preparación para Exámenes">
                 <div class="card-body">
                     <h2 class="card-title"><a href="#">Preparación para Exámenes</a></h2>
                     <p class="card-text">Prepárate con nuestros cursos intensivos y específicos para los exámenes TOEFL, IELTS, TestDaF, CELPE-Bras y DELF diseñados para maximizar tu puntuación.</p>

@@ -40,8 +40,8 @@
 
 * **Templates/Oferta Académica:**
   
-  * [ ] (8.1) Las tarjetas de curso deben ser generadas dinámicamente mediante AJAX con información de la base de datos. (Slim/PHP, JS AJAX)
-  * [ ] (8.2) Cambiar el href de Ver Más para los cursos a oferta_academica/detalle_curso. (HTML)
+  * [x] (8.1) Las tarjetas de curso deben ser generadas dinámicamente mediante AJAX con información de la base de datos. (Slim/PHP, JS AJAX)
+  * [x] (8.2) Cambiar el href de Ver Más para los cursos a oferta_academica/detalle_curso. (HTML)
 
 * **Templates/Oferta Académica/Detalles Curso:**
   
@@ -67,7 +67,7 @@
 
 **Templates/Signup:**
 
-* [ ] (4.1) Revisar estilos del encabezado. (CSS)
+* [x] (4.1) Revisar estilos del encabezado. (CSS)
 * [x] (4.2) Añadir campos para información: (Bootstrap)
 
 **Templates/AdminDashboard:**

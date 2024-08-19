@@ -1,29 +1,67 @@
-<?php include "shared/header.php" ?>
+<?php include "shared/header.php"; ?>
 
 <main>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8">
-                <h2>Nombre del Curso</h2>
-                <p><strong>Descripción:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla fermentum faucibus ipsum a hendrerit. Vestibulum eget turpis eu urna posuere congue. Suspendisse potenti.</p>
-                <p><strong>Fecha de Inicio:</strong> 1 de agosto de 2024</p>
-                <p><strong>Duración:</strong> 12 semanas</p>
-                <p><strong>Instructor:</strong> Nombre del Instructor</p>
-                <p><strong>Precio:</strong> $200 USD</p>
-                <p><strong>Requisitos:</strong> Conocimientos básicos de HTML y CSS</p>
+                <?php
+                if (isset($_GET['id'])) {
+                    $courseId = $_GET['id'];
+
+                    $conn = new mysqli('localhost', 'root', '', 'elprofegalleta');
+
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT * FROM cursos WHERE id = ?";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("i", $courseId);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        echo "<h2>" . htmlspecialchars($row["name"]) . "</h2>";
+
+                        echo "<div class='course-details'>";
+                        echo "<div class='details-card'>";
+                        echo "<p><strong>Duración:</strong> " . htmlspecialchars($row["duration"]) . " semanas</p>";
+                        echo "<p><strong>Modalidad:</strong> " . htmlspecialchars($row["modalidad"]) . "</p>";
+                        echo "<p><strong>Categoría:</strong> " . htmlspecialchars($row["category"]) . "</p>";
+                        echo "<p><strong>Precio:</strong> $" . htmlspecialchars($row["price"]) . " USD</p>";
+                        echo "<p><strong>Promotor:</strong> " . htmlspecialchars($row["promoter"]) . "</p>";
+                        echo "<img src='" . htmlspecialchars($row["img1"]) . "' alt='" . htmlspecialchars($row["name"]) . "' class='flag-img' />";
+                        echo "<img src='data:image/png;base64," . htmlspecialchars($row["img2"]) . "' alt='" . htmlspecialchars($row["name"]) . "' class='flag-img' />";
+                        echo "</div>";
+                        echo "</div>";
+                    } else {
+                        echo "<div class='alert alert-danger'>No se encontró el curso solicitado.</div>";
+                    }
+
+                    $stmt->close();
+                    $conn->close();
+                } else {
+                    echo "<div class='alert alert-danger'>No se proporcionó un ID de curso.</div>";
+                }
+                ?>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img src="img/curso.jpg" class="card-img-top" alt="Imagen del Curso">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre del Curso</h5>
-                        <p class="card-text">Precio: $200 USD</p>
-                        <a href="#" class="btn btn-primary">Inscribirse</a>
-                    </div>
+                    <?php
+                    if (isset($row)) {
+                        echo "<img src='" . htmlspecialchars($row["img1"]) . "' class='card-img-top' alt='" . htmlspecialchars($row["name"]) . "' />";
+                        echo "<div class='card-body'>";
+                        echo "<h5 class='card-title'>" . htmlspecialchars($row["name"]) . "</h5>";
+                        echo "<p class='card-text'>Precio: $" . htmlspecialchars($row["price"]) . " USD</p>";
+                        echo "<a href='contact.php' class='btn btn-primary'>Contáctenos</a>";
+                        echo "</div>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 </main>
 
-<?php include "shared/footer.php" ?>
+<?php include "shared/footer.php"; ?>
