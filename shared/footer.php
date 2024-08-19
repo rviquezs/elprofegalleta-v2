@@ -50,6 +50,12 @@ switch ($url) {
     case 'oferta_academica':
         echo "<script src=js/oferta_academica.js></script>";
         break;
+    case 'recover_password':
+        echo "<script src=js/recover_password.js></script>";
+        break;
+    case 'reset_password':
+        echo "<script src=js/reset_password.js></script>";
+        break;
 }
 ?>
 
