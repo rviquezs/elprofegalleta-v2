@@ -5,7 +5,7 @@ $("#btnregistrar").click(function (e) {
     peticionGuardar(datos);
 
 
-});
+}); 
 
 function peticionGuardar(datos) {
     const url = `http://localhost:8080/crearUsuario?${datos}`
