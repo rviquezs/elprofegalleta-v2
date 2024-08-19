@@ -21,9 +21,9 @@
                     $result = $stmt->get_result();
 
                     if ($result->num_rows > 0) {
-                        $row = $result->fetch_assoc(); 
+                        $row = $result->fetch_assoc();
                         echo "<h2>" . htmlspecialchars($row["name"]) . "</h2>";
-                        
+
                         echo "<div class='course-details'>";
                         echo "<div class='details-card'>";
                         echo "<p><strong>Duración:</strong> " . htmlspecialchars($row["duration"]) . " semanas</p>";
@@ -32,6 +32,7 @@
                         echo "<p><strong>Precio:</strong> $" . htmlspecialchars($row["price"]) . " USD</p>";
                         echo "<p><strong>Promotor:</strong> " . htmlspecialchars($row["promoter"]) . "</p>";
                         echo "<img src='" . htmlspecialchars($row["img1"]) . "' alt='" . htmlspecialchars($row["name"]) . "' class='flag-img' />";
+                        echo "<img src='data:image/png;base64," . htmlspecialchars($row["img2"]) . "' alt='" . htmlspecialchars($row["name"]) . "' class='flag-img' />";
                         echo "</div>";
                         echo "</div>";
                     } else {
@@ -64,5 +65,3 @@
 </main>
 
 <?php include "shared/footer.php"; ?>
-
-
