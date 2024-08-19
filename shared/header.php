@@ -68,15 +68,15 @@ $url = basename($_SERVER["PHP_SELF"], ".php");
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="dropdownCheck">
                                     <label class="form-check-label" for="dropdownCheck">
-                                        Remember me
+                                        Recordarme
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
                         </form>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="signup.php">Registrarse</a>
-                        <a class="dropdown-item" href="recover_password.php">Olividó su contraseña?</a>
+                        <a class="dropdown-item" href="recover_password.php">Olvidó su contraseña?</a>
                     </div>
                 </div>
             </div>
