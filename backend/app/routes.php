@@ -540,131 +540,90 @@ return function (App $app) {
 
     //enviar correo para reset password.
     $app->post('/reset-password-email-send', function (Request $request, Response $response, array $args) {
-        $data = $request->getParsedBody();
+        
 
-        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $response->getBody()->write(json_encode(['status' => 'error', 'message' => 'Invalid email format']));
-            return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
+        $conn = new mysqli("smtp.gmail.com", "profegalleta8@gmail.com", "'mjgo mfpo bxvu xmss ", "elprofegalleta");
+        
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
         }
-
-        //obtener valor del email en el form
-        $email = $_POST["email"];
-
-        //crear random token value.
-        $token = bin2hex(random_bytes(16));
-
-        $token_hash = hash("sha256", $token);
-
-        //tiempo de validez para el reset token
-        $expiry = date("Y-m-d H:i:s", time() + 60 * 30);
-
-        $mysqli = require __DIR__ . "./backend/public/connection.php";
-
-        $sql = "UPDATE user
-        SET reset_token_hash = ?,
-            reset_token_expires_at = ?
-        WHERE email = ?";
-
-        $stmt = $mysqli->prepare($sql);
-
-        $stmt->bind_param("sss", $token_hash, $expiry, $email);
-
+        
+        $email = $_POST['email'];
+        
+        // Check if email exists in database
+        $sql = "SELECT id FROM users WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
         $stmt->execute();
-
-        require __DIR__ . "../vendor/autoload.php";
-
-        $mail = new PHPMailer(true);
-
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->Username = 'profegalleta8@gmail.com';
-        $mail->Password = 'mjgo mfpo bxvu xmss ';
-
-        $mail->isHTML(true);
-
-        return $mail;
-
-        if ($mysqli->affected_rows) {
-            $mail = require __DIR__ . "/mailer.php";
-
-            $mail->setFrom("profegalleta8@gmail.com");
-            $mail->addAddress($email);
-            $mail->Subject = "password reset";
-            $mail->Body = <<<END
+        $stmt->store_result();
         
-            Click <a href="http://example.com/reset_password.php?$token">here</a>
-            to reset your password.
+        if ($stmt->num_rows > 0) {
+            // Generate a random token
+            $token = bin2hex(random_bytes(32));
         
-            END;
+            // Update user's reset token in database
+            $sql = "UPDATE users SET reset_token = ? WHERE email = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $token, $email);
+            $stmt->execute();
+        
 
-            try {
-                $email->send();
-            } catch (Exception $e) {
-                echo "message could not be sent. Mailer error: {$mail->ErrorInfo}";
-            }
+            $mail = new PHPMailer(true);
+
+            $mail->isSMTP();  
+            $mail->Host = 'smtp.gmail.com';  
+            $mail->SMTPAuth = true;  
+            $mail->Username = 'profegalleta8@gmail.com';  
+            $mail->Password = 'mjgo mfpo bxvu xmss '; 
+            $mail->SMTPSecure = 'tls'; 
+            $mail->Port = 587;              
+
+            // Recipients
+            $mail->setFrom('profegalleta8@gmail.com', 'noreply');
+            $mail->addAddress('profegalleta8@gmail.com', 'noreply');
+
+            // Content
+            $mail->isHTML(true);                                    
+            $mail->Subject = "Password Reset";
+            $mail->Body    = "Click here href= http://localhost:8080/reset_password to reset your password";
+        
+            echo json_encode(['message' => 'Reset link sent successfully']);
+        } else {
+            echo json_encode(['message' => 'Email not found']);
         }
+        
+        $stmt->close();
+        $conn->close();
 
-        echo "message sent, check your inbox";
     });
 
     //endpoint procesar reset password y el form
     $app->post('/reset-password-email-process', function (Request $request, Response $response, array $args) {
-        $data = $request->getParsedBody();
-        //script para procesar el reset de la contrasena
-        $token = $_GET["token"];
 
-        //obtener el has del password que se guardo
-        $token_hash = hash("sha256", $token);
-
-        //conexion a la base de datos
-        $mysqli = require __DIR__ . "./backend/public/connection.php";
-
-        //seleccionar el valor especifico en la database que tenga el token hash
-        $sql = "SELECT * FROM user
-        WHERE reset_token_hash = ?";
-
-
-        $stmt = $mysqli->prepare($sql);
-
-        $stmt->bind_param("s", $token_hash);
-
-        $stmt->execute();
-
-        $result = $stmt->get_result();
-
-        $user = $result->fetch_assoc();
-
-        if ($user === null) {
-            die("token no encontrado");
+        $conn = new mysqli("smtp.gmail.com", "profegalleta8@gmail.com", "'mjgo mfpo bxvu xmss ", "elprofegalleta");
+        
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
         }
-
-        //ver si el token todavia no ha vencido por el tiempo
-        if (strtotime($user["reset_token_expires_at"]) <= time()) {
+        
+        $token = $_POST['token'];
+        $newPassword = password_hash($_POST['new_password'], PASSWORD_DEFAULT); // Secure password hashing
+        
+        // Update password in database
+        $sql = "UPDATE users SET password = '$newPassword' WHERE reset_token = '$token'";
+        
+        if ($conn->query($sql) === TRUE) {
+            echo "Contraseña actualizada. Puedes volver a entrar con la nueva contraseña";
+            
+        } else {
+            echo "Error updating password: " . $conn->error;
         }
-
-        $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
-
-        $sql = "UPDATE user
-        SET password_hash = ?,
-            reset_token_hash = NULL,
-            reset_token_expires_at = NULL
-        WHERE cedula = ?";
-
-        $stmt = $mysqli->prepare($sql);
-
-        $stmt->bind_param("ss", $password_hash, $user["cedula"]);
-
-        $stmt->execture();
-
-        echo "Contraseña actualizada. Puedes volver a entrar con la nueva contraseña";
+        
+        $conn->close();
         
     });
+
+    
     //ENDPOINTS NOTICIAS
 
     // guardar noticias
@@ -709,20 +668,18 @@ return function (App $app) {
         return $response;
     });
 
-    //obtener noticias
-    $app->get('/obtenerNoticias', function (Request $request, Response $response) {
+    //obtener ultimas noticias
+    $app->get('/obtenerUltimasNoticias', function (Request $request, Response $response) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
     
-        $sql = "SELECT * FROM noticias";
+        $sql = "SELECT id, titulo, descripcion, img, fecha 
+                FROM noticias
+                ORDER BY fecha DESC
+                LIMIT 10;";
     
-        try {
-            $res = $db->GetAll($sql);
-            $response->getBody()->write(json_encode($res));
-        } catch (Exception $e) {
-            $response->getBody()->write(json_encode(['error' => $e->getMessage()]));
-        }
-    
+        $res = $db->GetAll($sql);
+        $response->getBody()->write(json_encode($res));
         return $response;
     });
     

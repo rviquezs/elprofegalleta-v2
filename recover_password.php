@@ -7,16 +7,14 @@
         <div class="container">
             <h1 class="title"> Recuperar contraseña</h1>
 
-            <form method="POST">
-                <label for="email">email</label>
-                <input type="email" name="email" id="email">
-
-                <button class="btn btn-primary">Enviar</button>
-
+            <form id="frmResetPassword">
+                <input type="email" id="email" placeholder="Your email">
+                <button type="submit">Send Reset Link</button>
             </form>
+            <div id="response"></div>
 
         </div>
     </body>
 </main>
 
-<?php include "shared/footer.php" ?> 
+<?php include "shared/footer.php" ?>

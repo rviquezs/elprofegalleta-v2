@@ -1,4 +1,3 @@
-// Call the function on page load
 $(document).ready(function() {
     loadNews();
 });
@@ -18,12 +17,11 @@ function loadNews() {
                             <h3>${news.title}</h3>
                             <p>${news.description}</p>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="detalles_noticia.php?${news.id}">
+                                <a href="detalles_noticia.php?id=${news.id}">
                                     <button class="btn btn-primary me-md-2" type="button">Leer más</button>
                                 </a>
                             </div>
-                        </div>
-                    `;
+                        </div>`;
                 });
                 $('#newsContainer').html(cards);
             } else {

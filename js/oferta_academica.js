@@ -1,4 +1,4 @@
-// Call the function on page load
+
 $(document).ready(function() {
     loadPrograms();
 });

@@ -54,7 +54,7 @@
                         echo "<div class='card-body'>";
                         echo "<h5 class='card-title'>" . htmlspecialchars($row["name"]) . "</h5>";
                         echo "<p class='card-text'>Precio: $" . htmlspecialchars($row["price"]) . " USD</p>";
-                        echo "<a href='#' class='btn btn-primary'>Inscribirse</a>";
+                        echo "<a href='contact.php' class='btn btn-primary'>Contáctenos</a>";
                         echo "</div>";
                     }
                     ?>
