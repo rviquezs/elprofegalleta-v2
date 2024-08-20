@@ -644,7 +644,7 @@ return function (App $app) {
         $db = connection();
 
         $rec = $request->getQueryParams();
-        $res = $db->AutoExecute("noticias", $rec, "UPDATE", "id='$rec[id]'");
+        $res = $db->AutoExecute("noticias", $rec, "UPDATE", "id_noticia='$rec[id_noticia]'");
         $db->Close();
 
         $response->getBody()->write(strval($res));
@@ -652,11 +652,11 @@ return function (App $app) {
     });
 
     // eliminar noticias
-    $app->delete('/eliminarNoticia/{id}', function (Request $request, Response $response, array $args) {
-        $id = $args["id"];
+    $app->delete('/eliminarNoticia/{id_noticia}', function (Request $request, Response $response, array $args) {
+        $id_noticia = $args["id_noticia"];
         $db = connection();
 
-        $sql = "DELETE FROM noticias WHERE cedula='$id'";
+        $sql = "DELETE FROM noticias WHERE id_noticia='$id_noticia'";
 
         if ($db->Execute($sql)) {
             $res = 1;
@@ -673,8 +673,7 @@ return function (App $app) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
     
-        $sql = "SELECT id, titulo, descripcion, img, fecha 
-                FROM noticias
+        $sql = "SELECT * FROM noticias
                 ORDER BY fecha DESC
                 LIMIT 10;";
     
@@ -682,5 +681,62 @@ return function (App $app) {
         $response->getBody()->write(json_encode($res));
         return $response;
     });
+
+    //ENDPOINTS TESTIMONIOS
+
+    // guardar noticias
+    $app->post('/guardarNoticia', function (Request $request, Response $response) {
+        $db = connection();
+
+        $rec = $request->getQueryParams();
+
+        $res = $db->AutoExecute("noticias", $rec, "INSERT");
+        $db->Close();
+
+        $response->getBody()->write(strval($res));
+        return $response;
+    });
+
+    // actualizar noticias
+    $app->put('/actualizarNoticia', function (Request $request, Response $response) {
+        $db = connection();
+
+        $rec = $request->getQueryParams();
+        $res = $db->AutoExecute("noticias", $rec, "UPDATE", "id_noticia='$rec[id_noticia]'");
+        $db->Close();
+
+        $response->getBody()->write(strval($res));
+        return $response;
+    });
+
+    // eliminar noticias
+    $app->delete('/eliminarNoticia/{id_noticia}', function (Request $request, Response $response, array $args) {
+        $id_noticia = $args["id_noticia"];
+        $db = connection();
+
+        $sql = "DELETE FROM noticias WHERE id_noticia='$id_noticia'";
+
+        if ($db->Execute($sql)) {
+            $res = 1;
+        } else {
+            $res = 0;
+        }
+
+        $response->getBody()->write(strval($res));
+        return $response;
+    });
+
+    //obtener ultimas noticias
+    $app->get('/obtenerUltimasNoticias', function (Request $request, Response $response) {
+        $db = connection();
+        $db->SetFetchMode("ADODB_FETCH_ASSOC");
     
+        $sql = "SELECT * FROM noticias
+                ORDER BY fecha DESC
+                LIMIT 10;";
+    
+        $res = $db->GetAll($sql);
+        $response->getBody()->write(json_encode($res));
+        return $response;
+    });
 };

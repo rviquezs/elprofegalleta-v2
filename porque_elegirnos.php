@@ -39,42 +39,4 @@
             </div>
         </div>
 
-        <!-- Testimonios -->
-        <div class="testimonials mt-5">
-            <div class="text-center mb-4">
-                <h2>Testimonios</h2>
-                <p class="lead">Lo que nuestros estudiantes dicen de nosotros</p>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card testimonial-card h-100">
-                        <img src="img/user1.png" alt="Foto de Victoria" class="testimonial-img">
-                        <div class="card-body">
-                            <p class="card-text">"Una experiencia educativa increíble. Los profesores son excelentes y siempre están dispuestos a ayudar."</p>
-                            <h5 class="card-title">- Victoria Corrales</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card testimonial-card h-100">
-                        <img src="img/user2.png" alt="Foto de Robert Víquez" class="testimonial-img">
-                        <div class="card-body">
-                            <p class="card-text">"Las instalaciones son de primera y la oferta académica es muy variada. ¡Muy recomendable!"</p>
-                            <h5 class="card-title">- Robert Víquez</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card testimonial-card h-100">
-                        <img src="img/user2.png" alt="Foto de Kevin" class="testimonial-img">
-                        <div class="card-body">
-                            <p class="card-text">"Me siento muy satisfecho con mi elección. He aprendido mucho y me siento preparado para el futuro."</p>
-                            <h5 class="card-title">- Kevin</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <?php include_once __DIR__ . "/shared/footer.php" ?>

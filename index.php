@@ -66,14 +66,13 @@
         </div>
     </div>
 </div>
-
 <div class="container-fluid">
-    <h2>Eventos y Noticias</h2>
-    <div id="noticias-container">
+    <h2>Descubre la Últimas Noticias</h2>
+    <div id="noticias-container" class="noticias-container">
+        <!-- Las noticias se cargarán aquí mediante JavaScript -->
     </div>
 </div>
 
+
 <?php include __DIR__ . "/oferta_academica.php" ?>
-
-
 <script src="index.js"></script>
