@@ -1,42 +1,47 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Solicitud AJAX para obtener los testimonios
-    fetch('http://localhost:8080/obtenerUltimosTestimonios')
-        .then(response => response.json())
-        .then(data => {
-            const testimoniosContainer = document.getElementById('testimonios-container');
-            
-            data.forEach(testimonio => {
-                // Crear los elementos para la tarjeta
-                const col = document.createElement('div');
-                col.className = 'col-md-4 mb-4';
+    const testimoniosContainer = document.getElementById('testimonios-container');
+    const endpointUrl = 'http://localhost:8080/obtenerUltimosTestimonios';
 
-                const card = document.createElement('div');
-                card.className = 'card h-100';
-
-                const img = document.createElement('img');
-                img.src = testimonio.imagen;
-                img.alt = `Testimonio de ${testimonio.nombre}`;
-                img.className = 'card-img-top img-fluid';
-
-                const cardBody = document.createElement('div');
-                cardBody.className = 'card-body';
-
-                const cardTitle = document.createElement('h5');
-                cardTitle.className = 'card-title';
-                cardTitle.textContent = testimonio.nombre;
-
-                const cardText = document.createElement('p');
-                cardText.className = 'card-text';
-                cardText.textContent = testimonio.comentario;
-
-                // Agregar los elementos al DOM
-                cardBody.appendChild(cardTitle);
-                cardBody.appendChild(cardText);
-                card.appendChild(img);
-                card.appendChild(cardBody);
-                col.appendChild(card);
-                testimoniosContainer.appendChild(col);
+    function fetchUltimosTestimonios() {
+        fetch(endpointUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data:', data);
+                renderTestimonios(data);
+            })
+            .catch(error => {
+                console.error('Error al obtener los testimonios:', error);
             });
-        })
-        .catch(error => console.error('Error al cargar los testimonios:', error));
+    }
+
+    function renderTestimonios(testimonios) {
+        testimoniosContainer.innerHTML = '';
+    
+        if (testimonios.length === 0) {
+            testimoniosContainer.innerHTML = '<p>No hay testimonios disponibles.</p>';
+        } else {
+            testimonios.forEach(testimonio => {
+                const testimonioElement = document.createElement('div');
+                testimonioElement.className = 'testimonio-item';
+                testimonioElement.innerHTML = `
+                    <div class="testimonio-content">
+                        <h4>${testimonio.nombre_curso || 'Curso Desconocido'}</h4>
+                        <p>${testimonio.comment || 'No hay comentario disponible'}</p>
+                        <p><small>${testimonio.fecha || 'Fecha desconocida'}</small></p>
+                    </div>
+                `;
+                testimoniosContainer.appendChild(testimonioElement);
+            });
+        }
+    }
+    
+
+    fetchUltimosTestimonios();
 });
+
+

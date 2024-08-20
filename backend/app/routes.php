@@ -732,7 +732,7 @@ return function (App $app) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
     
-        $sql = "SELECT * FROM noticias
+        $sql = "SELECT * FROM noticias;";
 
         $res = $db->GetAll($sql);
         $response->getBody()->write(json_encode($res));
@@ -741,7 +741,7 @@ return function (App $app) {
 
     //ENDPOINTS TESTIMONIOS
 
-    // guardar testimonios
+    // guardar noticias
     $app->post('/guardarTestimonio', function (Request $request, Response $response) {
         $db = connection();
 
@@ -754,24 +754,24 @@ return function (App $app) {
         return $response;
     });
 
-    // actualizar testimonios
+    // actualizar noticias
     $app->put('/actualizarTestimonio', function (Request $request, Response $response) {
         $db = connection();
 
         $rec = $request->getQueryParams();
-        $res = $db->AutoExecute("testimonios", $rec, "UPDATE", "id='$rec[id]'");
+        $res = $db->AutoExecute("testimonios", $rec, "UPDATE", "user_id='$rec[user_id]'");
         $db->Close();
 
         $response->getBody()->write(strval($res));
         return $response;
     });
 
-    // eliminar testimonios
-    $app->delete('/eliminarTestimonio/{id}', function (Request $request, Response $response, array $args) {
-        $id = $args["id"];
+    // eliminar noticias
+    $app->delete('/eliminarTestimonio/{user_id}', function (Request $request, Response $response, array $args) {
+        $user_id = $args["user_id"];
         $db = connection();
 
-        $sql = "DELETE FROM testimonios WHERE id='$id'";
+        $sql = "DELETE FROM testimonios WHERE user_id='$user_id'";
 
         if ($db->Execute($sql)) {
             $res = 1;
@@ -783,17 +783,16 @@ return function (App $app) {
         return $response;
     });
 
-    //obtener ultimos testimonios
+    //obtener ultimas noticias
     $app->get('/obtenerUltimosTestimonios', function (Request $request, Response $response) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
     
-        $sql = "SELECT * FROM testimonios
-                ORDER BY user_id DESC
-                LIMIT 10;";
-    
+        $sql = "SELECT * FROM testimonios;";
+
         $res = $db->GetAll($sql);
         $response->getBody()->write(json_encode($res));
         return $response;
     });
+
 };

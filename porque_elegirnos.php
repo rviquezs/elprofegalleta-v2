@@ -40,12 +40,13 @@
         </div>
     </div>
 
-    <!-- Contenedor para testimonios -->
-    <div class="row" id="testimonios-container">
-        <!-- Las tarjetas de testimonios se cargarán aquí mediante AJAX -->
+    <div class="container-fluid">
+    <h2>Testimonios</h2>
+    <!--<div class="row" id="testimonios-container">-->
+    <div id="testimonios-container" class="testimonios-container">
+        <!-- Las noticias se cargarán aquí mediante JavaScript -->
     </div>
-</section>
-
-<script src="scripts/porque_elegirnos.js"></script>
-
+</div>
+<script src="porque_elegirnos.js"></script>
 <?php include_once __DIR__ . "/shared/footer.php" ?>
+

@@ -73,6 +73,5 @@
     </div>
 </div>
 
-
 <?php include __DIR__ . "/oferta_academica.php" ?>
 <script src="index.js"></script>
