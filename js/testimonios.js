@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 card.innerHTML = `
                 <div class="card h-100">
-                    <img src="${testimonio.image_url}" class="card-img-top" alt="${testimonio.nombre_curso}"> <!-- Image added -->
+                    <img src="${testimonio.img}" class="card-img-top" alt="${testimonio.nombre_curso}"> <!-- Image added -->
                     <div class="card-body">
                         <h5 class="card-title">${testimonio.nombre_curso}</h5>
                         <p class="card-text">${testimonio.comment}</p>
