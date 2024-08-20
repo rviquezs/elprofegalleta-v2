@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    
     fetch('http://localhost:8080/obtenerUltimosTestimonios')
         .then(response => response.json())
         .then(data => {

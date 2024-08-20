@@ -41,10 +41,11 @@
     </div>
 
     <div class="container-fluid">
-    <h2>Testimonios</h2>
-    <div id="testimonios-container" class="testimonios-container">
+        <h2>Testimonios</h2>
+        <div id="testimonios-container" class="testimonios-container">
+            <!-- AJAX -->
+        </div>
     </div>
-</div>
 
-<?php include_once __DIR__ . "/shared/footer.php" ?>
-<script src="testimonios.js"></script>
+    <?php include_once __DIR__ . "/shared/footer.php" ?>
+    <script src="testimonios.js"></script>
