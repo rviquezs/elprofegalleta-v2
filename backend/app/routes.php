@@ -684,37 +684,37 @@ return function (App $app) {
 
     //ENDPOINTS TESTIMONIOS
 
-    // guardar noticias
-    $app->post('/guardarNoticia', function (Request $request, Response $response) {
+    // guardar testimonios
+    $app->post('/guardarTestimonio', function (Request $request, Response $response) {
         $db = connection();
 
         $rec = $request->getQueryParams();
 
-        $res = $db->AutoExecute("noticias", $rec, "INSERT");
+        $res = $db->AutoExecute("testimonios", $rec, "INSERT");
         $db->Close();
 
         $response->getBody()->write(strval($res));
         return $response;
     });
 
-    // actualizar noticias
-    $app->put('/actualizarNoticia', function (Request $request, Response $response) {
+    // actualizar testimonios
+    $app->put('/actualizarTestimonio', function (Request $request, Response $response) {
         $db = connection();
 
         $rec = $request->getQueryParams();
-        $res = $db->AutoExecute("noticias", $rec, "UPDATE", "id_noticia='$rec[id_noticia]'");
+        $res = $db->AutoExecute("testimonios", $rec, "UPDATE", "id='$rec[id]'");
         $db->Close();
 
         $response->getBody()->write(strval($res));
         return $response;
     });
 
-    // eliminar noticias
-    $app->delete('/eliminarNoticia/{id_noticia}', function (Request $request, Response $response, array $args) {
-        $id_noticia = $args["id_noticia"];
+    // eliminar testimonios
+    $app->delete('/eliminarTestimonio/{id}', function (Request $request, Response $response, array $args) {
+        $id = $args["id"];
         $db = connection();
 
-        $sql = "DELETE FROM noticias WHERE id_noticia='$id_noticia'";
+        $sql = "DELETE FROM testimonios WHERE id='$id'";
 
         if ($db->Execute($sql)) {
             $res = 1;
@@ -726,13 +726,13 @@ return function (App $app) {
         return $response;
     });
 
-    //obtener ultimas noticias
-    $app->get('/obtenerUltimasNoticias', function (Request $request, Response $response) {
+    //obtener ultimos testimonios
+    $app->get('/obtenerUltimosTestimonios', function (Request $request, Response $response) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
     
-        $sql = "SELECT * FROM noticias
-                ORDER BY fecha DESC
+        $sql = "SELECT * FROM testimonios
+                ORDER BY user_id DESC
                 LIMIT 10;";
     
         $res = $db->GetAll($sql);
