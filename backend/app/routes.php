@@ -537,93 +537,86 @@ return function (App $app) {
         }
     });
 
+    //Enviar correo de recuperación
+    $app->post('/send-temp-password', function (Request $request, Response $response) {
+        // Get form data
+        $data = $request->getParsedBody();
+        $db = connection();
+        $imagePath = __DIR__ . '/img/email_sig.png';
+        $email = $data['email'];
 
-    //enviar correo para reset password.
-    $app->post('/reset-password-email-send', function (Request $request, Response $response, array $args) {
-        
+        // Generate a random temporary password
+        $tempPassword = bin2hex(random_bytes(4)); // 8-character password
+        $hashedPassword = password_hash($tempPassword, PASSWORD_DEFAULT);
+        $rec = [
+            'password' => $hashedPassword
+        ];
 
-        $conn = new mysqli("smtp.gmail.com", "profegalleta8@gmail.com", "'mjgo mfpo bxvu xmss ", "elprofegalleta");
-        
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        try {
+            $res = $db->AutoExecute('usuarios', $rec, 'UPDATE', "email = '$email'");
+            $db->Close();
+
+            // If the insert successful, send the email
+            if ($res) {
+                $mail = new PHPMailer(true);
+
+                try {
+                    // Server settings
+                    $mail->isSMTP();  // Set mailer to use SMTP
+                    $mail->Host = 'smtp.gmail.com';  // Specify main SMTP server
+                    $mail->SMTPAuth = true;  // Enable SMTP authentication
+                    $mail->Username = 'profegalleta8@gmail.com';  // SMTP username (Gmail address)
+                    $mail->Password = 'mjgo mfpo bxvu xmss';  // SMTP password (App password)
+                    $mail->SMTPSecure = 'tls';  // Enable TLS encryption
+                    $mail->Port = 587;  // TCP port to connect to              
+
+                    // Recipients
+                    $mail->setFrom('noreply@elprofegalleta.com', 'El Profe Galleta');
+                    $mail->addAddress($email);
+
+                    // Content
+                    $mail->isHTML(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->Subject = 'Contraseña Temporal';
+
+                    $mail->Body =
+                        "Hola,<br><br>
+                        Su contraseña temporal es: <strong>$tempPassword</strong><br>
+                        Por favor, utilice esta contraseña para iniciar sesión y cámbiela tan pronto como sea posible.<br><br>
+                        --<br>
+                        <img src='$imagePath' alt='Signature' style='max-width: 100%; height: auto;'>
+                        ";
+
+                    $mail->AltBody =
+                        "Hola,\n\n
+                        Su contraseña temporal es: $tempPassword\n
+                        Por favor, utilice esta contraseña para iniciar sesión y cámbiela tan pronto como sea posible.\n\n
+                        --\n";
+
+                    // Send the email
+                    if ($mail->send()) {
+                        $response->getBody()->write(json_encode(['status' => 'success', 'message' => 'Temporary password sent to your email']));
+                        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+                    } else {
+                        $response->getBody()->write(json_encode(['status' => 'error', 'message' => 'Failed to send email']));
+                        return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+                    }
+                } catch (Exception $e) {
+                    $response->getBody()->write(json_encode(['status' => 'error', 'message' => "Mailer Error: {$mail->ErrorInfo}"]));
+                    return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+                }
+            } else {
+                $response->getBody()->write(json_encode(['status' => 'error', 'message' => 'Failed to update password in the database']));
+                return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
+            }
+        } catch (Exception $e) {
+            $response->getBody()->write(json_encode(['status' => 'error', 'message' => "Database Error: {$e->getMessage()}"]));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
-        
-        $email = $_POST['email'];
-        
-        // Check if email exists in database
-        $sql = "SELECT id FROM users WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $stmt->store_result();
-        
-        if ($stmt->num_rows > 0) {
-            // Generate a random token
-            $token = bin2hex(random_bytes(32));
-        
-            // Update user's reset token in database
-            $sql = "UPDATE users SET reset_token = ? WHERE email = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss", $token, $email);
-            $stmt->execute();
-        
-
-            $mail = new PHPMailer(true);
-
-            $mail->isSMTP();  
-            $mail->Host = 'smtp.gmail.com';  
-            $mail->SMTPAuth = true;  
-            $mail->Username = 'profegalleta8@gmail.com';  
-            $mail->Password = 'mjgo mfpo bxvu xmss '; 
-            $mail->SMTPSecure = 'tls'; 
-            $mail->Port = 587;              
-
-            // Recipients
-            $mail->setFrom('profegalleta8@gmail.com', 'noreply');
-            $mail->addAddress('profegalleta8@gmail.com', 'noreply');
-
-            // Content
-            $mail->isHTML(true);                                    
-            $mail->Subject = "Password Reset";
-            $mail->Body    = "Click here href= http://localhost:8080/reset_password to reset your password";
-        
-            echo json_encode(['message' => 'Reset link sent successfully']);
-        } else {
-            echo json_encode(['message' => 'Email not found']);
-        }
-        
-        $stmt->close();
-        $conn->close();
-
     });
 
-    //endpoint procesar reset password y el form
-    $app->post('/reset-password-email-process', function (Request $request, Response $response, array $args) {
 
-        $conn = new mysqli("smtp.gmail.com", "profegalleta8@gmail.com", "'mjgo mfpo bxvu xmss ", "elprofegalleta");
-        
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        
-        $token = $_POST['token'];
-        $newPassword = password_hash($_POST['new_password'], PASSWORD_DEFAULT); // Secure password hashing
-        
-        // Update password in database
-        $sql = "UPDATE users SET password = '$newPassword' WHERE reset_token = '$token'";
-        
-        if ($conn->query($sql) === TRUE) {
-            echo "Contraseña actualizada. Puedes volver a entrar con la nueva contraseña";
-            
-        } else {
-            echo "Error updating password: " . $conn->error;
-        }
-        
-        $conn->close();
-        
-    });
 
-    
     //ENDPOINTS NOTICIAS
 
     // guardar noticias
@@ -672,15 +665,14 @@ return function (App $app) {
     $app->get('/obtenerUltimasNoticias', function (Request $request, Response $response) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
-    
+
         $sql = "SELECT id, titulo, descripcion, img, fecha 
                 FROM noticias
                 ORDER BY fecha DESC
                 LIMIT 10;";
-    
+
         $res = $db->GetAll($sql);
         $response->getBody()->write(json_encode($res));
         return $response;
     });
-    
 };
