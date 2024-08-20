@@ -76,7 +76,7 @@
     <section class="recursos">
         <h2>Recursos Adicionales</h2>
         <ul>
-            <li><a href="guia.pdf">Guía Completa sobre Aprendizaje Personalizado</a></li>
+            <li><a href="img/lorem_ipsum.pdf" target="_blank">Guía Completa sobre Aprendizaje Personalizado</a></li>
             <li><a href="blog.php">Lee Nuestro Blog para Más Consejos</a></li>
         </ul>
     </section>

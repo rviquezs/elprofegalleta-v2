@@ -16,6 +16,7 @@ require '../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../vendor/autoload.php';
+session_start();
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -339,7 +340,7 @@ return function (App $app) {
     // Login
     $app->post('/login', function (Request $request, Response $response) {
         $data = $request->getParsedBody();
-        $cedula = $data['username'];  // Use 'cedula' in the query
+        $cedula = $data['username'];
         $password = $data['password'];
 
         $db = connection();
@@ -351,6 +352,7 @@ return function (App $app) {
 
         if ($user && $password === $user['password']) {
             // Password matches, login successful
+            $_SESSION['user'] = $user;  // Set user session
             $response->getBody()->write(json_encode([
                 'success' => true,
                 'message' => 'Login successful',
@@ -367,6 +369,16 @@ return function (App $app) {
         return $response->withHeader('Content-Type', 'application/json');
     });
 
+    // Logout
+    $app->post('/logout', function (Request $request, Response $response) {
+        session_start(); // Ensure session is started
+        session_destroy(); // Destroy the session
+        $response->getBody()->write(json_encode([
+            'success' => true,
+            'message' => 'Logged out successfully'
+        ]));
+        return $response->withHeader('Content-Type', 'application/json');
+    });
 
 
     // Guardar usuario

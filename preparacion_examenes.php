@@ -48,11 +48,11 @@
 </main>
 
 
-    <!-- Botones de Llamada a la Acción -->
-    <section class="cta">
-        <a href="contact.php" class="btn btn-primary">Solicita una Consulta</a>
-        <a href="contact.php" class="btn btn-secondary">Inscríbete Ahora</a>
-    </section>
+<!-- Botones de Llamada a la Acción -->
+<section class="cta">
+    <a href="contact.php" class="btn btn-primary">Solicita una Consulta</a>
+    <a href="contact.php" class="btn btn-secondary">Inscríbete Ahora</a>
+</section>
 
 <!-- Preguntas Frecuentes (FAQ) -->
 <section class="faq">
@@ -75,9 +75,9 @@
 <section class="recursos">
     <h2>Recursos Adicionales</h2>
     <ul>
-        <li><a href="materiales/certificacion_avanzada.pdf">Guía Completa sobre Certificación Avanzada</a></li>
-        <li><a href="materiales/ventajas_profesionales.pdf">Guía sobre Ventajas Profesionales de las Certificaciones</a></li>
-        <li><a href="materiales/certificacion_internacional.pdf">Guía sobre Certificación Internacional</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Guía sobre Ventajas Profesionales de las Certificaciones</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Guía Completa sobre Certificación Avanzada</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Guía sobre Certificación Internacional</a></li>
         <li><a href="blog.php">Lee Nuestro Blog para Más Consejos y Recursos</a></li>
     </ul>
 </section>
