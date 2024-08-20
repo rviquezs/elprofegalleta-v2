@@ -67,7 +67,7 @@
 
 **Templates/Signup:**
 
-* [ ] (4.1) Revisar estilos del encabezado. (CSS)
+* [x] (4.1) Revisar estilos del encabezado. (CSS)
 * [x] (4.2) Añadir campos para información: (Bootstrap)
 
 **Templates/AdminDashboard:**
