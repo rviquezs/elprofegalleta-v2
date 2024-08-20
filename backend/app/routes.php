@@ -32,7 +32,7 @@ return function (App $app) {
         return $response;
     });
 
-    // ENDPOINTS INSCRIPCIONES
+// ENDPOINTS INSCRIPCIONES
 
     // Guardar Inscripcion
     $app->post('/guardarInscripcion', function (Request $request, Response $response) {
@@ -108,7 +108,7 @@ return function (App $app) {
         return $response;
     });
 
-    // ENDPOINTS CURSOS
+// ENDPOINTS CURSOS
 
     // Guardar Curso
     $app->post('/guardarCurso', function (Request $request, Response $response) {
@@ -261,7 +261,7 @@ return function (App $app) {
     });
 
 
-    // ENDPOINTS PROMOTORES
+// ENDPOINTS PROMOTORES
 
     // guardar promotores
     $app->post('/guardarPromotor', function (Request $request, Response $response) {
@@ -335,7 +335,7 @@ return function (App $app) {
         return $response;
     });
 
-    // ENDPOINTS USUARIOS
+// ENDPOINTS USUARIOS
 
     // Login
     $app->post('/login', function (Request $request, Response $response) {
@@ -794,5 +794,6 @@ return function (App $app) {
         $response->getBody()->write(json_encode($res));
         return $response;
     });
+
 
 };

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     fetch('http://localhost:8080/obtenerUltimosTestimonios')
         .then(response => response.json())
         .then(data => {
@@ -13,16 +13,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             data.forEach(testimonio => {
                 const card = document.createElement('div');
-                card.className = 'col-md-4 mb-4';
+                card.className = 'col-lg-4 col-md-6 mb-4'; // Updated classes for better responsiveness
 
                 card.innerHTML = `
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">${testimonio.nombre_curso}</h5>
-                            <p class="card-text">${testimonio.comment}</p>
-                            <small class="text-muted">Fecha: ${new Date(testimonio.fecha).toLocaleDateString()}</small>
-                        </div>
+                <div class="card h-100">
+                    <img src="${testimonio.image_url}" class="card-img-top" alt="${testimonio.nombre_curso}"> <!-- Image added -->
+                    <div class="card-body">
+                        <h5 class="card-title">${testimonio.nombre_curso}</h5>
+                        <p class="card-text">${testimonio.comment}</p>
+                        <small class="text-muted">Fecha: ${new Date(testimonio.fecha).toLocaleDateString()}</small>
                     </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Usuario: ${testimonio.user_id}</small> <!-- User ID added -->
+                    </div>
+                </div>
                 `;
 
                 container.appendChild(card);
