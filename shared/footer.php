@@ -26,38 +26,42 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 
 <?php
-
 switch ($url) {
     case 'index':
-        echo "<script src=js/index.js></script>";
-        echo "<script src=js/oferta_academica.js></script>";
+        echo "<script src='js/index.js'></script>";
+        echo "<script src='js/oferta_academica.js'></script>";
         break;
     case 'about':
-        echo "<script src=js/about.js></script>";
+        echo "<script src='js/about.js'></script>";
         break;
     case 'login':
-        echo "<script src=js/login.js></script>";
+        echo "<script src='js/login.js'></script>";
         break;
     case 'signup':
-        echo "<script src=js/signup.js></script>";
+        echo "<script src='js/signup.js'></script>";
         break;
     case 'dashboard':
-        echo "<script src=js/dashboard.js></script>";
+        echo "<script src='js/dashboard.js'></script>";
         break;
     case 'contact':
-        echo "<script src=js/contact.js></script>";
+        echo "<script src='js/contact.js'></script>";
         break;
     case 'oferta_academica':
-        echo "<script src=js/oferta_academica.js></script>";
+        echo "<script src='js/oferta_academica.js'></script>";
         break;
     case 'recover_password':
-        echo "<script src=js/recover_password.js></script>";
+        echo "<script src='js/recover_password.js'></script>";
         break;
     case 'reset_password':
-        echo "<script src=js/reset_password.js></script>";
+        echo "<script src='js/reset_password.js'></script>";
+        break;
+    case 'profile':
+    case 'settings':
+        echo "<script src='js/logout.js'></script>";
         break;
 }
 ?>
+
 
 </body>
 

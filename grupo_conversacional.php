@@ -74,9 +74,9 @@
 <section class="recursos">
     <h2>Recursos Adicionales</h2>
     <ul>
-        <li><a href="materiales/dominio_conversacional.pdf">Guía Completa del Curso de Dominio Conversacional</a></li>
-        <li><a href="materiales/certificacion_c1.pdf">Material de Estudio para Certificación C1</a></li>
-        <li><a href="materiales/vocabulario_actualizado.pdf">Guía de Vocabulario Actualizado</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Guía Completa del Curso de Dominio Conversacional</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Material de Estudio para Certificación C1</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Guía de Vocabulario Actualizado</a></li>
         <li><a href="blog.php">Lee Nuestro Blog para Más Consejos sobre Aprendizaje y Certificación</a></li>
     </ul>
 </section>

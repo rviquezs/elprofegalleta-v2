@@ -1,20 +1,23 @@
-<!-- pagina para introducir email para reset -->
 <?php include "shared/header.php" ?>
 
-<main>
+<main class="d-flex align-items-center justify-content-center vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <h1 class="text-center mb-4">Recuperar Contraseña</h1>
 
-    <body>
-        <div class="container">
-            <h1 class="title"> Recuperar contraseña</h1>
+                <form id="frmResetPassword">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="youremail@example.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Enviar correo de recuperación</button>
+                </form>
 
-            <form id="frmResetPassword">
-                <input type="email" id="email" placeholder="Your email">
-                <button type="submit">Send Reset Link</button>
-            </form>
-            <div id="response"></div>
-
+                <div id="response" class="mt-3"></div>
+            </div>
         </div>
-    </body>
+    </div>
 </main>
 
 <?php include "shared/footer.php" ?>

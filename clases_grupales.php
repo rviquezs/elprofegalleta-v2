@@ -74,9 +74,9 @@
 <section class="recursos">
     <h2>Recursos Adicionales</h2>
     <ul>
-        <li><a href="materiales/red_contactos.pdf">Guía sobre Cómo Maximizar tu Red de Contactos</a></li>
-        <li><a href="materiales/comunicacion_activa.pdf">Material sobre Técnicas de Comunicación Activa</a></li>
-        <li><a href="materiales/aprendizaje_dinamico.pdf">Guía sobre Estrategias de Aprendizaje Dinámico</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Guía sobre Cómo Maximizar tu Red de Contactos</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Material sobre Técnicas de Comunicación Activa</a></li>
+        <li><a href="img/lorem_ipsum.pdf" target="_blank">Guía sobre Estrategias de Aprendizaje Dinámico</a></li>
         <li><a href="blog.php">Lee Nuestro Blog para Más Consejos sobre Desarrollo Personal y Profesional</a></li>
     </ul>
 </section>

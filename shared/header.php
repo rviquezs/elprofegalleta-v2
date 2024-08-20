@@ -1,7 +1,11 @@
 <?php
+session_start();
+
 // Obtener nombre del archivo css de la página abierta
 $url = basename($_SERVER["PHP_SELF"], ".php");
+$isLoggedIn = isset($_SESSION['user_id']); // Adjust according to how you store login state
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -15,7 +19,7 @@ $url = basename($_SERVER["PHP_SELF"], ".php");
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="css/<?php echo $url ?>.css">
 </head>
-<!-- Encabezado  -->
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-transparent">
         <div class="container-fluid">
@@ -52,36 +56,24 @@ $url = basename($_SERVER["PHP_SELF"], ".php");
                 </form>
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                        Dropdown form
+                        <?php echo $isLoggedIn ? 'Profile' : 'Dropdown'; ?>
                     </button>
                     <div class="dropdown-menu">
-                        <form class="px-4 py-3">
-                            <div class="mb-3">
-                                <label for="exampleDropdownFormEmail1" class="form-label">Usuario</label>
-                                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleDropdownFormPassword1" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                    <label class="form-check-label" for="dropdownCheck">
-                                        Recordarme
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                        </form>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="signup.php">Registrarse</a>
-                        <a class="dropdown-item" href="recover_password.php">Olvidó su contraseña?</a>
+                        <?php if ($isLoggedIn): ?>
+                            <!-- Profile menu items -->
+                            <a class="dropdown-item" href="profile.php">Perfil</a>
+                            <a class="dropdown-item" href="settings.php">Ajustes</a>
+                            <a class="dropdown-item" href="#" id="logout">Cerrar sesión</a>
+                        <?php else: ?>
+                            <a class="dropdown-item" href="login.php">Iniciar Sesión</a>
+                            <a class="dropdown-item" href="signup.php">Registrarse</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 </header>
+
 
 <body>

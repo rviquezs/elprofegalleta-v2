@@ -10,13 +10,14 @@
                         <label for="username" class="form-label">Usuario</label>
                         <input type="text" id="username" class="form-control" required>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 position-relative">
                         <label for="password" class="form-label">Contraseña</label>
                         <input type="password" id="password" class="form-control" required>
                         <button id="togglePasswordLogin" type="button" class="btn btn-outline-secondary btn-sm position-absolute top-50 end-0 translate-middle-y me-2">
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>
+
                     <div class="col-12 text-center">
                         <button id="btn_login" type="submit" class="btn btn-primary">Iniciar Sesión</button>
                     </div>
