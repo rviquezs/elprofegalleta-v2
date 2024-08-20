@@ -46,9 +46,9 @@ $isLoggedIn = isset($_SESSION['user_id']); // Adjust according to how you store 
                     <li class="nav-item">
                         <a class="nav-link" href="contact.php">Contacto</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="dashboard.php">Shortcut admin dashboard</a>
-                    </li>
+                    </li> -->
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
@@ -56,7 +56,7 @@ $isLoggedIn = isset($_SESSION['user_id']); // Adjust according to how you store 
                 </form>
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                        <?php echo $isLoggedIn ? 'Profile' : 'Dropdown'; ?>
+                        <?php echo $isLoggedIn ? 'Profile' : 'Menu'; ?>
                     </button>
                     <div class="dropdown-menu">
                         <?php if ($isLoggedIn): ?>
