@@ -137,7 +137,8 @@ CREATE TABLE `testimonios` (
   `user_id` varchar(200) NOT NULL,
   `nombre_curso` varchar(200) NOT NULL,
   `comment` text NOT NULL,
-  `fecha` date NOT NULL
+  `fecha` date NOT NULL,
+  'img' text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -145,8 +146,8 @@ CREATE TABLE `testimonios` (
 --
 
 INSERT INTO `testimonios` (`id`, `user_id`, `nombre_curso`, `comment`, `fecha`) VALUES
-(1, 'Victoria Corrales', 'Inglés', 'Excelentes profesores.', '2024-08-20'),
-(8, 'Robert Víquez', 'Español', 'Ubicación perfecta y clases dinamicas.', '2024-08-01');
+(1, 'Victoria Corrales', 'Inglés', 'Excelentes profesores.', '2024-08-20', 'https://img.icons8.com/color/96/great-britain-circular.png'),
+(8, 'Robert Víquez', 'Español', 'Ubicación perfecta y clases dinamicas.', '2024-08-01', 'https://img.icons8.com/color/96/spain2-circular.png');
 
 -- --------------------------------------------------------
 

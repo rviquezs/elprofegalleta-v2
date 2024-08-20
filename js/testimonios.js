@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 card.innerHTML = `
                 <div class="card h-100">
+                    <img src="${testimonio.img}" class="card-img-top" alt="${testimonio.nombre_curso}"> 
                     <img src="${testimonio.img}" class="card-img-top" alt="${testimonio.nombre_curso}"> <!-- Image added -->
                     <div class="card-body">
                         <h5 class="card-title">${testimonio.nombre_curso}</h5>
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <small class="text-muted">Fecha: ${new Date(testimonio.fecha).toLocaleDateString()}</small>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Usuario: ${testimonio.user_id}</small> <!-- User ID added -->
+                        <small class="text-muted">Usuario: ${testimonio.user_id}</small>
                     </div>
                 </div>
                 `;
