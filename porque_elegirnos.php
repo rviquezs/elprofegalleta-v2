@@ -42,11 +42,9 @@
 
     <div class="container-fluid">
     <h2>Testimonios</h2>
-    <!--<div class="row" id="testimonios-container">-->
     <div id="testimonios-container" class="testimonios-container">
-        <!-- Las noticias se cargarán aquí mediante JavaScript -->
     </div>
 </div>
-<script src="porque_elegirnos.js"></script>
-<?php include_once __DIR__ . "/shared/footer.php" ?>
 
+<?php include_once __DIR__ . "/shared/footer.php" ?>
+<script src="testimonios.js"></script>
