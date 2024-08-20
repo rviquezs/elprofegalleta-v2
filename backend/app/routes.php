@@ -336,18 +336,72 @@ return function (App $app) {
 
     // ENDPOINTS USUARIOS
 
-    // guardar usuarios
+    // Login
+    $app->post('/login', function (Request $request, Response $response) {
+        $data = $request->getParsedBody();
+        $cedula = $data['username'];  // Use 'cedula' in the query
+        $password = $data['password'];
+
+        $db = connection();
+        $db->SetFetchMode("ADODB_FETCH_ASSOC");
+
+        // Query to get the user by cedula
+        $sql = "SELECT * FROM usuarios WHERE cedula = ?";
+        $user = $db->GetRow($sql, [$cedula]);
+
+        if ($user && $password === $user['password']) {
+            // Password matches, login successful
+            $response->getBody()->write(json_encode([
+                'success' => true,
+                'message' => 'Login successful',
+                'user' => $user
+            ]));
+        } else {
+            // Invalid credentials
+            $response->getBody()->write(json_encode([
+                'success' => false,
+                'message' => 'Invalid username or password'
+            ]));
+        }
+
+        return $response->withHeader('Content-Type', 'application/json');
+    });
+
+
+
+    // Guardar usuario
     $app->post('/guardarUsuario', function (Request $request, Response $response) {
         $db = connection();
 
-        $rec = $request->getQueryParams();
+        $params = $request->getParsedBody();
 
-        $res = $db->AutoExecute("usuarios", $rec, "INSERT");
-        $db->Close();
+        // Decode Base64 image data
+        if (isset($params['fotografia_base64'])) {
+            $base64Image = $params['fotografia_base64'];
+            if (!empty($base64Image)) {
+                $params['fotografia'] = $base64Image;
+            } else {
+                $params['fotografia'] = '';
+            }
+            unset($params['fotografia_base64']);
+        } else {
+            $params['fotografia'] = ''; // No image
+        }
 
-        $response->getBody()->write(strval($res));
+        // Insert the user data into the database
+        try {
+            // Ensure that `name`, `last_name1`, and `last_name2` are present in $params
+            $result = $db->AutoExecute("usuarios", $params, "INSERT");
+            if ($result) {
+                $response->getBody()->write("Usuario registrado exitosamente");
+            }
+        } catch (Exception $e) {
+            $response->getBody()->write("Error: " . $e->getMessage());
+        }
+
         return $response;
     });
+
 
     // actualizar usuarios
     $app->put('/actualizarUsuario', function (Request $request, Response $response) {
