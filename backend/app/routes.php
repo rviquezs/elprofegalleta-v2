@@ -32,7 +32,7 @@ return function (App $app) {
         return $response;
     });
 
-// ENDPOINTS INSCRIPCIONES
+    // ENDPOINTS INSCRIPCIONES
 
     // Guardar Inscripcion
     $app->post('/guardarInscripcion', function (Request $request, Response $response) {
@@ -108,7 +108,7 @@ return function (App $app) {
         return $response;
     });
 
-// ENDPOINTS CURSOS
+    // ENDPOINTS CURSOS
 
     // Guardar Curso
     $app->post('/guardarCurso', function (Request $request, Response $response) {
@@ -166,7 +166,6 @@ return function (App $app) {
         $response->getBody()->write(json_encode(['status' => 'success']));
         return $response->withHeader('Content-Type', 'application/json');
     });
-
 
     function moveUploadedFile($uploadedFile)
     {
@@ -238,6 +237,32 @@ return function (App $app) {
         return $response;
     });
 
+    $app->get('/buscarCursos', function (Request $request, Response $response) {
+        $db = connection();
+        $db->SetFetchMode("ADODB_FETCH_ASSOC");
+
+        // Retrieve the search term from the query parameters
+        $searchTerm = $request->getQueryParams()['search'] ?? '';
+
+        // Add wildcard characters to the search term
+        $searchTerm = "%" . $searchTerm . "%";
+
+        // Modify the SQL query to include the LIKE operator
+        $sql = "SELECT cursos.id, cursos.name, cursos.duration, cursos.modalidad, cursos.category, cursos.price, 
+                    promotores.name AS promotor, cursos.img1, COUNT(inscripciones.user_id) AS inscription_count FROM cursos 
+                    JOIN promotores ON cursos.promoter = promotores.id 
+                    LEFT JOIN inscripciones ON cursos.id = inscripciones.course_id
+                    WHERE cursos.name LIKE ? OR cursos.category LIKE ? OR promotores.name LIKE ?
+                    GROUP BY cursos.id, promotores.name
+                    LIMIT 10;";
+
+        // Execute the query with the search term as a parameter
+        $res = $db->GetAll($sql, array($searchTerm, $searchTerm, $searchTerm));
+
+        $response->getBody()->write(json_encode($res));
+        return $response;
+    });
+
 
     // Filtrar cursos por categoria
     $app->get('/filtrarCursos[/{category}]', function (Request $request, Response $response, $args) {
@@ -261,7 +286,7 @@ return function (App $app) {
     });
 
 
-// ENDPOINTS PROMOTORES
+    // ENDPOINTS PROMOTORES
 
     // guardar promotores
     $app->post('/guardarPromotor', function (Request $request, Response $response) {
@@ -335,7 +360,7 @@ return function (App $app) {
         return $response;
     });
 
-// ENDPOINTS USUARIOS
+    // ENDPOINTS USUARIOS
 
     // Login
     $app->post('/login', function (Request $request, Response $response) {
@@ -731,7 +756,7 @@ return function (App $app) {
     $app->get('/obtenerUltimasNoticias', function (Request $request, Response $response) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
-    
+
         $sql = "SELECT * FROM noticias;";
 
         $res = $db->GetAll($sql);
@@ -787,13 +812,11 @@ return function (App $app) {
     $app->get('/obtenerUltimosTestimonios', function (Request $request, Response $response) {
         $db = connection();
         $db->SetFetchMode("ADODB_FETCH_ASSOC");
-    
+
         $sql = "SELECT * FROM testimonios;";
 
         $res = $db->GetAll($sql);
         $response->getBody()->write(json_encode($res));
         return $response;
     });
-
-
 };

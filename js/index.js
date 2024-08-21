@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const noticiasContainer = document.getElementById('noticias-container');
 
     const endpointUrl = 'http://localhost:8080/obtenerUltimasNoticias';
@@ -42,4 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     fetchUltimasNoticias();
 });
+
+
 

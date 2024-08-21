@@ -50,9 +50,9 @@ $isLoggedIn = isset($_SESSION['user_id']); // Adjust according to how you store 
                         <a class="nav-link" href="dashboard.php">Shortcut admin dashboard</a>
                     </li> -->
                 </ul>
-                <form class="d-flex">
+                <form class="d-flex" id="searchForm">
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                    <button class="btn btn-outline-primary btn_search" type="submit"><i class="fas fa-search"></i></button>
+                    <button id="searchBtn" class="btn btn-outline-primary btn_search" type="submit"><i class="fas fa-search"></i></button>
                 </form>
                 <div class="dropdown">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -68,13 +68,12 @@ $isLoggedIn = isset($_SESSION['user_id']); // Adjust according to how you store 
                             <a class="dropdown-item" href="login.php">Iniciar Sesión</a>
                             <a class="dropdown-item" href="signup.php">Registrarse</a>
                             <a class="dropdown-item" href="dashboard.php">Dashboard</a>
-                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 </header>
-
 
 <body>

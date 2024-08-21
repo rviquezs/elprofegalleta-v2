@@ -1,5 +1,5 @@
 <!-- Header -->
-<?php include "frontend/shared/header.php" ?>
+<?php include "shared/header.php" ?>
 
 <main>
 <body>
@@ -16,4 +16,4 @@
 </main>
 
 <!-- Footer -->
-<?php include_once "frontend/shared/footer.php" ?>
+<?php include_once "shared/footer.php" ?>

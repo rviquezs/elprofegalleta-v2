@@ -59,9 +59,12 @@ switch ($url) {
     case 'settings':
         echo "<script src='js/logout.js'></script>";
         break;
-        case 'porque_elegirnos':
-            echo "<script src='js/testimonios.js'></script>";
-            break;
+    case 'porque_elegirnos':
+        echo "<script src='js/testimonios.js'></script>";
+        break;
+    case 'search_results':
+        echo "<script src='js/search_results.js'></script>";
+        break;
 }
 ?>
 
