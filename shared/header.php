@@ -67,7 +67,8 @@ $isLoggedIn = isset($_SESSION['user_id']); // Adjust according to how you store 
                         <?php else: ?>
                             <a class="dropdown-item" href="login.php">Iniciar Sesión</a>
                             <a class="dropdown-item" href="signup.php">Registrarse</a>
-                        <?php endif; ?>
+                            <a class="dropdown-item" href="dashboard.php">Dashboard</a>
+                            <?php endif; ?>
                     </div>
                 </div>
             </div>
